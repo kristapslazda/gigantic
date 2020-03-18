@@ -1,1 +1,1 @@
-# gigantic
+# gigantic shopify theme
