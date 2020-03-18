@@ -1,0 +1,168 @@
+{% assign first_image = prod.images | first | img_url: '600x' %}
+{% assign curr_variant = prod.selected_or_first_available_variant %}
+
+{% if curr_variant.title %}
+  {%- assign compare_at_price = curr_variant.compare_at_price -%}
+  {%- assign price = curr_variant.price -%}
+  {%- assign available = curr_variant.available -%}
+{% else %}
+  {%- assign compare_at_price = 1999 -%}
+  {%- assign price = 1999 -%}
+  {%- assign available = true -%}
+{% endif %}
+
+{%- assign money_price = price | money -%}
+
+
+<div class="upsell-modal js-modal-close" data-modal="modal-{{ prod.id }}">
+  <div class="upsell-modal__content">
+    
+    <img class="js-modal-close" src="{{ 'x.svg' | asset_url }}" alt="close modal">
+    
+    <header class="upsell-modal__content__header">
+      <h2><a href="{{ prod.url }}">{{ prod.title }}</a></h2>
+      
+      <dl class="price{% if available and compare_at_price > price %} price--on-sale{% endif %}{% if available and curr_variant.unit_price_measurement %} price--unit-available{% endif %}" data-price>
+
+        {% if section.settings.show_vendor %}
+          <div class="price__vendor">
+            <dt>
+              <span class="visually-hidden">{{ 'products.product.vendor' | t }}</span>
+            </dt>
+            <dd>
+              {{ prod.vendor }}
+            </dd>
+          </div>
+        {% endif %}
+      
+        <div class="price__regular">
+          <dt>
+            <span class="visually-hidden visually-hidden--inline">{{ 'products.product.regular_price' | t }}</span>
+          </dt>
+          <dd>
+            {% if available %}
+              {% if compare_at_price > price %}
+                <s class="price-item price-item--regular" data-regular-price>
+                  {{ compare_at_price | money }}
+                </s>
+              {% else %}
+                <span class="price-item price-item--regular" data-regular-price>
+                  {{ money_price }}
+                </span>
+              {% endif %}
+            {% else %}
+              <span class="price-item price-item--regular" data-regular-price>
+                {{ 'products.product.sold_out' | t }}
+              </span>
+            {% endif %}
+          </dd>
+        </div>
+        {% if compare_at_price > price %}
+        <div class="price__sale">
+          <dt>
+            <span class="visually-hidden visually-hidden--inline">{{ 'products.product.sale_price' | t }}</span>
+          </dt>
+          <dd>
+            <span class="price-item price-item--sale" data-sale-price>
+              {{ money_price }}
+            </span>
+              {% assign save_price = curr_variant.compare_at_price | minus: curr_variant.price | times: 100.0 | divided_by: curr_variant.compare_at_price | floor %}
+            <span class="price-save-label">-{{ save_price }}%</span>
+          </dd>
+        </div>
+        {% endif %}
+        <div class="price__unit">
+          <dt>
+            <span class="visually-hidden visually-hidden--inline">{{ 'products.product.unit_price_label' | t }}</span>
+          </dt>
+          <dd class="price-unit-price">
+            {%- capture unit_price_separator -%}
+              <span aria-hidden="true">/</span><span class="visually-hidden">{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+            {%- endcapture -%}
+            {%- capture unit_price_base_unit -%}
+              <span data-unit-price-base-unit>
+                {%- if available and curr_variant.unit_price_measurement -%}
+                  {%- if curr_variant.unit_price_measurement.reference_value != 1 -%}
+                    {{- curr_variant.unit_price_measurement.reference_value -}}
+                  {%- endif -%}
+                  {{ curr_variant.unit_price_measurement.reference_unit }}
+                {%- endif -%}
+              </span>
+            {%- endcapture -%}
+      
+            <span data-unit-price>{{ curr_variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+          </dd>
+        </div>
+      </dl>
+      
+      
+    </header>
+    
+    <div class="upsell-modal__content__inner js-upsell-cart-section">
+      <div class="sticky-follow">
+        <img class="lazyload" data-sizes="auto" data-src="{{ first_image }}" alt="{{ prod.image }}">
+        
+        {% form 'product', prod %}
+
+          {% if prod.variants.size > 1 %}
+              <div class="option-row">
+                  <span class="option-title">
+                      {{ prod.options.first }}
+                  </span>
+
+                  <div class="option-fieldset js-upsell-variants" data-variant-for-id="id-{{ prod.id }}">
+                      {% for variant in prod.variants %}
+                          <input type="radio" name="id" 
+                              class="js-variant-radio variant-radio"
+                              id="variant-{{ forloop.index }}-{{ prod.id }}" 
+                              value="{{ variant.id }}" 
+                              data-inventory-quantity="{{ variant.inventory_quantity }}" 
+                              {% unless variant.available %} disabled {% endunless %} 
+                              {% if forloop.index == 1 %} checked {% endif %} />
+              
+                          <label for="variant-{{ forloop.index }}-{{ prod.id }}">{{ variant.title }}</label>
+                      {% endfor %}
+                  </div>
+              </div>
+          {% else %}
+              <input type="hidden" name="id" value="{{ prod.variants.first.id }}">
+          {% endif %}
+        
+          <input type="hidden" name="id" class="js-upsell-chosen-variant" data-variant-for-id="id-{{ prod.id }}" value="{{ prod.variants.first.id }}" />
+          <input min="1" hidden="hidden" type="number" name="quantity" id="qty-{{ prod.id }}" value="1"/>
+          
+          <div class="product-single__add-to-cart">
+              <button type="submit" name="add" id="AddToCart--{{ prod.id }}" class="add-to-cart btn btn-alt js-upsell-modal-submit" data-is-in-cart="false"
+                {% unless prod.selected_or_first_available_variant.available %} disabled="disabled" {% endunless %}>
+                <span class="btn__text">
+                    {% if prod.selected_or_first_available_variant.available %}
+                        Tilføj
+                    {% else %}
+                        {{ 'products.product.sold_out' | t }}
+                    {% endif %}
+                </span>
+                {%comment%}<span class="is-add-text"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-spinner" viewBox="0 0 20 20"><path d="M7.229 1.173a9.25 9.25 0 1 0 11.655 11.412 1.25 1.25 0 1 0-2.4-.698 6.75 6.75 0 1 1-8.506-8.329 1.25 1.25 0 1 0-.75-2.385z" fill="currentColor"/></svg></span>{%endcomment%}
+              </button>
+          </div>
+        {% endform %}
+      </div>
+
+      <div class="upsell-modal__content__inner__data">
+        <div class="modal-stock-status-wrapper" data-variant-for-id="id-{{ prod.id }}">
+            {% if prod.variants.size > 0 %}
+              {% assign default_variant = prod.variants | first %}
+              {% if default_variant.inventory_quantity >= 10 %}
+                <label class="in-stock">{{ settings.stock_label_above_10 }}</label> 
+                <p class="stock-status">{{ settings.delivery_time_above_10 }}</p>
+              {% else %}
+                <label class="outof-stock">{{ settings.stock_label_below_0 }}</label> 
+                <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>
+              {% endif %}
+            {% endif %}
+        </div>
+        <p>{{ prod.description }}</p>     
+      </div>
+    </div>
+
+  </div>
+</div>

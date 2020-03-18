@@ -1,0 +1,280 @@
+<!doctype html>
+<html class="no-js" lang="{{ shop.locale }}">
+  <head>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152806025-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-152806025-1', { 'optimize_id': 'GTM-MD9LC3J'});
+    </script>
+    
+    <!-- Anti-flicker snippet (recommended)  -->
+	<style>.async-hide { opacity: 0 !important} </style>
+	<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+	h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+	(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+	})(window,document.documentElement,'async-hide','dataLayer',4000,
+	{'GTM-MFMWR2M':true});</script>
+	
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_button }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta name="trustpilot-one-time-domain-verification-id" content="bCZJfz3SjpsMaRvNXM1BXlQZEFFZ1fR5fHUfE3Kw"/>
+    <meta name='hips-site-verification' content='SJ7r6BwL1Ff5BYxWQRHAakFh'/>
+    <meta name="google-site-verification" content="X3KfIxPHP58e92tsuerBJteOBGRHGxBlOo7QTaSON-I"/>
+    <meta name="google-site-verification" content="Vj2FLdZG2wIb1N6BigdQ7fBAuIUK6lrvlHiKdtuyjeo"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+
+    {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {%- endif -%}
+
+    {%- capture seo_title -%}
+    {%- if template == 'search' and search.performed == true -%}
+    {{ 'general.search.heading' | t: count: search.results_count }}: {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+    {%- else -%}
+    {{ page_title }}
+    {%- endif -%}
+    {%- if current_tags -%}
+    {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+    &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- assign escaped_page_title = page_title | escape -%}
+    {%- unless escaped_page_title contains shop.name -%}
+    &ndash; {{ shop.name }}
+    {%- endunless -%}
+    {%- endcapture -%}
+    <title>{{ seo_title | strip }}</title>
+
+    {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {% include 'social-meta-tags' %}
+
+    {{ 'glider.min.css' | asset_url | stylesheet_tag }}
+    {{ 'main.css' | asset_url | stylesheet_tag }}
+    {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      window.theme = window.theme || {};
+      theme.strings = {
+        zoomClose: {{ "products.zoom.close" | t | json }},
+        zoomPrev: {{ "products.zoom.prev" | t | json }},
+        zoomNext: {{ "products.zoom.next" | t | json }},
+        moneyFormat: {{ shop.money_format | json }},
+        addressError: {{ 'home_page.map.address_error' | t | json }},
+        addressNoResults: {{ 'home_page.map.address_no_results' | t | json }},
+        addressQueryLimit: {{ 'home_page.map.address_query_limit_html' | t | json }},
+        authError: {{ 'home_page.map.auth_error_html' | t | json }},
+        cartEmpty: {{ 'cart.general.empty' | t | json }},
+        cartCookie: {{ 'cart.general.cookies_required' | t | json }},
+        cartSavings: {{ 'cart.general.savings_html' | t: price: '[savings]' | json }}
+      };
+      theme.settings = {
+        cartType: {{ settings.cart_type | json }},
+        gridType: {{ settings.collection_products_grid | json }}
+      };
+      {% assign var1 = settings.cart_freeship_standardPrice | plus: 0 | times: 100 %}
+        var cart_freeship_threshold = {{ settings.cart_freeship_threshold | json }};
+        var cart_freeship_standardPrice = {{ var1 }};
+    </script>
+
+    {%- if template.directory == 'customers' -%}
+    <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    <script src="{{ 'jquery-2.2.3.min.js' | asset_url }}"></script>
+    {% if template contains 'collection' %}<script src="{{ 'infinite-scroll.pkgd.min.js' | asset_url }}"></script>{%endif%}
+    <!--[if lt IE 9]>
+	{{ '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js' | script_tag }}
+	<![endif]-->
+	
+    {{ 'ndnapps-easyfaqs.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+{% include 'globo.formbuilder.scripts' %}
+
+    {% include 'sca.freegifts' %}
+
+    {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+	
+    {% include 'PixelTrack' %}
+  </head>
+
+<body id="{{ page_title | handle }}" class="template-{{ template | split: '.' | first }}">
+
+<h1>{{ | t}}</h1>
+
+<!-- {%- include 'mobile-menu' -%} -->
+{% include 'cart-popup' %}
+{% section 'header' %}
+{% section 'usp' %}
+{% section 'cart-alert' %}
+
+
+<div id="page-overlay"></div>
+<div class="page-container" id="PageContainer">
+    <main class="main-content js-focus-hidden" id="MainContent" role="main" tabindex="-1">
+        {{ content_for_layout }}
+        {% include "arp" %}
+    </main>
+    {% comment %} {% section 'mega-menu' %} {% endcomment %}
+    {% comment %} {% section 'mega-menu-2' %} {% endcomment %}
+    {% section 'custom-navigation' %}
+    {% section 'footer' %}
+</div>
+
+{% comment %}
+    Template-specific js
+{% endcomment %}
+{% if resetPassword %}
+<script>
+    $(function() {
+        timber.resetPasswordSuccess();
+    });
+</script>
+{% endif %}
+
+{%- if template == 'product' -%}
+    <script src="{{ 'glider.min.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+<script src="{{ 'theme.js' | asset_url }}"></script>
+
+<script src='https://areviewsapp.com/js_codes/collection_rating.js'></script>
+<script async src="https://api.revy.io/bundle.js" type="text/javascript"></script>
+
+{% if settings.use_hurrify %}
+    {% include "hurrify-snippet" %}
+{% endif %}
+{% include 'ajax-cart-template' %}
+{% comment %}{% include 'limoniapps-discounturl-body-bottom' %}{% endcomment %}
+
+<!-- google dynamic remarketing tag for theme.liquid -->
+{% if template contains 'product' %}
+    <script type="text/javascript">
+        var json_product = {{ product | json }};
+    </script>
+    <script>
+        var ecomm_prodid=[];
+        for(var i=0;i<json_product.variants.length;i++)
+            ecomm_prodid.push({{product.id}});
+    </script>
+    <script type="text/javascript">
+        var google_tag_params = {
+            ecomm_prodid: ecomm_prodid,
+            ecomm_pagetype: 'product',
+            ecomm_totalvalue: parseFloat('{{ product.price | money_without_currency | remove: ","}}')
+        };
+    </script>
+    {% elsif template contains 'collection' %}
+    <script type="text/javascript">
+        var google_tag_params = {
+            ecomm_pagetype: 'category'
+        };
+    </script>
+    {% elsif template contains 'cart' %}
+    <script type="text/javascript">
+        var id = new Array();
+        {% for item in cart.items %}
+        id.push({{item.product.id}});
+        {% endfor %}
+
+        var google_tag_params = {
+            ecomm_prodid: id,
+            ecomm_pagetype: 'cart',
+            ecomm_totalvalue: parseFloat('{{ cart.total_price | money_without_currency | remove: ","}}')
+        };
+    </script>
+    {% elsif template contains 'search' %}
+    <script type="text/javascript">
+        var google_tag_params = {
+            ecomm_pagetype: 'searchresults'
+        };
+    </script>
+    {% elsif template contains 'index' %}
+    <script type="text/javascript">
+        var google_tag_params = {
+            ecomm_pagetype: 'home'
+        };
+    </script>
+{% else %}
+    <script type="text/javascript">
+        var google_tag_params = {
+            ecomm_pagetype: 'other'
+        };
+    </script>
+{% endif %}
+
+<script>
+    window.addEventListener('load',function(){
+        try {
+            ga('set', 'dimension1', window.google_tag_params.ecomm_prodid.toString());
+        } catch (e) {}
+        try {
+            ga('set', 'dimension2', window.google_tag_params.ecomm_pagetype.toString());
+        } catch (e) {}
+        try {
+            ga('set', 'dimension3', window.google_tag_params.ecomm_totalvalue.toString());
+        } catch (e) {}
+        ga('send', 'event', 'page', 'visit', window.google_tag_params.ecomm_pagetype.toString(), {
+            'nonInteraction': 1
+        });
+    })
+</script>
+
+<script src="{{ 'booster-page-speed-optimizer.js' | asset_url }}"></script>
+
+<script src='{{ 'ndnapps-easyfaqs.js' | asset_url }}' defer='defer'></script>
+  {% if template contains 'product' %}
+  <script>
+
+// <![CDATA[
+var selectCallback = function(variant, selector) {
+ console.log(variant);
+  var variant_id = variant.id ;
+  var selected_variant = variant.title;
+  alert(selected_variant);
+ $(".preorder-note span").css("display","none");
+    
+   $("#single-option-selector option").removeAttr('selected'); 
+   $("select[name='id'] option").removeAttr('selected'); 
+
+   $("#single-option-selector option[value='"+selected_variant+"']").attr('selected', 'selected'); 
+   $("select[name='id'] option[value='"+variant_id+"']").attr('selected', 'selected'); 
+ 
+  var inventory_quantity = $('.variant-'+variant_id).text();
+
+  
+   if ( inventory_quantity > 0)   {
+      // Selected a valid variant that is available.
+      $('form.product-single__form .payment-buttons span').html('Add to Cart').fadeTo(200,1);
+      $('.preorder-note').css('display','none');
+	 
+    } else {
+      // Variant is sold out.
+   
+      $('form.product-single__form .payment-buttons span').html('Pre order').fadeTo(200,1);
+      $('.preorder-note').css('display','inline-block');
+      $('.preorder-note #note-'+variant_id).css('display','block');
+    }
+    
+  
+}
+var product = {{ product | json }};
+new Shopify.OptionSelectors('single-option-selector__radio', { product: product , onVariantSelected: selectCallback});
+// ]]>
+</script>{%endif%}
+
+<!-- {% comment %}This is for Volume Discount App by hulkapps{% endcomment %}{% include 'hulkcode_common' %} -->
+{% include 'hulkcode_common' %}{% if template contains 'product' or template contains 'cart' %}<script src='https://volumediscount.hulkapps.com/hulkcode.js' defer='defer'></script>{% endif %}
+
+</body>
+</html>

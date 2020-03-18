@@ -1,0 +1,67 @@
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+
+{% endcomment %}
+
+{% section 'product-template' %}
+{% section 'product-tabs' %}
+
+{% section 'usp-selling-points' %}
+
+{% section 'faq-product-section' %}
+
+{% section 'product-slider' %}
+{% section 'product-slider-2' %}
+{% section 'quotes' %}
+{% section 'newsletter' %}
+
+<script>
+  // Override default values of shop.strings for each template.
+  // Alternate product templates can change values of
+  // add to cart button, sold out, and unavailable states here.
+  theme.productStrings = {
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }},
+    unavailable: {{ 'products.product.unavailable' | t | json }}
+  }
+</script>
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+
+ 
+ <div id='Areviewsapp' class='page-full'>{% if settings.use_aliexpress %}{% include 'aliexpress_reviews' %}{% endif %}</div>
+<script>
+  /*
+  function getUrlParam(name) {
+    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    return (results && results[1]) || undefined;
+}
+
+  
+   function updateURL() {
+       var max = 0;
+
+        $('.variants-inventories-wrapper span').each(function() {
+          var value = parseInt($(this).data('id'));
+           max = (value > max) ? value : max;
+        });
+         var heighest_value_variant = jQuery('.variants-inventories-wrapper [data-id='+max+']').attr('id')
+
+     
+     var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?variant='+heighest_value_variant+'';
+         
+     var variant = getUrlParam('variant');
+ 
+        if (variant > "") {  } 
+		else {
+           window.location.href = newurl;
+        }
+   
+    }
+  
+  updateURL();
+  
+  */
+  
+</script>

@@ -1,0 +1,41 @@
+
+<div class="cta-button__wrapper">
+    {% for block in section.blocks %}
+        <a class="cta-btn" href="{{ block.settings.cta-link }}">
+            <span class="icon-wrap">
+                <img src="{{ block.settings.cta-icon }}" alt="">
+            </span>
+            {{ block.settings.cta-text }}
+        </a>
+    {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Contact page CTA",
+  "class": "contact-cta",
+  "blocks": [
+    {
+      "type": "cta",
+      "name": "Cta button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "cta-icon",
+          "label": "Cta Icon"
+        },
+        {
+          "type": "text",
+          "id": "cta-text",
+          "label": "Cta Text"
+        },
+        {
+          "type": "url",
+          "id": "cta-link",
+          "label": "Cta Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,24 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+<div class="slide {% unless product.available %} grid-view-item--sold-out{% endunless %}">
+  {% if current_variant.compare_at_price > current_variant.price %}
+    {% assign save_price = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | floor %}
+    <span class="discount-circle">-{{ save_price }}%</span>
+  {% endif %}
+  <a href="{{ product.url | within: collection }}" class="image-wrap">
+    {%- assign img_url = product.images.first | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+    <img class="lazyload" data-sizes="auto" data-src="{{ img_url }}" alt="{{ product.image.alt }}"/>
+  </a>
+  <div class="areviews_product_item areviews_stars{{ product.id }}"  data-product-id="{{ product.id }}"></div>
+  <h3>{{ product.title }}</h3>
+  <p class="price" data-limoniapps-discounturl-product-handle="{{ product.handle }}" data-limoniapps-discounturl-product-price="{{ product.price_min }}" data-limoniapps-discounturl-product-compareatprice="{{ product.compare_at_price_max }}">
+    {% if current_variant.compare_at_price > current_variant.price %}
+      <span class="product-single__price--wrapper" aria-hidden="false">
+        <span id="ComparePrice" class="product-single__price--compare-at" style="font-weight: 400"><s>{{ current_variant.compare_at_price | money }}</s></span>
+      </span>
+      <span id="ComparePriceA11y" class="sale-price">{{ current_variant.price | money }}</span>
+    {% else %}
+      <span id="ComparePriceA11y">{{ current_variant.price | money }}</span>
+    {% endif %}
+  </p>
+  <span class="btn btn-goto">{{ 'collections.general.goto' | t }}</span>
+</div>

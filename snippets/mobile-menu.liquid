@@ -1,0 +1,121 @@
+<input type="checkbox" id="nav-toggle" class="nav-toggle d-none"/>
+<aside id="mobile-menu" class="mobile-menu">
+    <div class="inner-wrapper">
+        <div class="close-mb-menu">&times;</div>
+
+        <div class="header-content">
+
+        </div>
+
+        <div class="mb-header__links-wrapper">
+            {% if settings.link-1_url != blank %}
+            <a href="{{ settings.link-1_url }}" class="mb-header__link">
+                <div class="icon-wrap">
+                    <img src="{{ settings.icon_link-1 | file_url }}" alt="">
+                </div>
+                <p>{{ settings.link-1_text }}</p>
+            </a>
+            {% endif %}
+            {% if settings.link-2_url != blank %}
+            <a href="{{ settings.link-2_url }}" class="mb-header__link">
+                <div class="icon-wrap">
+                    <img src="{{ settings.icon_link-2 | file_url }}" alt="">
+                </div>
+                <p>{{ settings.link-2_text }}</p>
+            </a>
+            {% endif %}
+            {% if settings.link-3_url != blank %}
+            <a href="{{ settings.link-3_url }}" class="mb-header__link">
+                <div class="icon-wrap">
+                    <img src="{{ settings.icon_link-3 | file_url }}" alt="">
+                </div>
+                <p>{{ settings.link-3_text }}</p>
+            </a>
+            {% endif %}
+        </div>
+
+        <ul class="mobile-main-nav">
+            {%- for link in linklists[settings.main-navigation-mobile].links -%}
+                {%- comment -%}
+                    Assign is_sub_link if link has childs
+                {%- endcomment -%}
+                {%- assign is_sub_link = false -%}
+                {%- if link.links != blank -%}
+                    {%- assign is_sub_link = true -%}
+                {%- endif -%}
+
+                {%- if link.url == '#separator' -%}
+                    <li class="separator"></li>
+                {%- else -%}
+                    <li>
+                        <a href="{{ link.url }}"
+                           class="{%- if is_sub_link -%}sub-link{%- endif -%}">
+                           {% if section.blocks.size > 0 %}
+                           {% for block in section.blocks %}
+                                    {% if block.settings.title == link.title %}
+                                        <img src="{{ block.settings.icon_upload | img_url: "30x30" }}" alt="">   
+                                        {% break %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                           {{ link.title | escape }}
+                        </a>
+
+                        {%- if link.links != blank -%}
+                            <ul class="mobile-main-nav-sub">
+                                {%- for child_link in link.links -%}
+                                    {%- comment -%}
+                                        Assign is_separator if link url containt '#separator'
+                                    {%- endcomment -%}
+                                    {%- assign is_separator = false -%}
+                                    {%- if child_link.url == '#separator' -%}
+                                        {%- assign is_separator = true -%}
+                                    {%- endif -%}
+
+                                    {%- if is_separator -%}
+                                        <li class="separator"></li>
+                                    {%- else -%}
+                                        <li><a href="{{ child_link.url }}"
+                                               class="{%- if child_link.links != blank -%}sub-link{%- endif -%}">{{ child_link.title | escape }}{%- if child_link.links != blank -%}
+                                                    <span class="sub-link__icon"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                                      width="24" height="24"
+                                                                                      viewBox="0 0 24 24" fill="none"
+                                                                                      stroke="currentColor"
+                                                                                      stroke-width="2"
+                                                                                      stroke-linecap="round"
+                                                                                      stroke-linejoin="round"
+                                                                                      class="feather feather-chevron-right"><polyline
+                                                                    points="9 18 15 12 9 6"></polyline></svg></span>{%- endif -%}
+                                            </a>
+                                            {%- if child_link.links != blank -%}
+                                                <ul class="mobile-main-nav-sub">
+                                                    {%- for sub_child_link in child_link.links -%}
+                                                        <li>
+                                                            <a href="{{ sub_child_link.url }}">{{ sub_child_link.title | escape }}</a>
+                                                        </li>
+                                                    {%- endfor -%}
+                                                </ul>
+                                            {%- endif -%}
+                                        </li>
+                                    {%- endif -%}
+                                {%- endfor -%}
+                            </ul>
+                        {%- endif -%}
+                    </li>
+                {%- endif -%}
+            {%- endfor -%}
+        </ul>
+        <ul class="mobile-sub-nav">
+            {%- for link in linklists[settings.secondary-navigation-mobile].links -%}
+                <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+            {% if shop.customer_accounts_enabled %}
+            {% if customer %}
+                <li><a href="/account/logout">{{ "navigation.logout" | t }}</a></li>
+            {% else %}
+                <li><a href="/account/login">{{ "navigation.login" | t }}</a></li>
+            {% endif %}
+            {% endif %}
+        </ul>
+    </div>
+</aside>

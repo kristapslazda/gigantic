@@ -1,0 +1,74 @@
+{% assign s = section.settings %}
+{% assign img_full = s.image_full %}
+{% assign img_small = s.image_small %}
+
+<div class="campaign-banner">
+
+  {% unless s.full_width %}
+    <div class="container">
+      <div class="row">
+        <div class="col">
+  {% endunless %}
+
+    {% if s.url != blank %}
+      <a href="{{ s.url }}">
+    {% endif %}
+
+      <picture>
+        <source media="(max-width: 767px)" srcset="{{ img_small | img_url: '767x' }}, {{ img_small | img_url: '767x' }} 2x">
+        <source media="(min-width: 768px)" srcset="{{ img_full | img_url: '1920x' }}, {{ img_full | img_url: '1920x' }} 2x">
+        <img src="{{ img_full | img_url: '1920x' }}" alt="{{ s.alt_text }}">
+      </picture>
+
+    {% if s.url != blank %}
+      </a>
+    {% endif %}
+  
+  {% unless s.full_width %}
+        </div>
+      </div>
+    </div>
+  {% endunless %}
+
+</div>
+
+
+{% schema %}
+{
+  "name": "Banner image",
+  "class": "index-section index-section--banner-image",
+  "settings": [
+  {
+    "type": "image_picker",
+    "id": "image_full",
+    "label": "Desktop image"
+  },
+  {
+    "type": "image_picker",
+    "id": "image_small",
+    "label": "Mobile image"
+  },
+  {
+    "type": "text",
+    "id": "alt_text",
+    "label": "Image description (alt-text)"
+  },
+  {
+    "type": "url",
+    "id": "url",
+    "label": "Optional campaign link"
+  },
+  {
+    "type": "checkbox",
+    "id": "full_width",
+    "label": "Full width banner"
+  }
+  ],
+  "presets": [
+  {
+    "name": "Banner image",
+    "category": "Campaigns"
+  }
+  ]
+}
+{% endschema %}

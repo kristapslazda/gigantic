@@ -1,0 +1,75 @@
+<div class="hero-section-wrap container">
+    <div class="content">
+        <h1>{{ section.settings.title }}</h1>
+        <div class="price">
+            {% assign current_variant = all_products[section.settings.price].first_available_variant %}
+            {% if current_variant.compare_at_price > current_variant.price %}
+                <span class="product-single__price--wrapper" aria-hidden="false">
+                                    <span id="ComparePrice" class="product-single__price--compare-at"
+                                          style="font-weight: 400"><s>{{ current_variant.compare_at_price | money }}</s></span>
+                                </span>
+                <span id="ComparePriceA11y" class="sale-price">{{ current_variant.price | money }}</span>
+            {% else %}
+                <span id="ComparePriceA11y">{{ current_variant.price | money }}</span>
+            {% endif %}
+        </div>
+        <p>{{ section.settings.text }}</p>
+        {% if section.settings.button_link != blank %}<a href="{{ section.settings.button_link }}" class="btn">{{ section.settings.button_label }}<span class="icon-arrow">{% include "icon-arrow-right" %}</span></a>{% endif %}
+    </div>
+    <div class="image-wrap">
+      {% if section.settings.image != blank %}
+        {%- assign img_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <img class="lazyload" data-sizes="auto" data-widths="[100, 200, 300, 400, 500, 600]" data-src="{{ img_url }}">
+      {% else %}
+        {%- assign img_url = all_products[section.settings.price].images.first | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <img class="lazyload" data-sizes="auto" data-src="{{ img_url }}">
+      {% endif %}
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image with text overlay",
+  "class": "hero-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Image with text overlay"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "product",
+      "id": "price",
+      "label": "Product",
+      "info": "This gets the product price"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with text overlay",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}

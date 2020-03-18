@@ -1,0 +1,16 @@
+{% comment %}
+  The contents of the collection.liquid template can be found in /sections/collection-template.liquid
+{% endcomment %}
+
+{% section 'collection-template' %}
+{% section 'usp-selling-points' %}
+
+{% if collection.description != blank %}
+  <div class="collection-seo-description">
+    <div class="container rte">
+      {{ collection.metafields.accentuate.collections_seo_tekst }}
+    </div>
+  </div>
+{% endif %}
+
+{% section "newsletter" %}

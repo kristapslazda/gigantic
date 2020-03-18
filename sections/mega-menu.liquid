@@ -1,0 +1,121 @@
+<div id="megamenu{{ section.id }}" class="mega-menu_for" data-for="{{ section.settings.megamenu_for }}">
+    <div class="container">
+        {% for block in section.blocks %}
+            {% if block.type == "menu" %}
+                {% if linklists[block.settings.link_list].links.size > 0 %}
+                    <div class="mega-menu_item link-list_wrap">
+                        <h2 class="menu_col--title">{{ linklists[block.settings.link_list].title }}</h2>
+                        <ul>
+                            {% for link in linklists[block.settings.link_list].links %}
+                                <li class="mega-item">
+                                    <a href="{{ link.url }}">{{ link.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                {% elsif block.type == "product" %}
+                {% assign prod = all_products[block.settings.featured_product] %}
+                <div class="mega-menu_item mega__product-wrap">
+                    <h2 class="menu_col--title">{{ block.settings.c3_t }}</h2>
+                    <a href="{{ prod.url }}" class="mega-focus">
+                        <div class="mega-focus__img">
+                            {%- assign img_url = prod.images.first | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                            <img class="lazyload" data-sizes="auto" data-src="{{ img_url }}" alt="{{ prod.title }}">
+                        </div>
+                        <div class="areviews_product_item areviews_stars{{ prod.id }}"
+                             data-product-id="{{ prod.id }}"></div>
+                        <p class="mega-focus__title">{{ prod.title }}</p>
+                        <p class="price">
+                            {% assign current_variant = prod.selected_or_first_available_variant %}
+                            {% if current_variant.compare_at_price > current_variant.price %}
+                                <span class="product-single__price--wrapper" aria-hidden="false"><span id="ComparePrice"
+                                                                                                       class="product-single__price--compare-at"
+                                                                                                       style="font-weight: 400"><s>{{ current_variant.compare_at_price | money }}</s></span></span>
+                                <span id="ComparePriceA11y"
+                                      class="sale-price">{{ current_variant.price | money }}</span>
+                            {% else %}
+                                <span id="ComparePriceA11y">{{ current_variant.price | money }}</span>
+                            {% endif %}
+                        </p>
+                    </a>
+                </div>
+                {% elsif block.type == "image" %}
+                <div class="mega-menu_item mega__image-wrap">
+                    <a href="{{ block.settings.link }}" class="mega-focus">
+                        <div class="mega-focus__img">
+                            {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                            <img class="lazyload" data-sizes="auto" data-src="{{ img_url }}" alt="{{ prod.title }}">
+                        </div>
+                        <p class="mega-focus__title">{{ block.settings.title }}</p>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Mega-menu Section",
+  "class": "mega-menu_section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "megamenu_for",
+      "label": "Menu item"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Linklist",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "link_list",
+          "label": "First menu"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Featured Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "featured_product",
+          "label": "Choose product"
+        },
+        {
+          "type": "text",
+          "id": "c3_t",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image with text",
+      "settings": [
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Choose image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

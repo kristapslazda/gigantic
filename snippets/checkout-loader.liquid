@@ -1,0 +1,24 @@
+<style>
+  .checkout-loader-image {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,0.9);
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+  }
+  div#ajax-loader-gd img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 999999;
+    transform: translate(-50%, -50%);
+  }
+</style>
+<div id="ajax-loader-gd">
+  <div class="checkout-loader-image">
+  </div>
+  <img src="{{settings.checkout_loader_image | img_url : 'original' }}">
+</div>

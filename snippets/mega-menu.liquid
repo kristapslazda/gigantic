@@ -1,0 +1,61 @@
+<ul class="mega-menu">
+    <li class="container container--small">
+        <div class="mega-menu__col mega-menu__col-1">
+          	<h2 class="menu_col--title">{{ block.settings.c1_t }}</h2>
+            {% if linklists[block.settings.c1_m1].links.size > 0 %}
+                <ul>
+                    {% for link in linklists[block.settings.c1_m1].links %}
+                        <li class="mega-item">
+                            <a href="{{ link.url }}">{{ link.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="mega-menu__col mega-menu__col-2">
+            <h2 class="menu_col--title">{{ block.settings.c2_t }}</h2>
+            {% if linklists[block.settings.c2_m1].links.size > 0 %}
+                <ul>
+                    {% for link in linklists[block.settings.c2_m1].links %}
+                        <li class="mega-item">
+                            <a href="{{ link.url }}">{{ link.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if linklists[block.settings.c2_m2].links.size > 0 %}
+                <ul>
+                    {% for link in linklists[block.settings.c2_m2].links %}
+                        <li class="mega-item">
+                            <a href="{{ link.url }}">{{ link.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="mega-menu__col mega-menu__col-3">
+          	<h2 class="menu_col--title">{{ block.settings.c3_t }}</h2>
+            {% if block.settings.c3_i != blank %}
+                <a href="{{ all_products[block.settings.c3_i].url }}" class="mega-focus">
+                    <div class="mega-focus__img">
+                        {%- assign img_url = all_products[block.settings.c3_i].images.first | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                        <img class="lazyload" data-sizes="auto" data-src="{{ img_url }}" alt="">
+                    </div>
+                    <div class="areviews_product_item areviews_stars{{ all_products[block.settings.c3_i].id }}" data-product-id="{{ all_products[block.settings.c3_i].id }}"></div>
+                    <p class="mega-focus__title">{{ all_products[block.settings.c3_i].title }}</p>
+                    <p class="price">
+                        {% assign current_variant = all_products[block.settings.c3_i].selected_or_first_available_variant %}
+                        {% if current_variant.compare_at_price > current_variant.price %}
+                            <span class="product-single__price--wrapper" aria-hidden="false">
+                                    <span id="ComparePrice" class="product-single__price--compare-at" style="font-weight: 400"><s>{{ current_variant.compare_at_price | money }}</s></span>
+                                </span>
+                            <span id="ComparePriceA11y" class="sale-price">{{ current_variant.price | money }}</span>
+                        {% else %}
+                            <span id="ComparePriceA11y">{{ current_variant.price | money }}</span>
+                        {% endif %}
+                    </p>
+                </a>
+            {% endif %}
+        </div>
+    </li>
+</ul>

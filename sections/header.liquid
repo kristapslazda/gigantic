@@ -1,0 +1,259 @@
+{%- include 'mobile-menu', section: section -%}
+
+
+{% if section.settings.logo != blank or section.settings.logo_svg != blank %}
+    <style>
+        .site-header__logo-image {
+            max-width: {{ section.settings.logo_max_width | escape }}px!important;
+        }
+    </style>
+{% endif %}
+
+<div data-section-id="{{ section.id }}" data-section-type="header-section" data-template="{{ template.name }}" style="position: relative">
+    {% if section.settings.message %}
+        {% if section.settings.home_page_only == false or template.name == 'index' %}
+            <style>
+                .announcement-bar {
+                    background-color: {{ section.settings.color_bg }};
+                }
+
+                .announcement-bar--link:hover {
+                {% assign brightness = section.settings.color_bg | color_brightness %}{% if brightness <= 192 %}{% assign lightenAmount = 255 | minus: brightness | divided_by: 255 | times: 16 %} background-color: {{ section.settings.color_bg | color_lighten: lightenAmount }};
+                {% else %}{% assign darkenAmount = 255 | divided_by: brightness | times: 8 %} background-color: {{ section.settings.color_bg | color_darken: darkenAmount }};
+                {% endif %}
+                }
+
+                .announcement-bar__message {
+                    color: {{ section.settings.color_text }};
+                }
+            </style>
+
+            {% if section.settings.message_link == blank %}
+                <div class="announcement-bar">
+            {% else %}
+                <a href="{{ section.settings.message_link }}" class="announcement-bar announcement-bar--link">
+            {% endif %}
+
+            <p class="announcement-bar__message">{{ section.settings.message_text | escape }}</p>
+
+            {% if section.settings.message_link == blank %}
+                </div>
+            {% else %}
+                </a>
+            {% endif %}
+
+        {% endif %}
+    {% endif %}
+
+    <header class="site-header container" role="banner">
+        <a href="/" class="logo-wrapper">
+            {% if section.settings.logo_svg != blank %}
+                <img class="logo-svg site-header__logo-image" src="{{ section.settings.logo_svg | file_url }}" alt="">
+                {% elsif section.settings.logo != blank %}
+                <img class="site-header__logo-image" src="{{ section.settings.logo | img_url: "x300" }}" alt="">
+            {% else %}
+                <h1 class="text-logo">{{ shop.name | split: "." | first }}</h1>
+                <h1 class="text-logo md-logo">H</h1>
+            {% endif %}
+            {% if section.settings.logo_mb != blank %}
+            <img class="mb-logo" src="{{ section.settings.logo_mb | img_url:"x300" }}" alt="">
+            {% endif %}
+        </a>
+
+        <nav class="site-header__nav" id="main-nav">
+            <ul>
+                {% for link in linklists[section.settings.nav].links %}
+
+  
+                    <li class="menu-item {% if link.active %}menu-item__current {% endif %}{% if link.links.size > 0 %}menu-item__dropdown {% endif %}">
+                        <a href="{{ link.url }}">
+
+                          {{ link.title }}
+                        </a>
+                            {% if link.links.size > 0 %}
+                            <ul class="sub-menu">
+                                {% for link in link.links %}
+                                    <li class="menu-item {% if link.active %}menu-item__current{% endif %}{% if link.links.size > 0 %}menu-item__dropdown{% endif %}">
+                                        <a href="{{ link.url }}">{{ link.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+        <div class="search-header__wrapper">
+            <form action="/search" method="get" role="search" autocomplete="off"
+                  style="position: relative;z-index: 9;">
+                <input type="hidden" name="type" value="product">
+                <div class="form-item">
+                    <input id="search-field" name="q" type="search" placeholder="{{ 'general.search.title' | t }}">
+                    <button class="search-icon" tabindex="-1" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
+                             aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink"
+                             width="64" height="64">
+                            <title>Søg</title>
+                            <desc>A line styled icon from Orion Icon Library.</desc>
+                            <path data-name="layer2"
+                                  fill="none" stroke="#8d92a0" stroke-miterlimit="10" stroke-width="3"
+                                  d="M38.192 38.191L50 50"
+                                  stroke-linejoin="round" stroke-linecap="round"></path>
+                            <circle data-name="layer1" cx="29" cy="29" r="13" fill="none" stroke="#8d92a0"
+                                    stroke-miterlimit="10" stroke-width="3" stroke-linejoin="round"
+                                    stroke-linecap="round"></circle>
+                        </svg>
+                    </button>
+                    <div id="headerSearchReset" type="reset" class="reset-button"></div>
+                </div>
+            </form>
+        </div>
+
+        {% if shop.customer_accounts_enabled %}
+            {% if customer  %}
+                <a href="/account">Your Account</a>
+            {% else %}
+                {{ 'Log in' | customer_login_link }}
+            {% endif %}
+        {% endif %}
+
+        <div class="menu-item">
+            <a class="menu-link cart-link js-drawer-open-button-right" href="#" aria-controls="CartDrawer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title">
+                    <path data-name="layer2" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="4"
+                          d="M56 62H8l2-44h44l2 44z" stroke-linejoin="round" stroke-linecap="round"></path>
+                    <path data-name="layer1" d="M22 26V12A10 10 0 0 1 32 2a10 10 0 0 1 10 10v14" fill="none"
+                          stroke="#000000" stroke-miterlimit="10" stroke-width="4" stroke-linejoin="round"
+                          stroke-linecap="round"></path>
+                </svg>
+                {%- if cart.item_count > 0 -%}<span class="cart--count">{{ cart.item_count }}</span>{%- endif -%}
+            </a>
+        </div>
+
+        <i class="site-header__icons--hamburger hamburger">
+            <i class="hamburger__line hamburger__line--1"></i>
+            <i class="hamburger__line hamburger__line--2"></i>
+            <i class="hamburger__line hamburger__line--3"></i>
+        </i>
+    </header>
+</div>
+
+
+
+{% if template.name == 'index' %}
+    {% assign potential_action_target = shop.url | append: routes.search_url | append: "?q={search_term_string}" %}
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ potential_action_target | json }},
+        "query-input": "required name=search_term_string"
+      },
+      "url": {{ shop.url | append: page.url | json }}
+    }
+
+
+
+
+    </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_mb",
+      "label": "Logo image for mobile"
+    },
+    {
+      "type": "text",
+      "id": "logo_svg",
+      "label": "Logo SVG"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "label": "Custom logo width",
+      "min": 50,
+      "max": 250,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "link_list",
+      "id": "nav",
+      "label": "Desktop navigation"
+    },
+    {
+      "type": "header",
+      "content": "Announcement bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "message",
+      "label": "Show announcement",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "home_page_only",
+      "label": "Home page only",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "message_text",
+      "label": "Text",
+      "default": "Announce something here"
+    },
+    {
+      "type": "url",
+      "id": "message_link",
+      "label": "Link",
+      "info": "Optional"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Bar",
+      "default": "#7796a8"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text",
+      "default": "#fff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav-icon",
+      "name": "Icon for navigation",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Link name"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_upload",
+          "label": "Icon upload"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,63 @@
+<div class="faq-section-wrapper">
+    <h3>{{ section.settings.faq-heading }}</h3>
+
+    <div class="faq-wrapper row">
+
+        {% for block in section.blocks %}
+            <div class="col-md-6 col-12">
+                <div class="faq-sec">
+                    <h4>{{ block.settings.faq-head }}</h4>
+                    <div class="content">
+                        {{ block.settings.faq-text }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    $(".faq-sec").click(function () {
+        $(this).toggleClass("open");
+        var panel = $(this).find(".content");
+        var panelp = $(this).find(".content p");
+        if (panel.attr("style")) {
+            panel.css("height", "");
+            console.log(0)
+        } else {
+            panel.css("height", panelp.outerHeight() + 30);
+            console.log(panel.scrollHeight);
+        }
+    });
+</script>
+{% schema %}
+{
+  "name": "Contact page FAQ",
+  "class": "contact-faq",
+  "settings": [
+    {
+      "type": "text",
+      "id": "faq-heading",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "cta",
+      "name": "Cta button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "faq-head",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "faq-text",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

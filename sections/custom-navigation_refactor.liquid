@@ -1,0 +1,214 @@
+{% comment %} MAIN NAV {% endcomment %}
+<div class="mega-menu_for advanced-menu" data-for="{{ section.settings.megamenu_for }}">
+  <h4 class="mobile-nav-header">{{section.settings.mobile_nav_header}}</h4>
+  {% for block in section.blocks %}
+    {% if block.type == "menu" %}
+      {% if linklists[block.settings.link_list].links.size > 0 %}
+
+        {% comment %} MAIN NAV - first level link-list {% endcomment %}
+        <div class="first-level-list">
+          <ul>
+            {% for link in linklists[block.settings.link_list].links %}
+              {% for block in section.blocks %}
+                {% if block.type == "link_icon" and block.settings.link_text == link.title %} 
+                  {% assign menu_item_image = block.settings.link_image | img_url: 'master' %}
+                {% endif %}
+              {% endfor %}
+              <li>
+                <a href="{{ link.url }}" data-collection-name="{{link.title}}" onMouseover="hoveMenuItems(this)" data-link-id={{forloop.index}}>{% if menu_item_image %}{{menu_item_image | img_tag}}{% endif %}{{ link.title }}</a>
+              </li>
+              {% assign menu_item_image = '' %}
+            {% endfor %}
+          </ul>
+        </div>
+
+        {%- comment -%}MAIN NAV - advanced (right) block{%- endcomment -%}
+        <div class="advanced-block">
+          {% for link in linklists[block.settings.link_list].links %} 
+            {% comment %} SINGLE ITEM for advanced block {% endcomment %}
+            <div class="advanced-block-single" data-wrapper-id={{forloop.index}}>
+              <div class="advanced-block-content">
+                {% if link.links.size > 0 %}
+                  <div class="sub-menu-block">
+                    <a href="{{link.url}}"><h3>{{link.title}}</h3></a>
+                    <ul class="advanced-sub-links">
+                      {% for sub_link in link.links %}
+                        <li class="mobile-second-list">
+                          <a href="{{ sub_link.url }}" data-collection-name="{{sub_link.title}}" onMouseover="hoveSecondMenuItems(this)">{{ sub_link.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+                <div class="featured-products">
+                  {% if link.type == 'collection_link' %}
+                    <h3>{{section.settings.best_seller_text}} <span class="category-name">{{link.title}}</span></h3>
+                    {% assign main_collection_handle = link.url | split: '/' | last %}
+                    {% comment %} FIRST LEVEL ITEM products {% endcomment %}
+                    <div class="collection-related-products first-level-products visible">
+                      {% for collection_item in collections %}
+                        {% if collection_item.handle == main_collection_handle %}
+                          {% assign first_product = collection_item.products[0] %}
+                          {% assign second_product = collection_item.products[1] %}
+                          {% include 'nav-related-product', product_item:first_product %}
+                          {% include 'nav-related-product', product_item:second_product %}
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    {% comment %} SECOND LEVEL ITEM products {% endcomment %}
+                    {% if link.links.size > 0 %}
+                      {% for sub_link in link.links %}
+                        {% assign current_collection = sub_link.url | split: '/' | last %}
+                        <div class="collection-related-products" data-collection="{{sub_link.url}}">
+                          {% for new_collection in collections %}
+                            {% if new_collection.handle == current_collection %}
+                              {% assign first_product = new_collection.products[0] %}
+                              {% assign second_product = new_collection.products[1] %}
+                              {% include 'nav-related-product', product_item:first_product %}
+                              {% include 'nav-related-product', product_item:second_product %}
+                            {% endif %}
+                          {% endfor %}
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% comment %} MOBILE NAVIGATION {% endcomment %}
+<div class="advanced-mobile-menu">
+    <h4 class="mobile-nav-header">{{section.settings.mobile_nav_header}}</h4>
+    {% for block in section.blocks %}
+      {% if block.type == "menu" %}
+        {% if linklists[block.settings.link_list].links.size > 0 %}
+          <div class="first-level-list">
+            <ul>
+              {% for link in linklists[block.settings.link_list].links %}
+                {% for block in section.blocks %}
+                  {% if block.type == "link_icon" and block.settings.link_text == link.title %} 
+                    {% assign menu_item_image = block.settings.link_image | img_url: 'master' %}
+                  {% endif %}
+                {% endfor %}
+                <li>
+                  <a href="{{ link.url }}" data-collection-name="{{link.title}}">{% if menu_item_image %}{{menu_item_image | img_tag}}{% endif %}{{ link.title }}</a>
+                </li>
+                {% assign menu_item_image = '' %}
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="second-level-list">
+            {% for link in linklists[block.settings.link_list].links %} 
+              <div class="menu-advanced-block" data-wrapper-id={{forloop.index}}>
+                <div class="advanced-block-item">
+                  <a class="mobile-arrow-back">{% include "icon-arrow-right" %}</a>
+                    {% if link.links.size > 0 %}
+                    <div class="sub-menu-block">
+                        <a href="{{link.url}}"><h3>{{link.title}}</h3></a>
+                        <ul class="advanced-sub-links">
+                          {% for sub_link in link.links %}
+                            <li class="mobile-second-list">
+                              <a href="{{ sub_link.url }}">{{ sub_link.title }}</a>
+                              {% if sub_link.links.size > 0 %}
+                                <div class="mobile-nav-third-level">
+                                  <a class="third-level-back">{% include "icon-arrow-right" %}</a>
+                                  <a href="{{ sub_link.url }}">
+                                    <h3>{{sub_link.title}}</h3>
+                                  </a>
+                                  <ul>
+                                    {% for third_level_link in sub_link.links %}
+                                      <li>
+                                        <a href="{{ third_level_link.url }}">{{ third_level_link.title }}</a>
+                                      </li>
+                                    {% endfor %}  
+                                  </ul>
+                                </div>
+                              {% endif %}
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    {% endif %}
+                  <div class="featured-products">
+                    {% if link.type == 'collection_link' %}
+                      <h3>{{section.settings.best_seller_text}} <span class="category-name">{{link.title}}</span></h3>
+                      {% assign current_collection = link.url | split: '/' | last %}
+                      <div class="collection-related-products first-level-products visible">
+                          {% for collection_item in collections %}
+                            {% if collection_item.handle == current_collection %}
+                              {% assign first_product = collection_item.products[0] %}
+                              {% assign second_product = collection_item.products[1] %}
+                              {% include 'nav-related-product', product_item:first_product %}
+                              {% include 'nav-related-product', product_item:second_product %}
+                            {% endif %}
+                          {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endfor %}     
+</div>
+
+{% schema %}
+{
+  "name": "Custom Navigation",
+  "class": "mega-menu_section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "megamenu_for",
+      "label": "Menu item"
+    },
+    {
+      "type": "text",
+      "id": "best_seller_text",
+      "label": "Best Sellers text"
+    }, 
+    {
+      "type": "text",
+      "id": "mobile_nav_header",
+      "label": "Mobile Navigation Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Linklist",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "link_list",
+          "label": "First menu"
+        }
+      ]
+    },
+    {
+      "type": "link_icon",
+      "name": "Link Icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "link_image",
+          "label": "Icon"
+        }, 
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Menu Item Title"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

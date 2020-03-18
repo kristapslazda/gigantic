@@ -1,0 +1,286 @@
+<div class="container">
+    {% include 'breadcrumbs' %}
+</div>
+
+{% paginate collection.products by 18 %}
+    <div id="collection-page--wrap" class="container" data-section-id="{{ section.id }}"
+         data-section-type="collection-template">
+        <div class="filters">
+            {% if section.settings.category_list != blank %}
+                <div class="categories">
+                    <h3>{{ 'general.filters.catogeries' | t | capitalize }}</h3>
+                    <ul>
+                        {% for link in linklists[section.settings.category_list].links %}
+                            <li>
+                                <a class="filter_catogery{% if link.active %} active{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
+                                <div class="sub-category">
+                                    {% for sub_link in link.links %}
+                                       <div class="second-level-item">
+                                            <a class="filter_sub_catogery{% if sub_link.active %} active{% endif %}" href="{{ sub_link.url }}">{{ sub_link.title }}</a>
+                                            {% if sub_link.links.size > 0 %}
+                                                <ul class="third-level-links">
+                                                    {% for third_level_link in sub_link.links %}
+                                                        <li>
+                                                            <a class="filter_sub_catogery{% if third_level_link.active %} active{% endif %}" href="{{ third_level_link.url }}">{{ third_level_link.title }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                       </div>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="categories mb-only">
+                    <select class="categories-select" data-index="option" onchange="location = this.value;">
+                        {% for link in linklists[section.settings.category_list].links %}
+                            <option value="{{ link.url }}" {% if link.active %}selected{% endif %}>
+                                {{ link.title }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+        </div>
+
+        <div id="Collection">
+            <header class="collection-header">
+                {%- assign is_filter_by_available = false -%}
+                {%- if section.settings.tags_enable and collection.all_tags.size > 0 -%}
+                    {%- assign is_filter_by_available = true -%}
+                {%- endif -%}
+
+                {% if section.settings.show_collection_image and collection.image %}
+                    <h1 class="h1">
+                            <span role="text">
+                                <span class="visually-hidden">{{ 'collections.general.collection_label' | t }}: </span>
+                                {{ collection.title }}
+                            </span>
+                    </h1>
+                    <div class="collection-hero">
+                        {% if collection.description != blank %}
+                            <div class="rte collection-shortdesc">
+                                {{ collection.description | truncatewords: 50 }}
+                            </div>
+                        {% endif %}
+                        <div class="collection-hero__image ratio-container">
+                            <img class="lazyload" data-src="{{ collection.image | img_url: "x300" }}" data-sizes="auto"
+                                 alt="">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="container">
+                        <h1 class="h1">
+                            <span role="text">
+                                <span class="visually-hidden">{{ 'collections.general.collection_label' | t }}: </span>
+                                {{ collection.title }}
+                            </span>
+                        </h1>
+                        {% if collection.description != blank %}
+                            <div class="collection-hero section-header">
+                                <div class="rte collection-shortdesc">
+                                    {{ collection.description | truncatewords: 50 }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if is_filter_by_available or section.settings.sort_enable %}
+                    <div class="filters-toolbar-wrapper{% if is_filter_by_available %} filters-toolbar--has-filter{% endif %}">
+                        <div class="container">
+                            <div class="filters-toolbar">
+                                <div class="filters-toolbar__item filters-toolbar__item--count">
+                                    {% capture curView1 %}
+                                        <span class="curView"></span>
+                                    {% endcapture %}
+                                    {% capture total1 %}
+                                        <span class="total-prods">{{ collection.products_count }}</span>
+                                    {% endcapture %}
+                                    <div class="curViewing">{{ 'general.pagination.showing_html' | t: current: curView1, total: total1 }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </header>
+            {% case section.settings.grid %}
+            {% when 2 %}
+            {%- assign grid_item_width = 'col-md-6' -%}
+            {% when 3 %}
+            {%- assign grid_item_width = 'col-md-4' -%}
+            {% when 4 %}
+            {%- assign grid_item_width = 'col-md-3' -%}
+            {% endcase %}
+            <div class="container">
+                {% if section.settings.sort_enable %}
+                    <div class="filters-toolbar__item-child">
+                        <h3>{{ "general.filters.sort_by" | t }}</h3>
+                        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+                        <div class="filters-toolbar__input-wrapper select-group">
+                            {%- for option in collection.sort_options -%}
+                                {% if option.value == sort_by %}
+                                    <span class="current-sorting">{{option.name}}</span>
+                                {% endif %}
+                            {%- endfor -%}
+
+                            <div class="dropdown-sorting">
+                                {%- for option in collection.sort_options -%}
+                                    <a href="?sort_by={{ option.value }}"
+                                    {% if option.value == sort_by %}class="selected"{% endif %}>{{ option.name }}</a>
+                                {%- endfor -%}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filters-toolbar__item-child mb-only">
+                        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+                        <select name="sortBy" id="sortBy" class="filter-dropdown__select">
+                            {%- for option in collection.sort_options -%}
+                                <option value="{{ option.value }}"
+                                        {% if option.value == sort_by %}class="selected"{% endif %}>{{ option.name }}</option>
+                            {%- endfor -%}
+                        </select>
+                    </div>
+                {% endif %}
+            </div>
+            <ul class="row grid--uniform{% if collection.products_count > 0 %} grid--view-items{% endif %}">
+                {% for product in collection.products %}
+                    <li class="grid__item grid__item--{{ section.id }} {{ grid_item_width }} col-6">
+                        {% include 'product-card-grid' %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+            {% if is_empty_collection %}
+                <div class="grid__item small--text-center">
+                    <p class="text-center">{{ 'collections.general.no_matches' | t }}</p>
+                </div>
+            {% endif %}
+
+            {% if paginate.pages > 1 %}
+                {% include 'pagination' %}
+            
+            {% assign curOffset = paginate.current_offset | plus: 0.00 | plus: paginate.page_size | divided_by: paginate.items %}
+            <div class="view-more-progress text-center">
+                {% capture curView %}
+                    <span class="curView"></span>
+                {% endcapture %}
+                {% capture total %}
+                    <span class="total-prods">{{ collection.products_count }}</span>
+                {% endcapture %}
+                <div class="curViewing">{{ 'general.pagination.showing_html' | t: current: curView, total: total }}</div>
+                <div class="progress-wrapper">
+                    <div class="progress" style="width: {{ curOffset | times: 100 | at_most: 100 }}%"></div>
+                </div>
+                <button class="view-more-button">
+                    <span class="btn-text">{{ 'collections.general.view_more' | t }}</span>
+                    <span class="page-load-status" style="display: none">
+                    <span class="infinite-scroll-request">Loader...</span>
+                    </span>
+                </button>
+            </div>
+{% endif %}
+        </div>
+    </div>
+{% endpaginate %}
+
+
+<script>
+    $(document).ready(function () {
+        $(".curView").text($(".grid--view-items").children().length);
+
+        let filterMainCatefory = $('.filter_catogery');
+
+        filterMainCatefory.each(function(){
+            let iconImg = $('.first-level-list').find(`a[href="${$(this).attr('href')}"] img`).clone();
+            $(this).append(iconImg);
+        });
+
+        let mainCategory = $('.filter_catogery.active');
+        if (mainCategory.length) {
+            mainCategory.siblings('.sub-category').addClass('visible');
+            $('.filter_sub_catogery.active').removeClass('active');
+        } else {
+            let subCategory = $('.sub-category .filter_sub_catogery.active');
+            if(subCategory.closest('.third-level-links').length) {
+                subCategory.closest('.third-level-links').addClass('visible');
+                subCategory.closest('.second-level-item').addClass('active');
+                $('.second-level-item:not(.active) > .filter_sub_catogery').remove();
+            }
+            subCategory.closest('.sub-category').addClass('visible');
+            $('.filter_catogery').each(function(){
+                if(!$(this).siblings('.sub-category.visible').length) {
+                    $(this).remove();
+                }
+            });
+        }
+    });
+
+    $('.grid--view-items').infiniteScroll({
+        path: ".pag-next",
+        append: '.grid__item--collection-template',
+        button: '.view-more-button',
+        // using button, disable loading on scroll
+        scrollThreshold: false,
+        hideNav: '.pagination',
+        checkLastPage: '.pag-next',
+        status: '.page-load-status'
+    });
+
+    var infScroll = $('.grid--view-items').data('infiniteScroll');
+    $('.grid--view-items').on('append.infiniteScroll', function (event, response) {
+        var curNrItem = $(".grid--view-items").children().length;
+        var curOffset = curNrItem / {{ collection.products_count }} * 100;
+
+        $(".curView").text(curNrItem);
+        $(".progress").css("width", curOffset + "%")
+    });
+
+    $('.grid--view-items').on( 'request.infiniteScroll', function( event, path ) {
+        $(".view-more-button .btn-text").addClass("hide");
+    });
+
+    $('.grid--view-items').on( 'load.infiniteScroll', function( event, response, path ) {
+        $(".view-more-button .btn-text").removeClass("hide");
+    });
+</script>
+
+{% schema %}
+{
+  "name": "Collection pages",
+  "settings": [
+    {
+      "type": "range",
+      "id": "grid",
+      "label": "Products per row (grid only)",
+      "default": 4,
+      "min": 2,
+      "max": 4,
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "label": "Show collection image",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sort_enable",
+      "label": "Enable sorting",
+      "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "category_list",
+      "label": "Category Linklist"
+    },
+    {
+        "type": "link_list",
+        "id": "link_list",
+        "label": "First menu"
+    }
+  ]
+}
+{% endschema %}

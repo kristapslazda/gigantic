@@ -1,0 +1,30 @@
+<div class="pageimgWT imgWT" data-section-id="{{ section.id }}">
+    <div class="image-container">
+        {% if section.settings.image != blank %}
+        {%- assign img_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <img class="lazyload" data-sizes="auto" src="{{ image | img_url: '300x300' }}" data-src="{{ img_url }}" alt="{{ section.settings.featured_title }}">
+        {% endif %}
+    </div>
+    {%- assign badge_url = section.settings.badge | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+    {% if section.settings.badge != blank %}<div class="badge"><img class="lazyload" data-sizes="auto" src="{{ section.settings.badge | img_url: '300x300' }}" data-src="{{ badge_url }}" alt="{{ section.settings.featured_title }}"></div>{% endif %}
+    <div class="text-container container">
+        <div class="caption">
+            {% include 'breadcrumbs' %}
+            <div class="h1">{{ page.title }}</div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "class": "index-section index-section--featured-product",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ]
+}
+{% endschema %}

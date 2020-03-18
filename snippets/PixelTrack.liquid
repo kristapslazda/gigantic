@@ -1,0 +1,77 @@
+{%- if settings.fbPixel_code1 != blank -%}
+{%comment%}
+	NOTE: Add the following to add to cart functions
+	window.dispatchEvent(new CustomEvent('itemAdded', { detail: line_item }));
+
+	NOTE: Gigantic specific integrations:
+	- upsell_cart-section ATC function
+	- ShopifyAPI.addItemFromForm
+{% endcomment %}
+<!-- Facebook Pixel Code -->
+<script async>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+   n.queue=[];t=b.createElement(e);t.async=!0;
+   t.src=v;s=b.getElementsByTagName(e)[0];
+   s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  
+  fbq('init', '{{settings.fbPixel_code1}}');
+  {% if settings.fbPixel_code2 != blank %}
+  fbq('init', '{{ settings.fbPixel_code2 }}');
+  {% endif %}
+  {% if settings.fbPixel_using == false %}
+  // Track every page
+  fbq("track", "PageView");
+  
+  {% if template == "product" %}
+  fbq("track", "ViewContent", {
+    content_type: "product",
+    content_ids: [{{ product.id }}],
+    content_name: "{{ product.title }}",
+    value: {{ product.price | divided_by:100 }},
+    currency: "{{ shop.currency }}",
+    content_category: "{% for collection in product.collections %}{{ collection.title }}{% unless forloop.last == true %} > {% endunless %}{% endfor %}"
+  });
+  {% endif %}
+ 
+  {% if template == "search" %}
+  {%- if search.performed -%}
+  fbq("track", "Search", {
+    search_string: "{{ search.terms }}"
+  });
+  {%- endif -%}
+  {% endif %}
+  
+  // Add to cart tracking
+  $(document).ready(function() {
+      $(window).on('itemAdded', function (e) {
+        
+        var prod = e.detail,
+            price = (prod.price / 100);
+
+        fbq("trackSingle", "{{ settings.fbPixel_code1 }}", "AddToCart", {
+          content_type: "product",
+          content_ids: [prod.id],
+          content_name: prod.title,
+          value: price,
+          num_items: prod.quantity,
+          currency: "{{ shop.currency }}"
+        });
+        {% if settings.fbPixel_code2 != blank %}
+        fbq("trackSingle", "{{ settings.fbPixel_code2 }}", "AddToCart", {
+          content_type: "product",
+          content_ids: [prod.id],
+          content_name: prod.title,
+          value: price,
+          num_items: prod.quantity,
+          currency: "{{ shop.currency }}"
+        });
+        {% endif %}
+      });
+    });
+  {% endif %}
+</script>
+<!-- Facebook Pixel Code END -->
+{%- endif -%}

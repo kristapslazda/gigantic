@@ -1,0 +1,62 @@
+<div class="imgWT" data-section-id="{{ section.id }}">
+    <div class="image-container">
+        {%- assign img_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <img class="lazyload" data-sizes="auto" data-widths="[300, 400, 540, 720]" src="{{ image | img_url: '300x300' }}" data-src="{{ img_url }}" alt="{{ section.settings.featured_title }}">
+    </div>
+  {%- assign badge_url = section.settings.badge | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+  {% if section.settings.badge != blank %}<div class="badge"><img class="lazyload" data-sizes="auto" src="{{ section.settings.badge | img_url: '300x300' }}" data-src="{{ badge_url }}" alt="{{ section.settings.featured_title }}"></div>{% endif %}
+    <div class="text-container">
+      <div class="caption">
+        <div class="h1">{{ section.settings.featured_title }}</div>
+        <div class="desc">
+          {{ section.settings.text }}
+        </div>
+        {% if section.settings.button_link != blank %}<a href="{{ section.settings.button_link }}" class="btn">{{ section.settings.button_label }}<span class="icon-arrow">{% include "icon-arrow-right" %}</span></a>{% endif %}
+      </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "class": "index-section index-section--featured-product",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge",
+      "label": "Badge"
+    },
+    {
+      "type": "text",
+      "id": "featured_title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with text",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,118 @@
+<div id="selling-points" class="container">
+
+        <div class="selling-point-wrap">
+            {% if settings.usp_title1 != blank %}
+                <div class="usp-point">
+                    {% assign svg = settings.usp_point_icon1 %}
+                    {% if settings.usp_point_icon1 != blank %}<img style="width: 20px;height: 20px;" src="{{ svg | file_url }}" alt="">{% endif %}
+                    <div>
+                        <b>{{ settings.usp_title1 | split: "-" | first }}</b>
+                        {{ settings.usp_title1 | split: "-" | last }}
+                    </div>
+                </div>
+            {% endif %}
+            {% if settings.usp_title2 != blank %}
+                <div class="usp-point">
+                    {% assign svg = settings.usp_point_icon2 %}
+                    {% if settings.usp_point_icon2 != blank %}<img style="width: 20px;height: 20px;" src="{{ svg | file_url }}" alt="">{% endif %}
+                    <div>
+                        <b>{{ settings.usp_title2 | split: "-" | first }}</b>
+                        {{ settings.usp_title2 | split: "-" | last }}
+                    </div>
+                </div>
+            {% endif %}
+            {% if settings.usp_title3 != blank %}
+                <div class="usp-point">
+                    {% assign svg = settings.usp_point_icon3 %}
+                    {% if settings.usp_point_icon3 != blank %}<img style="width: 20px;height: 20px;" src="{{ svg | file_url }}" alt="">{% endif %}
+                    <div>
+                        <b>{{ settings.usp_title3 | split: "-" | first }}</b>
+                        {{ settings.usp_title3 | split: "-" | last }}
+                    </div>
+                </div>
+            {% endif %}
+            {% if settings.usp_title4 != blank %}
+                <div class="usp-point">
+                    {% assign svg = settings.usp_point_icon4 %}
+                    {% if settings.usp_point_icon4 != blank %}<img style="width: 20px;height: 20px;" src="{{ svg | file_url }}" alt="">{% endif %}
+                    <div>
+                        <b>{{ settings.usp_title4 | split: "-" | first }}</b>
+                        {{ settings.usp_title4 | split: "-" | last }}
+                    </div>
+                </div>
+            {% endif %}
+            {% if settings.usp_title5 != blank %}
+                <div class="usp-point">
+                    {% assign svg = settings.usp_point_icon5 %}
+                    {% if settings.usp_point_icon5 != blank %}<img style="width: 20px;height: 20px;" src="{{ svg | file_url }}" alt="">{% endif %}
+                    <div>
+                        <b>{{ settings.usp_title5 | split: "-" | first }}</b>
+                        {{ settings.usp_title5 | split: "-" | last }}
+                    </div>
+                </div>
+            {% endif %}
+            {% if settings.usp_title6 != blank %}
+                <div class="usp-point">
+                    {% assign svg = settings.usp_point_icon6 %}
+                    {% if settings.usp_point_icon6 != blank %}<img style="width: 20px;height: 20px;" src="{{ svg | file_url }}" alt="">{% endif %}
+                    <div>
+                        <b>{{ settings.usp_title6 | split: "-" | first }}</b>
+                        {{ settings.usp_title6 | split: "-" | last }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="selling-point-control-btn">
+            <div class="prev4">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
+                    <g>
+                        <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z"/>
+                    </g>
+                </svg>
+            </div>
+            <div class="next4">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
+                    <g>
+                        <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+</div>
+
+<script>
+    $('.selling-point-wrap').slick({
+        prevArrow: $('.prev4'),
+        nextArrow: $('.next4'),
+        responsive: [
+            {
+                breakpoint: 2320,
+                settings: "unslick"
+            },
+            {
+                breakpoint: 1024,
+                settings: {
+                    autoplay: true,
+                    arrow: true,
+                    infinite: true
+                }
+            }
+        ]
+    });
+</script>
+
+{% schema %}
+{
+  "name": "Selling Points",
+  "class": "selling-points-section",
+  "presets": [
+    {
+      "category": "Content",
+      "name": "Selling Points"
+    }
+  ]
+}
+{% endschema %}

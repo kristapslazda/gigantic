@@ -1,0 +1,38 @@
+<div class="overlay"></div>
+<div class="alert">
+  <p class="h2 text-center">{{ section.settings.title }}</p>
+  <div>{{ section.settings.text }}</div>
+  <div class="grid">
+    <div class="grid__item">
+      <div id="terms_disagree" class="btn-terms">{{ 'cart.terms_and_conditions.disagree' | t }}</div>
+    </div>
+    <div class="grid__item">
+      <div id="terms_agree" class="btn-terms">{{ 'cart.terms_and_conditions.accept' | t }}</div>
+    </div>
+  </div>
+  <div class="read-terms">
+  	{%assign pContent = settings.tos_termsurl | split: "/pages/" | last %}
+    <div class="showTos">- <div class="cHidden">{{'cart.terms_and_conditions.show_tos' | t}}</div><div class="cShown hide">{{'cart.terms_and_conditions.hide_tos' | t}}</div>-</div>
+    <div class="tosText"><h2 style="text-align:center">{{pages[pContent].title}}</h2>{{pages[pContent].content}}</div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Cart alert",
+	"class": "cart-alert-section visually-hidden",
+    "settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title",
+			"default": "Handelsbetingelser"
+		},
+		{
+			"type": "richtext",
+			"id": "text",
+			"label": "Text"
+		}
+	]
+  }
+{% endschema %}

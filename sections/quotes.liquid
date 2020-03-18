@@ -1,0 +1,137 @@
+<div class="container" data-section-id="{{ section.id }}" data-section-type="quotes">
+  {% if section.settings.title != blank %}
+    <div class="section-header text-center">
+      <h2 class="h1">{{ section.settings.title | escape }}</h2>
+    </div>
+  {% endif %}
+
+  {% if section.blocks.size > 0 %}
+    <div class="quotes-wrapper">
+      <div class="quotes-slider">
+        {% for block in section.blocks %}
+          <div class="quotes-slide--{{ block.id }}" {{ block.shopify_attributes }}>
+            <blockquote class="quotes-slider__text text-center">
+              {%if block.settings.image != blank%}
+              <div class="image-container">
+                {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                <img class="lazyload" data-sizes="auto" data-widths="[75,100]" src="{{ image | img_url: '50x' }}" data-src="{{ img_url }}" alt="{{ section.settings.featured_title }}">
+              </div>
+              {% endif %}
+              <div class="stars">
+              {% for i in (1..block.settings.stars) %}
+                <i style="margin-left: 2px; color:#f3c621;" class="fa fa-star"></i>
+              {% endfor %}
+                </div>
+              {% if block.settings.quote != blank %}
+              {%assign qText = block.settings.quote | strip_html %}
+              <div class="rte-setting rte"><p>“ {{ qText }} „</p></div>
+              {% endif %}
+              {% if block.settings.author != blank %}
+                <cite>{{ block.settings.author | escape }}</cite>
+              {% endif %}
+            </blockquote>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="quote-prev">{% include "icon-chevron-left" %}</div>
+      <div class="quote-next">{% include "icon-chevron-right" %}</div>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  $(".quotes-slider").slick({
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    prevArrow: $(".quote-prev"),
+    nextArrow: $(".quote-next"),
+    responsive: [
+      {
+        breakpoint: 1440,
+        settings: {
+          slidesToShow: 4
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: '40px',
+          arrows: false,
+          dots: true
+        }
+      }
+    ]
+  })
+</script>
+
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "class": "quotes-section",
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Testimonials"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "stars",
+          "min":0,
+          "max":5,
+          "step": 1,
+          "unit":"s",
+          "label":"Stars",
+          "default": 5
+        },
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Text",
+          "default": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Author's name"
+		},
+		{
+		  "type": "image_picker",
+		  "id": "image",
+		  "label": "Image"
+		}
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

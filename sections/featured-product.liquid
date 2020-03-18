@@ -1,0 +1,123 @@
+{%- assign product = all_products[section.settings.featured_product] -%}
+
+<div class="fp-wrapper" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="caption">
+      <h2 class="h1">{{ section.settings.featured_title }}</h2>
+      <div class="product-price limoniapps-discountninja-productprice">
+         {% assign current_variant = product.selected_or_first_available_variant %}
+        <p class="price">
+         {% if current_variant.compare_at_price > current_variant.price %}
+           <span class="product-single__price--wrapper" aria-hidden="false">
+             <span id="ComparePrice" class="product-single__price--compare-at"><s>{{ current_variant.compare_at_price | money }}</s></span>
+             <span class="sale-price">{{ current_variant.price | money }}</span>
+           </span>
+         {% else %}
+           <span class="product-single__price--wrapper">
+             <span id="ComparePrice" class="product-single__price--compare-at">{{ current_variant.price | money }}</span>
+           </span>
+         {% endif %}
+        </p>
+      </div>
+      <a href="{{ product.url }}" class="btn">{% if section.settings.button_label != blank %}{{ section.settings.button_label }}{% else %}{{ 'general.sections.to_product' | t }}{% endif %}<span class="icon-arrow">{% include "icon-arrow-right" %}</span></a>
+      <div id="hurrify" data-product-id="{{ product.id }}"></div>
+    </div>
+  </div>
+
+  <div class="fp__slider--wrapper">
+    <div class="fp__slider">
+      {% for image in product.images %}
+        {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <div class="fp__slide">
+          <img class="lazyload" data-sizes="auto" data-src="{{ img_url }}" alt="{{ product.title }}">
+        </div>
+      {% endfor %}
+    </div>
+    <div class="product-info">
+      <div class="product-title h2">{{ product.title }}</div>
+      <div class="product-excerpt">{{ product.description | truncatewords: 15 }}</div>
+    </div>
+    <div class="fp-slider-prev"></div>
+    <div class="fp-slider-next"></div>
+  </div>
+</div>
+
+<script>
+  $(".fp__slider").slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    dots: true,
+    prevArrow: $('[data-section-id="{{ section.id }}"] .fp-slider-prev'),
+    nextArrow: $('[data-section-id="{{ section.id }}"] .fp-slider-next'),
+    infinite: false
+  })
+</script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "url": {{ shop.url | append: product.url | json }},
+  {%- if product.featured_image -%}
+  {%- assign image_size = product.featured_image.width | append: 'x' -%}
+    "image": [
+      {{ product.featured_image.src | img_url: image_size | prepend: "https:" | json }}
+    ],
+  {%- endif -%}
+  "description": {{ product.description | strip_html | json }},
+  {%- if current_variant.sku != blank -%}
+    "sku": {{ current_variant.sku | json }},
+  {%- endif -%}
+  "brand": {
+    "@type": "Thing",
+    "name": {{ product.vendor | json }}
+  },
+  "offers": [
+    {%- for variant in product.variants -%}
+      {
+        "@type" : "Offer",
+        {%- if variant.sku != blank -%}
+          "sku": {{ variant.sku | json }},
+        {%- endif -%}
+        "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+        "price" : {{ variant.price | divided_by: 100.00 | json }},
+        "priceCurrency" : {{ cart.currency.iso_code | json }},
+        "url" : {{ shop.url | append: variant.url | json }}
+      }{% unless forloop.last %}{% endunless %}
+  {%- endfor -%}
+  ]
+}
+
+</script>
+
+{% schema %}
+{
+  "name": "Featured product",
+  "class": "index-section index-section--featured-product",
+  "settings": [
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "featured_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured product",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

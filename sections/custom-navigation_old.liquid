@@ -1,0 +1,227 @@
+<div class="mega-menu_for advanced-menu" data-for="{{ section.settings.megamenu_for }}">
+    <h4 class="mobile-nav-header">{{section.settings.mobile_nav_header}}</h4>
+    {% for block in section.blocks %}
+      {% if block.type == "menu" %}
+        {% if linklists[block.settings.link_list].links.size > 0 %}
+          <div class="first-level-list">
+            <ul>
+              {% for link in linklists[block.settings.link_list].links %}
+                {% for block in section.blocks %}
+                  {% if block.type == "link_icon" and block.settings.link_text == link.title %} 
+                    {% assign menu_item_image = block.settings.link_image | img_url: 'master' %}
+                  {% endif %}
+                {% endfor %}
+                <li>
+                  <a href="{{ link.url }}" data-collection-name="{{link.title}}" onMouseover="hoveMenuItems(this)" data-link-id={{forloop.index}}>{% if menu_item_image %}{{menu_item_image | img_tag}}{% endif %}{{ link.title }}</a>
+                </li>
+                {% assign menu_item_image = '' %}
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="second-level-list">
+            {% for link in linklists[block.settings.link_list].links %} 
+              <div class="menu-advanced-block" data-wrapper-id={{forloop.index}}>
+                <div class="advanced-block-item">
+                  <a class="mobile-arrow-back">{% include "icon-arrow-right" %}</a>
+                    {% if link.links.size > 0 %}
+                    <div class="sub-menu-block">
+                        <a href="{{link.url}}"><h3>{{link.title}}</h3></a>
+                        <ul class="advanced-sub-links">
+                          {% for sub_link in link.links %}
+                            <li class="mobile-second-list">
+                              <a href="{{ sub_link.url }}" data-collection-name="{{sub_link.title}}" onMouseover="hoveSecondMenuItems(this)">{{ sub_link.title }}</a>
+                              {% if sub_link.links.size > 0 %}
+                                <div class="mobile-nav-third-level">
+                                  <a class="third-level-back">{% include "icon-arrow-right" %}</a>
+                                  <a href="{{ sub_link.url }}">
+                                    <h3>{{sub_link.title}}</h3>
+                                  </a>
+                                  <ul>
+                                    {% for third_level_link in sub_link.links %}
+                                      <li>
+                                        <a href="{{ third_level_link.url }}">{{ third_level_link.title }}</a>
+                                      </li>
+                                    {% endfor %}  
+                                  </ul>
+                                </div>
+                              {% endif %}
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    {% endif %}
+                  <div class="featured-products">
+                    {% if link.type == 'collection_link' %}
+                      <h3>{{section.settings.best_seller_text}} <span class="category-name">{{link.title}}</span></h3>
+
+                          {% assign current_collection = link.url | split: '/' | last %}
+                          <div class="collection-related-products first-level-products visible">
+                              {% for collection_item in collections %}
+                                {% if collection_item.handle == current_collection %}
+                                  {% assign first_product = collection_item.products[0] %}
+                                  {% assign current_first_variant = first_product.selected_or_first_available_variant %}
+
+                                  <div class="featured-block">
+                                      <a href="{{first_product.url}}">
+                                          <div class="featured-product-image">
+                                              <img src="{{first_product.featured_image | img_url: '300x'}}"/>
+                                          </div>
+                                          <h4>{{ first_product.title }}</h4>
+                                          <p class="price">
+                                              {% if current_first_variant.compare_at_price > current_first_variant.price %}
+                                                  <span class="product-single__price--wrapper" aria-hidden="false">
+                                                      <span id="ComparePrice" class="product-single__price--compare-at" style="font-weight: 400"><s>{{ current_first_variant.compare_at_price | money }}</s></span>
+                                                  </span>
+                                                  <span id="ComparePriceA11y" class="sale-price">{{ current_first_variant.price | money }}</span>
+                                              {% else %}
+                                                  <span id="ComparePriceA11y">{{ current_first_variant.price | money }}</span>
+                                              {% endif %}
+                                          </p>
+                                      </a>
+                                  </div>
+
+                                  {% assign second_product = collection_item.products[1] %}
+                                  {% assign current_second_variant = second_product.selected_or_first_available_variant %}
+
+                                  <div class="featured-block">  
+                                      <a href="{{second_product.url}}">
+                                          <div class="featured-product-image">
+                                              <img src="{{second_product.featured_image | img_url: '300x'}}"/>
+                                          </div>
+                                          <h4>{{ second_product.title }}</h4>
+                                          <p class="price">
+                                              {% if current_second_variant.compare_at_price > current_second_variant.price %}
+                                                  <span class="product-single__price--wrapper" aria-hidden="false">
+                                                      <span id="ComparePrice" class="product-single__price--compare-at" style="font-weight: 400"><s>{{ current_second_variant.compare_at_price | money }}</s></span>
+                                                  </span>
+                                                  <span id="ComparePriceA11y" class="sale-price">{{ current_second_variant.price | money }}</span>
+                                              {% else %}
+                                                  <span id="ComparePriceA11y">{{ current_second_variant.price | money }}</span>
+                                              {% endif %}
+                                          </p>
+                                      </a>
+                                  </div>
+
+                                {% endif %}
+                              {% endfor %}
+                          </div>
+
+                      {% if link.links.size > 0 %}
+                        {% for sub_links in link.links %}
+
+                          {% assign current_collection = sub_links.url | split: '/' | last %}
+
+                          <div class="collection-related-products" data-collection="{{sub_links.url}}">
+                              {% for collection_item in collections %}
+                                {% if collection_item.handle == current_collection %}
+                                    {% assign first_product = collection_item.products[0] %}
+                                  {% assign current_first_variant = first_product.selected_or_first_available_variant %}
+
+                                  <div class="featured-block">
+                                      <a href="{{first_product.url}}">
+                                          <div class="featured-product-image">
+                                              <img src="{{first_product.featured_image | img_url: '300x'}}"/>
+                                          </div>
+                                          <h4>{{ first_product.title }}</h4>
+                                          <p class="price">
+                                              {% if current_first_variant.compare_at_price > current_first_variant.price %}
+                                                  <span class="product-single__price--wrapper" aria-hidden="false">
+                                                      <span id="ComparePrice" class="product-single__price--compare-at" style="font-weight: 400"><s>{{ current_first_variant.compare_at_price | money }}</s></span>
+                                                  </span>
+                                                  <span id="ComparePriceA11y" class="sale-price">{{ current_first_variant.price | money }}</span>
+                                              {% else %}
+                                                  <span id="ComparePriceA11y">{{ current_first_variant.price | money }}</span>
+                                              {% endif %}
+                                          </p>
+                                      </a>
+                                  </div>
+
+                                  {% assign second_product = collection_item.products[1] %}
+                                  {% assign current_second_variant = second_product.selected_or_first_available_variant %}
+
+                                  <div class="featured-block">  
+                                      <a href="{{second_product.url}}">
+                                          <div class="featured-product-image">
+                                              <img src="{{second_product.featured_image | img_url: '300x'}}"/>
+                                          </div>
+                                          <h4>{{ second_product.title }}</h4>
+                                          <p class="price">
+                                              {% if current_second_variant.compare_at_price > current_second_variant.price %}
+                                                  <span class="product-single__price--wrapper" aria-hidden="false">
+                                                      <span id="ComparePrice" class="product-single__price--compare-at" style="font-weight: 400"><s>{{ current_second_variant.compare_at_price | money }}</s></span>
+                                                  </span>
+                                                  <span id="ComparePriceA11y" class="sale-price">{{ current_second_variant.price | money }}</span>
+                                              {% else %}
+                                                  <span id="ComparePriceA11y">{{ current_second_variant.price | money }}</span>
+                                              {% endif %}
+                                          </p>
+                                      </a>
+                                  </div>
+                                {% endif %}
+                              {% endfor %}
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endfor %}     
+</div>
+
+{% schema %}
+{
+  "name": "Custom Navigation",
+  "class": "mega-menu_section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "megamenu_for",
+      "label": "Menu item"
+    },
+    {
+      "type": "text",
+      "id": "best_seller_text",
+      "label": "Best Sellers text"
+    }, 
+    {
+      "type": "text",
+      "id": "mobile_nav_header",
+      "label": "Mobile Navigation Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Linklist",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "link_list",
+          "label": "First menu"
+        }
+      ]
+    },
+    {
+      "type": "link_icon",
+      "name": "Link Icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "link_image",
+          "label": "Icon"
+        }, 
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Menu Item Title"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,140 @@
+{% if section.blocks.size > 0 %}
+    <div class="product-tabs tabs">
+        <div class="container">
+            <ul class="tabs__nav">
+                {% assign tab_index = 0 %}
+
+                {%- for block in section.blocks -%}
+                    <li class="tabs__nav-item {% if tab_index == 0 %}tabs__nav-item--active{% endif %}{% if block.type == "reviews" %} reviews-tab-heading{% endif %}" {{ block.shopify_attributes }}
+                        data-tab-index="{{ tab_index }}">
+                        {%- case block.type -%}
+
+                        {%- when 'description' -%}
+                            {{ 'products.product.description' | t }}
+                        {% when 'reviews' %}
+                            {{ 'products.product.reviews' | t }}
+               
+                <i style="margin-left: 2px; color:#f3c621; font-size: 14px;" class="fa fa-star"></i>
+                <i style="margin-left: 1px; color:#f3c621; font-size: 14px;" class="fa fa-star"></i>
+                <i style="margin-left: 1px; color:#f3c621; font-size: 14px;" class="fa fa-star"></i>
+                <i style="margin-left: 1px; color:#f3c621; font-size: 14px;" class="fa fa-star"></i>
+                <i style="margin-left: 1px; color:#f3c621; font-size: 14px;" class="fa fa-star"></i>
+
+                        {%- when 'global_tab' -%}
+                        {%- assign global_tab_page = pages[block.settings.page] -%}
+
+                            {%- unless global_tab_page.empty? -%}
+                                {{ global_tab_page.title }}
+                            {%- endunless -%}
+                        {%- endcase -%}
+                    </li>
+                    {% assign tab_index = tab_index | plus: 1 %}
+                {%- endfor -%}
+
+                {% for tag in product.tags %}
+                    {% if tag contains "tab_" %}
+                        <li class="tabs__nav-item custom-tab {% if tab_index == 0 %}tabs__nav-item--active{% endif %}"
+                            data-tab-index="{{ tab_index }}">
+                            {{ tag | split: "tab_" | last | replace: "-", " " }}
+                            {% assign tab_index = tab_index | plus: 1 %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+
+            <div class="tabs__content">
+                {% assign tab_index = 0 %}
+
+                {% for block in section.blocks %}
+                    <div class="tabs__content-item {% if tab_index == 0 %}tabs__content-item--active{% endif %}">
+                        {% case block.type %}
+
+                        {% when 'description' %}
+                            <div class="descriptiontab">
+                                <div class="rte">
+                                    {{ product.description }}
+                                </div>
+                            </div>
+                        {% when 'reviews' %}
+                            <div class="reviews-tab">
+                                {% if settings.use_aliexpress %}{% include 'aliexpress_reviews' %}{% endif %}
+                            </div>
+                        {% when 'global_tab' %}
+                        {% assign global_tab_page = pages[block.settings.page] %}
+
+                            {% unless global_tab_page.empty? %}
+                                <div class="rte">
+                                    {{ global_tab_page.content }}
+                                </div>
+                            {% endunless %}
+                        {% endcase %}
+                    </div>
+
+                    {% assign tab_index = tab_index | plus: 1 %}
+                {% endfor %}
+                {% for tag in product.tags %}
+                    {% if tag contains "tab_" %}
+                        <div class="tabs__content-item {% if tab_index == 0 %}tabs__content-item--active{% endif %}">
+                            <div class="rte">
+                                {% assign pageC = tag | split: "tab_" | last %}
+                                {{ pages[pageC].content }}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Product tabs",
+  "class": "shopify-section__product-tabs",
+  "blocks": [
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Product's description will be inserted in this tab."
+        }
+      ]
+    },
+    {
+      "type": "reviews",
+      "name": "Reviews",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Product's reviews will be inserted in this tab."
+        }
+      ]
+    },
+    {
+      "type": "global_tab",
+      "name": "Global tab",
+      "settings": [
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Page",
+          "info": "The title and content of the page will be used for the tab"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "description",
+        "settings": {}
+      }
+    ]
+  }
+}
+{% endschema %}
