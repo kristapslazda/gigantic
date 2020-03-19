@@ -510,7 +510,7 @@ slate.Variants = (function() {
       }
       
       if(inventory_quantity <= 0 ){
-        var html_outof_stock = '<label class="outof-stock">{{ settings.stock_label_below_0 }}</label> <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
+        var html_outof_stock = '<label class="out_of_stock">{{ settings.stock_label_below_0 }}</label> <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
       	$('.stock-status-wrapper').html(html_outof_stock);
       }
       
@@ -548,7 +548,7 @@ slate.Variants = (function() {
       }
       
       if(inventory_quantity <= 0 ){
-        var html_outof_stock = '<label class="outof-stock">{{ settings.stock_label_below_0 }}</label> <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
+        var html_outof_stock = '<label class="out_of_stock">{{ settings.stock_label_below_0 }}</label> <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
       	$('.stock-status-wrapper').html(html_outof_stock);
       }
       
@@ -4277,7 +4277,7 @@ function updateModalStock(chosen_variant, product_id) {
   if( variant_qty >= 10 ){
     html_in_stock = '<label class="in-stock">{{ settings.stock_label_above_10 }}</label> <p class="stock-status">{{ settings.delivery_time_above_10 }}</p>';
   } else {
-    html_in_stock = '<label class="outof-stock">{{ settings.stock_label_below_0 }}</label> <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
+    html_in_stock = '<label class="out_of_stock">{{ settings.stock_label_below_0 }}</label> <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
   }
   
   qty_status_el.html(html_in_stock);
