@@ -7224,11 +7224,6 @@ form.search .search__input,
   left: 10px;
 }
 
-.template-collection #collection-page--wrap #Collection .collection-header {
-  /* display: flex; */
-  /* justify-content: space-between; */
-}
-
 .template-collection #collection-page--wrap #Collection .collection-header .h1 {
   margin: 0;
 }
@@ -7876,10 +7871,7 @@ form.search .search__input,
   background: rgba(34, 34, 34, 0.5);
   color: #fff;
 }
-.product-single .product__image-wrapper .img-wrap img {
-  /* width: 100%; */
 
-}
 .product-single .product-details-wrapper {
   width: 40%;
 }
