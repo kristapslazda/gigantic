@@ -1,1 +1,99 @@
-{"general":{"pagination":{"showing_html":" "},"filters":{"sort_by":"Zwarte stad"},"payment":{"method":"Betaalmethodes"},"social":{"social_title":"Volg ons hier"},"search":{"title":"Doorzoek onze site"},"404":{"title":"Pagina niet gevonden","subtext":"Pagina niet gevonden","link":"Doorgaan met winkelen"}},"collections":{"general":{"view_more":"Laat meer zien"}},"layout":{"navigation":{"see_all":"Alles zien"}},"products":{"product":{"add_to_cart":"Voeg toe aan winkelwagen","productBundle_html":"Koop {{ amount }} voor <span class='price'>{{ price }}<\/span> p.st. en <i>bespaar {{ percentage }}<\/i>","description":"Productomschrijving","reviews":"Beoordelingen"}},"cart":{"general":{"title":"Jouw winkelwagen","subtotal":"Subtotaal","remove":"Verwijderen","shipping_label":"Verzendkosten","estimated-total":"Geschatte","checkout":"Naar de kassa","shipping_free":"Vrij","terms_html":"Ik accepteer onze  <a href=\"#\">algemene voorwaarden<\/a>","empty":"Uw winkelwagen is momenteel leeg"},"label":{"overview":"Overzicht van de bestelling"},"upsell":{"popup_addtocart":"Voeg toe aan winkelwagen"},"terms_and_conditions":{"disagree":"Het oneens zijn","accept":"Ik accepteer","show_tos":"Algemene voorwaarden weergeven","hide_tos":"Algemene voorwaarden verbergen"}},"shopify":{"checkout":{"contact":{"optional_first_name_label":"Voornaam","address_title":"Straat","address1_label":"Straat"}}}}
+{
+  "general": {
+    "pagination": {
+      "showing_html": " ",
+      "previous": "Vorige bladzijde",
+      "current_page": "Pagina {{ current }} van {{ total }}",
+      "next": "Volgende bladzijde"
+    },
+    "filters": {
+      "sort_by": "Zwarte stad"
+    },
+    "payment": {
+      "method": "Betaalmethodes"
+    },
+    "social": {
+      "social_title": "Volg ons hier"
+    },
+    "search": {
+      "title": "Doorzoek onze site",
+      "submit": "Zoek",
+      "results_with_count": {
+        "one": "{{ count }} resultaat voor \"{{ terms }}\"",
+        "other": "{{ count }} resultaten voor \"{{ terms }}\""
+      },
+      "heading": "Zoekresultaten"
+    },
+    "404": {
+      "title": "Pagina niet gevonden",
+      "subtext": "Pagina niet gevonden",
+      "link": "Doorgaan met winkelen"
+    }
+  },
+  "collections": {
+    "general": {
+      "view_more": "Laat meer zien"
+    }
+  },
+  "layout": {
+    "navigation": {
+      "see_all": "Alles zien"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Voeg toe aan winkelwagen",
+      "productBundle_html": "Koop {{ amount }} voor <span class='price'>{{ price }}<\/span> p.st. en <i>bespaar {{ percentage }}<\/i>",
+      "description": "Productomschrijving",
+      "reviews": "Beoordelingen",
+      "satisfaction_guarantee": "Tevredenheidsgarantie",
+      "in_stock_status": "Op voorraad",
+      "deliverytime": "Levertijd",
+      "deliverydays": "dagen",
+      "USP1": "Gratis verzending als je 2 items koopt",
+      "USP2": "Snelle ondersteuning",
+      "USP2vidadrobs": "Snelle ondersteuning",
+      "USP3": "60 dagen bedenktijd"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Jouw winkelwagen",
+      "subtotal": "Subtotaal",
+      "remove": "Verwijderen",
+      "shipping_label": "Verzendkosten",
+      "estimated-total": "Geschatte",
+      "checkout": "Naar de kassa",
+      "shipping_free": "Vrij",
+      "terms_html": "Ik accepteer onze  <a href=\"#\">algemene voorwaarden<\/a>",
+      "empty": "Uw winkelwagen is momenteel leeg",
+      "continue_shopping": "Doorgaan met winkelen",
+      "update": "Bijwerken"
+    },
+    "label": {
+      "overview": "Overzicht van de bestelling",
+      "product": "Product",
+      "price": "Prijs",
+      "quantity": "Aantal",
+      "total": "Totale"
+    },
+    "upsell": {
+      "popup_addtocart": "Voeg toe aan winkelwagen"
+    },
+    "terms_and_conditions": {
+      "disagree": "Het oneens zijn",
+      "accept": "Ik accepteer",
+      "show_tos": "Algemene voorwaarden weergeven",
+      "hide_tos": "Algemene voorwaarden verbergen"
+    }
+  },
+  "shopify": {
+    "checkout": {
+      "contact": {
+        "optional_first_name_label": "Voornaam",
+        "address_title": "Straat",
+        "address1_label": "Straat"
+      }
+    }
+  }
+}

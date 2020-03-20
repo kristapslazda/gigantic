@@ -108,7 +108,7 @@
               
                 <table id="tilfredshedsgaranti" style="margin-bottom: 15px;">
 				<tr>
-				<td><strong>&nbsp;&nbsp;&#10003;&nbsp;&nbsp;Tilfredshedsgaranti&nbsp;&nbsp;</strong></td>
+				<td><strong>&nbsp;&nbsp;&#10003;&nbsp;&nbsp;{{ 'products.product.satisfaction_guarantee' | t }}&nbsp;&nbsp;</strong></td>
 				</tr>
 				</table>
              
@@ -127,9 +127,17 @@
                  {% endfor %}
             </div>
               
-              <div class="stock-status-wrapper">
-                
-              </div>
+            {% unless product.tags contains 'vidaxl' or product.tags contains 'Drobbs' %}  
+              <div class="stock-status-wrapper"></div>
+            {% endunless %}
+              
+            {% if product.tags contains 'vidaxl' or product.tags contains 'Drobbs' %}
+              <div class="stock-status-wrapper1">
+                <label class="in-stock1" style="background: #07a18f !important;color: #fff;padding: 2px 12px;font-size: 16px;font-weight: 500;border-radius: 2px;">{{ 'products.product.in_stock_status' | t }}</label>
+                <p class="stock-status1" style="margin: 2px auto;font-size: 14px;color: #888;">{{ 'products.product.deliverytime' | t }}: 4-6 {{ 'products.product.deliverydays' | t }}</p></div>
+			{% endif %}
+              
+              
                     {% include 'sca_freegift_price' with product %}
                     <div class="product-single__variants-wrapper{% if sca_product_variantCount == 1 %} only-default{% endif %}">
                         {% unless product.has_only_default_variant %}
@@ -289,9 +297,14 @@
 
               <div class="trustbullets" style="text-align: center;">
               <p>
-                <span style="border: 0px; margin: 0px; padding: 0px; color: #07a18f;">✓&nbsp;</span>Gratis fragt ved køb af 2 varer<br>
-				<span style="border: 0px; margin: 0px; padding: 0px; color: #07a18f;">✓&nbsp;</span>Hurtig levering (1-3 dage)<br>
-				<span style="border: 0px; margin: 0px; padding: 0px; color: #07a18f;">✓&nbsp;</span>60 dages returret<br>
+                <span style="border: 0px; margin: 0px; padding: 0px; color: #07a18f;">✓&nbsp;</span>{{ 'products.product.USP1' | t }}<br>
+                {% unless product.tags contains 'vidaxl' or product.tags contains 'Drobbs' %}  
+				<span style="border: 0px; margin: 0px; padding: 0px; color: #07a18f;">✓&nbsp;</span>{{ 'products.product.USP2' | t }}<br>
+                {% endunless %}
+                {% if product.tags contains 'vidaxl' or product.tags contains 'Drobbs' %}
+                <span style="border: 0px; margin: 0px; padding: 0px; color: #07a18f;">✓&nbsp;</span>{{ 'products.product.USP2vidadrobs' | t }}<br>
+                {% endif %}
+				<span style="border: 0px; margin: 0px; padding: 0px; color: #07a18f;">✓&nbsp;</span>{{ 'products.product.USP3' | t }}<br>
               </p>
                 </div>
               

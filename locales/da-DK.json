@@ -392,7 +392,15 @@
       "unit_price_label": "Pris pr. stk.",
       "view_cart": "Se indkøbskurv",
       "more_images": "Se [count] billeder mere",
-      "productBundle_html": "Køb {{ amount }} for <span class='price'>{{ price }}<\/span> pr. stk. og <i>spar {{ percentage }}<\/i>"
+      "productBundle_html": "Køb {{ amount }} for <span class='price'>{{ price }}<\/span> pr. stk. og <i>spar {{ percentage }}<\/i>",
+      "satisfaction_guarantee": "Tilfredshedsgaranti",
+      "in_stock_status": "På lager",
+      "deliverytime": "Leveringstid",
+      "deliverydays": "dage",
+      "USP1": "Gratis fragt ved køb af 2 varer",
+      "USP2": "Hurtig levering (1-3 dage)",
+      "USP2vidadrobs": "Hurtig levering (4-6 dage)",
+      "USP3": "60 dages returret"
     }
   },
   "gift_cards": {
@@ -434,5 +442,50 @@
     "here": "here",
     "free": "FREE",
     "sold_out": "Sold out"
+  },
+  "pagefly": {
+    "products": {
+      "product": {
+        "regular_price": "Normalpris",
+        "sold_out": "Udsolgt",
+        "unavailable": "Ikke tilgængelig",
+        "on_sale": "Tilbud",
+        "quantity": "Antal",
+        "add_to_cart": "Tilføj til kurv",
+        "back_to_collection": "Tilbage til {{ title }}",
+        "view_details": "Vis detaljer"
+      }
+    },
+    "article": {
+      "tags": "Tags",
+      "all_topics": "Alle emner",
+      "by_author": "af {{ author }}",
+      "posted_in": "Skrevet i",
+      "read_more": "Læs mere",
+      "back_to_blog": "Tilbage til {{ title }}"
+    },
+    "comments": {
+      "title": "Skriv en kommentar",
+      "name": "Navn",
+      "email": "Email",
+      "message": "Besked",
+      "post": "Send kommentar",
+      "moderated": "Vær opmærksom på at kommentarer skal godkendes før de bliver vist.",
+      "success_moderated": "Din kommentar er modtaget.",
+      "success": "Din kommentar er modtaget.",
+      "comments_with_count": {
+        "one": "{{ count }} kommentar",
+        "other": "{{ count }} kommentarer"
+      }
+    },
+    "password_page": {
+      "login_form_message": "Indtast password",
+      "login_form_password_label": "Password",
+      "login_form_password_placeholder": "Dit password",
+      "login_form_submit": "Enter",
+      "signup_form_email_label": "Email",
+      "signup_form_success": "Vi sender dig en email før vi åbner",
+      "password_link": "Login med password"
+    }
   }
 }

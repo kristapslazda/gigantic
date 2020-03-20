@@ -50,7 +50,7 @@
       "powered_by_shopify_html": "Denna butik kommer att drivas av {{ shopify }}"
     },
     "social": {
-      "social_title": "Følg med",
+      "social_title": "Sociala medier",
       "share_on_facebook": "Dela",
       "share_on_twitter": "Twittra",
       "share_on_pinterest": "Spara en pin",
@@ -163,16 +163,15 @@
       "taxes_included_but_shipping_at_checkout": "Skatt ingår och frakt beräknas vid utcheckning",
       "taxes_included_and_shipping_policy_html": "Skatt ingår. <a href=\"{{ link }}\">Frakt<\/a> beräknas vid utcheckning.",
       "update": "Uppdatera",
-      "checkout": "Ange leveransadress",
+      "checkout": "Ange leveransadress ➯",
       "shipping_at_checkout": " -",
       "empty": "Din varukorg är för tillfället tom.",
       "cookies_required": "Aktivera cookies för att använda varukorgen",
       "continue_shopping": "Fortsätt shoppa",
       "cart_error": "Ett fel uppstod när du uppdaterade din varukorg. Var god försök igen.",
       "close_cart": "Close Cart",
-      "shipping_label": "Frakt",
-      "estimated-total": "Total",
-      "shipping_free": "Fri"
+      "shipping_free": "Gratis frakt",
+      "terms_html": "Jag accepterar <a href=\"#\">handelsvillkoren<\/a>"
     },
     "label": {
       "discounted_total": "Rabatterad summa",
@@ -185,8 +184,7 @@
       "regular_total": "Regelbunden total",
       "remove": "Ta bort {{ product }}",
       "total": "Totalt",
-      "update": "Uppdatera",
-      "overview": "Översikt"
+      "update": "Uppdatera"
     },
     "popup": {
       "added_to_cart": "Nyss tillagd i din varukorg",
@@ -197,6 +195,12 @@
       "product_details": "Produktinformation",
       "quantity": "Kvantitet",
       "quantity_label": "Kvantitet: {{ quantity_count }}"
+    },
+    "terms_and_conditions": {
+      "disagree": "Avslå",
+      "accept": "Godkänn",
+      "hide_tos": "Dölj handelsvillkoren",
+      "show_tos": "Visa handelsvillkoren"
     }
   },
   "collections": {
@@ -384,7 +388,7 @@
       "on_sale": "Försäljning",
       "sale_price": "Försäljningspris",
       "quantity": "Kvantitet",
-      "add_to_cart": "Lägg till i varukorgen",
+      "add_to_cart": "Lägg i varukorg",
       "loader_label": "Lägger till produkten i din varukorg",
       "back_to_collection": "Gå tillbaka till {{ title }}",
       "vendor": "Säljare",
@@ -396,15 +400,14 @@
       "more_images": "Se [count] andra foton",
       "description": "Produktbeskrivning",
       "reviews": "Recension",
-      "satisfaction_guarantee": "Nöjdhetsgaranti",
-      "in_stock_status": "I lager",
-      "deliverytime": "Leveranstid",
-      "deliverydays": "dagar",
-      "USP1": "Fri frakt vid köp av 2 st.",
-      "USP2": "Försäkrad frakt",
-      "USP2vidadrobs": "Försäkrad frakt",
-      "USP3": "60 dagars returrätt",
-      "productBundle_html": "Köp {{ amount }} för <span class='price'>{{ price }}<\/span> per styck och <i>spara {{ percentage }}<\/i>"
+      "satisfaction_guarantee": "XXXXXXXXXXXXXXXXXX",
+      "in_stock_status": "XXXXXXXXXXXX",
+      "deliverytime": "XXXXXXXXX",
+      "deliverydays": "XXXXXXXXX",
+      "USP1": "Gratis fragt XXXXXXX",
+      "USP2": "Hurtig levering XXXXXX",
+      "USP2vidadrobs": "Hurtig levering XXXXXXXXX",
+      "USP3": "60 dages returret XXXXXX"
     }
   },
   "gift_cards": {
@@ -428,5 +431,14 @@
     "here": "here",
     "free": "FREE",
     "sold_out": "Sold out"
+  },
+  "shopify": {
+    "checkout": {
+      "payment": {
+        "billing_address_description": " ",
+        "card_security_notice": "Vi ber dig välja mellan kortbetalning eller Klarna.",
+        "offsite_gateway_redirect_hint": "Välj önskad betalningsmetod och klicka sedan på den gröna knappen \"Fortsätt\"."
+      }
+    }
   }
 }
