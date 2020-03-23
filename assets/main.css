@@ -6498,7 +6498,8 @@ form.search .search__input,
   display: block;
   transform: translate(-50%, -50%);
 }
-@media (max-width: 1025px) {
+
+@media (max-width: 769px) {
 
   .product-list-slider .col-slider .col-slider-prev, 
   .product-list-slider .col-slider .col-slider-next {
@@ -6522,7 +6523,6 @@ form.search .search__input,
     margin-bottom: 20px;
   }
 
-  /*  
 
   .col-slider .col-slider-prev, .col-slider .col-slider-next {
     display: none;
@@ -6584,7 +6584,6 @@ form.search .search__input,
     padding: 10px 15px;
     text-align: center;
   }
-  */
 }
 
 .newsletter-section {

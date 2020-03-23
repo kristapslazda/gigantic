@@ -57,52 +57,48 @@
                 }
             },
             {
-                breakpoint: 769,
+                breakpoint: 770,
                 settings: "unslick"
             }
         ]
     };
 
-    let gliderOptions = {
-        slidesToShow: 3.5,
-        slidesToScroll: 3.5,
-        duration: 1,
-        draggable: true,
-            responsive: [
-                {
-                    breakpoint: 490,
-                    settings: {
-                        slidesToShow: 2.5,
-                        slidesToScroll: 2.5,
-                    }
-                },
-                {
-                    breakpoint: 320,
-                    settings: {
-                        slidesToShow: 1.5,
-                        slidesToScroll: 1.5,
-                    }
-                }
-            ]
-    }
-
     $('[data-section-id="{{ section.id }}"] .multi-slides').slick(prodSliderSettings);
-    let glider;
 
     $(window).on('resize', function () {
         setTimeout(function () {
-            if ($(window).innerWidth() > 768) {
-                if(glider) glider.destroy();
+            if ($(window).innerWidth() > 769) {
                 $('[data-section-id="{{ section.id }}"] .multi-slides').slick(prodSliderSettings)
             } else {
-                glider = new Glider(document.querySelector('[data-section-id="{{ section.id }}"] .multi-slides'), gliderOptions);
+                $('[data-section-id="{{ section.id }}"] .multi-slides').slick('unslick');
             }
         }, 100)
     });
 
     $(document).ready(function(){
-        if($(window).innerWidth() <= 768) {
-            glider = new Glider(document.querySelector('[data-section-id="{{ section.id }}"] .multi-slides'), gliderOptions);
+        if($('.template-product').length && $(window).innerWidth() <= 768) {
+            new Glider(document.querySelector('[data-section-id="{{ section.id }}"] .multi-slides'), {
+                slidesToShow: 3.5,
+                slidesToScroll: 3.5,
+                duration: 1,
+                draggable: true,
+                 responsive: [
+                    {
+                        breakpoint: 490,
+                        settings: {
+                            slidesToShow: 2.5,
+                            slidesToScroll: 2.5,
+                        }
+                    },
+                    {
+                        breakpoint: 320,
+                        settings: {
+                            slidesToShow: 1.5,
+                            slidesToScroll: 1.5,
+                        }
+                    }
+                ]
+            });
         }
     });
 </script>
