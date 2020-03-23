@@ -139,9 +139,7 @@
 </script>
 {% endif %}
 
-{%- if template == 'product' -%}
-    <script src="{{ 'glider.min.js' | asset_url }}" defer="defer"></script>
-{%- endif -%}
+<script src="{{ 'glider.min.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'theme.js' | asset_url }}"></script>
 
 <script src='https://areviewsapp.com/js_codes/collection_rating.js'></script>
@@ -150,6 +148,7 @@
 {% if settings.use_hurrify %}
     {% include "hurrify-snippet" %}
 {% endif %}
+
 {% include 'ajax-cart-template' %}
 {% comment %}{% include 'limoniapps-discounturl-body-bottom' %}{% endcomment %}
 
