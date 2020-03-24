@@ -6,8 +6,12 @@
                     {% assign svg = settings.usp_point_icon1 %}
                     {% if settings.usp_point_icon1 != blank %}<img style="width: 20px;height: 20px;" src="{{ svg | file_url }}" alt="">{% endif %}
                     <div>
-                        <b>{{ settings.usp_title1 | split: "-" | first }}</b>
-                        {{ settings.usp_title1 | split: "-" | last }}
+                        {% if settings.usp_title1 contains '-' %}
+                            <b>{{ settings.usp_title1 | split: "-" | first }}</b>
+                            {{ settings.usp_title1 | split: "-" | last }}
+                        {% else %}
+                            <b>{{ settings.usp_title1}}</b>
+                        {% endif %}
                     </div>
                 </div>
             {% endif %}
@@ -16,8 +20,12 @@
                     {% assign svg = settings.usp_point_icon2 %}
                     {% if settings.usp_point_icon2 != blank %}<img style="width: 20px;height: 20px;" src="{{ svg | file_url }}" alt="">{% endif %}
                     <div>
-                        <b>{{ settings.usp_title2 | split: "-" | first }}</b>
-                        {{ settings.usp_title2 | split: "-" | last }}
+                        {% if settings.usp_title2 contains '-' %}
+                            <b>{{ settings.usp_title2 | split: "-" | first }}</b>
+                            {{ settings.usp_title2 | split: "-" | last }}
+                        {% else %}
+                            <b>{{ settings.usp_title2}}</b>
+                        {% endif %}
                     </div>
                 </div>
             {% endif %}
@@ -26,8 +34,12 @@
                     {% assign svg = settings.usp_point_icon3 %}
                     {% if settings.usp_point_icon3 != blank %}<img style="width: 20px;height: 20px;" src="{{ svg | file_url }}" alt="">{% endif %}
                     <div>
-                        <b>{{ settings.usp_title3 | split: "-" | first }}</b>
-                        {{ settings.usp_title3 | split: "-" | last }}
+                        {% if settings.usp_title3 contains '-' %}
+                            <b>{{ settings.usp_title3 | split: "-" | first }}</b>
+                            {{ settings.usp_title3 | split: "-" | last }}
+                        {% else %}
+                            <b>{{ settings.usp_title3}}</b>
+                        {% endif %}
                     </div>
                 </div>
             {% endif %}
@@ -36,8 +48,12 @@
                     {% assign svg = settings.usp_point_icon4 %}
                     {% if settings.usp_point_icon4 != blank %}<img style="width: 20px;height: 20px;" src="{{ svg | file_url }}" alt="">{% endif %}
                     <div>
-                        <b>{{ settings.usp_title4 | split: "-" | first }}</b>
-                        {{ settings.usp_title4 | split: "-" | last }}
+                        {% if settings.usp_title4 contains '-' %}
+                            <b>{{ settings.usp_title4 | split: "-" | first }}</b>
+                            {{ settings.usp_title4 | split: "-" | last }}
+                        {% else %}
+                            <b>{{ settings.usp_title4}}</b>
+                        {% endif %}
                     </div>
                 </div>
             {% endif %}
@@ -46,8 +62,12 @@
                     {% assign svg = settings.usp_point_icon5 %}
                     {% if settings.usp_point_icon5 != blank %}<img style="width: 20px;height: 20px;" src="{{ svg | file_url }}" alt="">{% endif %}
                     <div>
-                        <b>{{ settings.usp_title5 | split: "-" | first }}</b>
-                        {{ settings.usp_title5 | split: "-" | last }}
+                       {% if settings.usp_title5 contains '-' %}
+                            <b>{{ settings.usp_title5 | split: "-" | first }}</b>
+                            {{ settings.usp_title5 | split: "-" | last }}
+                        {% else %}
+                            <b>{{ settings.usp_title5}}</b>
+                        {% endif %}
                     </div>
                 </div>
             {% endif %}
@@ -56,8 +76,12 @@
                     {% assign svg = settings.usp_point_icon6 %}
                     {% if settings.usp_point_icon6 != blank %}<img style="width: 20px;height: 20px;" src="{{ svg | file_url }}" alt="">{% endif %}
                     <div>
-                        <b>{{ settings.usp_title6 | split: "-" | first }}</b>
-                        {{ settings.usp_title6 | split: "-" | last }}
+                        {% if settings.usp_title6 contains '-' %}
+                            <b>{{ settings.usp_title6 | split: "-" | first }}</b>
+                            {{ settings.usp_title6 | split: "-" | last }}
+                        {% else %}
+                            <b>{{ settings.usp_title6}}</b>
+                        {% endif %}
                     </div>
                 </div>
             {% endif %}
@@ -84,6 +108,8 @@
 </div>
 
 <script>
+
+
     $('.selling-point-wrap').slick({
         prevArrow: $('.prev4'),
         nextArrow: $('.next4'),

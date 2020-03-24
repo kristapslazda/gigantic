@@ -42,35 +42,30 @@
                     </ul>
                   </div>
                 {% endif %}
-                <div class="featured-products">
-                  {% comment %} FIRST LEVEL ITEM products {% endcomment %}
-                  {% if link.type == 'collection_link' %}
-                    <h3>{{section.settings.best_seller_text}} <span class="category-name">{{link.title}}</span></h3>
-                    {% assign main_collection_handle = link.url | split: '/' | last %}
-                    {% assign main_collection_products = collections[main_collection_handle].products %}
-                    <div class="collection-related-products first-level-products visible">
-                      {% assign first_product = main_collection_products[0] %}
-                      {% assign second_product = main_collection_products[1] %}
-                      {% include 'nav-related-product', product_item:first_product %}
-                      {% include 'nav-related-product', product_item:second_product %}
-                    </div>
-                    {% comment %} SECOND LEVEL ITEM products {% endcomment %}
-                    {% comment %} {% if link.links.size > 0 %}
-                      {% for sub_link_third in link.links %}
-                        {% if sub_link_third.type == 'collection_link' %}
-                          {% assign current_collection_handle = sub_link_third.url | split: '/' | last %}
-                          {% assign current_collection_products = collections[current_collection_handle].products %}
-                          <div class="collection-related-products" data-collection="{{sub_link_third.url}}">
-                            {% assign first_product = current_collection_products[0] %}
-                            {% assign second_product = current_collection_products[1] %}
-                            {% include 'nav-related-product', product_item:first_product %}
-                            {% include 'nav-related-product', product_item:second_product %}
-                          </div>
-                        {% endif %}
-                      {% endfor %}
-                    {% endif %} {% endcomment %}
+                {% for block in section.blocks %}
+                  {% if block.type == "link_icon" and block.settings.link_text == link.title %} 
+                    {% if block.settings.link_product_1 != blank %}
+                      {% assign product_1 = block.settings.link_product_1 %}
+                    {% endif %}
+                    {% if block.settings.link_product_2 != blank %}
+                      {% assign product_2 = block.settings.link_product_2 %}
+                    {% endif %}
+                    {% break %}
                   {% endif %}
-                </div>
+                {% endfor %}
+
+                {% if product_1 != blank or product_2 != blank %}
+                  <div class="featured-products">
+                    {% if product_1 != blank %}
+                      {% include 'nav-related-product', product_item:all_products[product_1] %}
+                    {% endif %}
+                    {% if product_2 != blank %}
+                      {% include 'nav-related-product', product_item:all_products[product_2] %}
+                    {% endif %}
+                  </div>
+                  {% assign product_1 = '' %}
+                  {% assign product_2 = '' %}
+                {% endif %}
               </div>
             </div>
           {% endfor %}
@@ -138,20 +133,30 @@
                     {% endif %}
 
                     {% comment %} mobile nav featured products only main category {% endcomment %}
-                  <div class="featured-products">
-                    {% if link.type == 'collection_link' %}
-                      <h3>{{section.settings.best_seller_text}} <span class="category-name">{{link.title}}</span></h3>
-                      {% assign mobile_collection_handle = link.url | split: '/' | last %}
-                      {% assign mobile_collection_products = collections[mobile_collection_handle].products %}
+                  {% for block in section.blocks %}
+                  {% if block.type == "link_icon" and block.settings.link_text == link.title %} 
+                    {% if block.settings.link_product_1 != blank %}
+                      {% assign product_1 = block.settings.link_product_1 %}
+                    {% endif %}
+                    {% if block.settings.link_product_2 != blank %}
+                      {% assign product_2 = block.settings.link_product_2 %}
+                    {% endif %}
+                    {% break %}
+                  {% endif %}
+                {% endfor %}
 
-                      <div class="collection-related-products first-level-products visible">
-                        {% assign first_product = mobile_collection_products[0] %}
-                        {% assign second_product = mobile_collection_products[1] %}
-                        {% include 'nav-related-product', product_item:first_product %}
-                        {% include 'nav-related-product', product_item:second_product %}
-                      </div>
+                {% if product_1 != blank or product_2 != blank %}
+                  <div class="featured-products">
+                    {% if product_1 != blank %}
+                      {% include 'nav-related-product', product_item:all_products[product_1] %}
+                    {% endif %}
+                    {% if product_2 != blank %}
+                      {% include 'nav-related-product', product_item:all_products[product_2] %}
                     {% endif %}
                   </div>
+                  {% assign product_1 = '' %}
+                  {% assign product_2 = '' %}
+                {% endif %}
                 </div>
               </div>
             {% endfor %}
@@ -196,7 +201,7 @@
     },
     {
       "type": "link_icon",
-      "name": "Link Icon",
+      "name": "Menu Advanced Settings",
       "settings": [
         {
           "type": "image_picker",
@@ -207,6 +212,16 @@
           "type": "text",
           "id": "link_text",
           "label": "Menu Item Title"
+        },
+        {
+          "type": "product",
+          "id": "link_product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "product",
+          "id": "link_product_2",
+          "label": "Product 2"
         }
       ]
     }

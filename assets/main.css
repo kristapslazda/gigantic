@@ -6028,6 +6028,7 @@ form.search .search__input,
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
+  align-items: flex-start;
 }
 @media (max-width: 1025px) {
   #selling-points {
@@ -9620,6 +9621,10 @@ form.search .search__submit {
 .featured-products {
   width: 217px;
   margin-right: 27px;
+}
+
+.featured-products:blank {
+  display: none;
 }
 
 .featured-products h3 {
