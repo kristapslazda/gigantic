@@ -5198,7 +5198,6 @@ body {
   align-items: center;
   flex: 1 1 auto;
   margin-right: 18px;
-  justify-content: flex-end;
 }
 .site-header .search-header__wrapper .form-item {
   position: relative;
@@ -5247,6 +5246,7 @@ form.search .search__input,
 }
 .site-header .menu-item .cart-link svg {
   width: 26px;
+  height: 30px;
 }
 .site-header .menu-item .cart-link .cart--count {
   position: absolute;
@@ -6241,6 +6241,7 @@ form.search .search__input,
 }
 .site-footer .site-footer__social-icons li a svg {
   width: 20px;
+  height: 20px;
   transition: opacity 0.3s ease;
 }
 .site-footer .site-footer__social-icons li a svg * {
@@ -7224,11 +7225,6 @@ form.search .search__input,
   left: 10px;
 }
 
-.template-collection #collection-page--wrap #Collection .collection-header {
-  /* display: flex; */
-  /* justify-content: space-between; */
-}
-
 .template-collection #collection-page--wrap #Collection .collection-header .h1 {
   margin: 0;
 }
@@ -7680,6 +7676,7 @@ form.search .search__input,
 .template-product .product-single__meta .product-actions .product-single__add-to-cart .btn__text svg,
 .upsell-modal .product-single__meta .product-actions .product-single__add-to-cart .btn__text svg {
   width: 20px;
+  height: 22px;
   vertical-align: bottom;
 }
 .template-product .product-single__meta .product-actions .product-single__add-to-cart .btn,
@@ -7839,6 +7836,13 @@ form.search .search__input,
   left: 0;
   top: 0;
 }
+
+.product-template__container  {
+  overflow: hidden;
+  position: relative;
+  z-index: 999;
+}
+
 .product-single .product__image-wrapper {
   width: 60%;
   display: flex;
@@ -7847,10 +7851,12 @@ form.search .search__input,
   margin: -10px;
   padding-right: 36px;
 }
+
 .product-single .product__image-wrapper .img-wrap {
   padding: 10px;
   position: relative;
 }
+
 .product-single .product__image-wrapper .img-wrap.hasChildren svg {
   position: absolute;
   top: 40%;
@@ -7876,10 +7882,7 @@ form.search .search__input,
   background: rgba(34, 34, 34, 0.5);
   color: #fff;
 }
-.product-single .product__image-wrapper .img-wrap img {
-  /* width: 100%; */
 
-}
 .product-single .product-details-wrapper {
   width: 40%;
 }

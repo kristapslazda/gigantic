@@ -3693,12 +3693,7 @@ function hoveMenuItems (link) {
   if($(window).width() > 1024) {
     let _this = link;
     let wrapperId = $(_this).data('link-id');
-    let advancedBlock = $(`.advanced-block-single[data-wrapper-id=${wrapperId}]`); 
-
-    {% comment %} 
-      let advancedBlock = $(`.advanced-block-single[data-wrapper-id=${wrapperId}]`); 
-      let advancedBlock = $(`.menu-advanced-block[data-wrapper-id=${wrapperId}]`);
-    {% endcomment %}
+    let advancedBlock = $('.advanced-block-single[data-wrapper-id="' + wrapperId + '"]'); 
 
     let collectionTitle = $(_this).data('collection-name');
 
@@ -3720,7 +3715,7 @@ function hoveSecondMenuItems (link) {
     let collectionLink = $(_this).attr('href');
     curentRelatedProductsWrapper.find('h3 .category-name').text(collName);
     curentRelatedProductsWrapper.find('.visible').removeClass('visible');
-    curentRelatedProductsWrapper.find(`[data-collection="${collectionLink}"]`).addClass('visible');
+    curentRelatedProductsWrapper.find('[data-collection="' + collectionLink + '"]').addClass('visible');
   } else {
     return false;
   }
@@ -3755,7 +3750,7 @@ $(document).ready(function () {
       let id = $(this).data('link-id');
       let advancedContentHolder = mobileMenu.find('.second-level-list');
       mobileMenu.find('[data-wrapper-id].block-vissible').removeClass('block-vissible');
-      mobileMenu.find(`[data-wrapper-id="${id}"]`).addClass('block-vissible');
+      mobileMenu.find('[data-wrapper-id="' + id + '"]').addClass('block-vissible');
       advancedContentHolder.addClass('visible');
   });
 
@@ -4234,7 +4229,7 @@ $(document).on('click', '.js-qty__adjust', function(e) {
 // Open modal
 $(document).on('click', '.js-open-upsell-modal', function(e) {
   let data = $(this).data('modal'),
-      modal = $(`.upsell-modal[data-modal='${data}']`),
+      modal = $('.upsell-modal[data-modal="' + data + '"]'),
       body_el = document.body,
       product_id = data.split('-')[1],
       default_variant = modal.find('.js-upsell-variants input:checked');
@@ -4260,7 +4255,7 @@ $(document).on('click', '.upsell-modal', function(e) {
 $(document).on('change', '.js-upsell-variants', function() {
   let chosen_variant = $(this).find('input:checked'),
       product_id = $(this).data('variant-for-id'),
-      variant_field = $(`.js-upsell-chosen-variant[data-variant-for-id='${product_id}']`);
+      variant_field = $('.js-upsell-chosen-variant[data-variant-for-id="' + product_id + '"]');
 
   variant_field.val(chosen_variant.val());
   updateModalStock($(this).find('input:checked'), $(this).data('variant-for-id'));
@@ -4268,10 +4263,10 @@ $(document).on('change', '.js-upsell-variants', function() {
 
 function updateModalStock(chosen_variant, product_id) {
   let variant_qty = chosen_variant.data('inventory-quantity'),
-      qty_status_el = $(`.modal-stock-status-wrapper[data-variant-for-id='${product_id}']`),
+      qty_status_el = $('.modal-stock-status-wrapper[data-variant-for-id="' + product_id + '"]'),
       html_in_stock = '';
       
-  console.log(`updated stock div with variant ${chosen_variant.val()} and product id ${product_id} and it has ${variant_qty} items`);
+  console.log('updated stock div with variant ' + chosen_variant.val() + ' and product id ' + product_id + ' and it has ' + variant_qty + ' items');
   
   qty_status_el.data('variant-for-id', chosen_variant.val());
   
@@ -4287,7 +4282,8 @@ function updateModalStock(chosen_variant, product_id) {
 // visual price update 
 // take product variant as argumen
 function visualPriceUpdate (variant) {
-  let {price, compare_at_price} = variant;
+  let price = variant.price;
+  let compare_at_price = variant.compare_at_price;
   let variantPrice = theme.Currency.formatMoney(price, theme.strings.moneyFormat);
   let quantitySalesWrapper = $('.product-bundles_wrapper');
 
