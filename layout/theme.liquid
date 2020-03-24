@@ -99,6 +99,8 @@
 	<![endif]-->
 	
     {{ 'ndnapps-easyfaqs.css' | asset_url | stylesheet_tag }}
+    {{ 'custom.css' | asset_url | stylesheet_tag }}
+
     {{ content_for_header }}
 {% include 'globo.formbuilder.scripts' %}
 
