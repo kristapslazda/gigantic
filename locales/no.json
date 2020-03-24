@@ -166,7 +166,9 @@
     },
     "terms_and_conditions": {
       "disagree": "Jeg er uenig",
-      "accept": "Jeg aksepterer"
+      "accept": "Jeg aksepterer",
+      "hide_tos": "Skjul kjøpsbetingelser",
+      "show_tos": "Vis kjøpsbetingelser"
     },
     "label": {
       "discounted_total": "Samled pris med rabat",
@@ -490,7 +492,8 @@
         "back_to_shipping_method": " ",
         "back_to_payment_method": " ",
         "pay_now_button_label": "Fortsett til betaling",
-        "all_rights_reserved": "Hos {{ shop_name }} har du alltid 100% tilfredshetsgaranti"
+        "all_rights_reserved": "Hos {{ shop_name }} har du alltid 100% tilfredshetsgaranti",
+        "complete_purchase_button_label": "Fortsett"
       },
       "order_summary": {
         "shipping_label": "Frakt",
@@ -518,9 +521,10 @@
         "card_expiry_placeholder": "Utløpsdato (MM \/ ÅR)",
         "card_verification_value_label": "CVV (3 sifre)",
         "card_verification_value_placeholder": "CVV (3 sifre)",
-        "billing_address_description": "Velg om du vil ha en annen fakturaadresse enn leveringsadressen din.",
+        "billing_address_description": " ",
         "same_billing_address_label": "Samme som leveringsadressen",
-        "different_billing_address_label": "Bruk en annen faktureringsadresse"
+        "different_billing_address_label": "Bruk en annen faktureringsadresse",
+        "offsite_gateway_redirect_hint": "Velg mellom Vipps eller kortbetaling, og klikk deretter på den grønne knappen “{{ button_label }}”"
       },
       "shipping_errors": {
         "shipping_method": "Handlekurven din er oppdatert, og den forrige fraktprisen er ikke gyldig. Velg en ny her."

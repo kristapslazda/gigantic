@@ -136,7 +136,7 @@
                 {% unless prod.selected_or_first_available_variant.available %} disabled="disabled" {% endunless %}>
                 <span class="btn__text">
                     {% if prod.selected_or_first_available_variant.available %}
-                        Tilføj
+                        {{ 'cart.general.ATC_short' | t }}
                     {% else %}
                         {{ 'products.product.sold_out' | t }}
                     {% endif %}
