@@ -15,7 +15,23 @@
       }
     </style>
   
-    {%- assign current_variant = product.selected_or_first_available_variant -%}
+
+    {% comment %} is elected varian  {% endcomment %}
+    {% assign selected_variant = product.selected_variant %}
+
+
+    {% unless selected_variant %}
+        {% for variant in product.variants %}
+            {% if variant.inventory_quantity > 0 %}
+                {% assign current_variant = variant %}
+                {% break %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% assign current_variant = product.selected_variant %}
+    {% endunless %}
+
+    {% comment %} {%- assign current_variant = product.selected_or_first_available_variant -%} {% endcomment %}
     {%- assign compare_at_price = current_variant.compare_at_price -%}
     {%- assign price = current_variant.price -%}
 
@@ -114,17 +130,16 @@
              
              
               
-              <div class="inventories-wrapper" style="display:none;">
-               {% for variant in product.variants %}
-              <span {% if variant.selected %}id="selected-variant"{% endif %} class="variant-{{variant.id}}">{{ variant.inventory_quantity  }}</span>
-                
-                 {% endfor %}
+            <div class="inventories-wrapper" style="display:none;">
+                {% for variant in product.variants %}
+                    <span {% if variant.selected %}id="selected-variant"{% endif %} class="variant-{{variant.id}}">{{ variant.inventory_quantity  }}</span>
+                {% endfor %}
             </div>
-                <div class="variants-inventories-wrapper" style="display:none;">
-               {% for variant in product.variants %}
-              <span id="{{variant.id}}" data-id="{{ variant.inventory_quantity  }}">{{ variant.inventory_quantity  }}</span>
-                
-                 {% endfor %}
+
+            <div class="variants-inventories-wrapper" style="display:none;">
+                {% for variant in product.variants %}
+                    <span id="{{variant.id}}" data-id="{{ variant.inventory_quantity  }}">{{ variant.inventory_quantity  }}</span>
+                {% endfor %}
             </div>
               
               <div class="stock-status-wrapper">
@@ -147,6 +162,7 @@
                                             {% assign option_index = forloop.index %}
 
                                             {% for value in option.values %}
+
                                                 {% unless value contains '% off)' %}
                                                 {% assign variant_label_state = true %}
                                                     {% if product.options.size == 1 %}
@@ -166,13 +182,15 @@
                                                     {% endfor %}
 
                                                     <input type="radio"
-                                                            {% if option.selected_value == value %} checked="checked"{% endif %}
+                                                            {% comment %} {% if option.selected_value == value %} checked="checked"{% endif %} {% endcomment %}
+                                                            {% if current_variant.options contains value %} checked="checked"{% endif %}
+
                                                             {% unless variant_label_state %} disabled="disabled"{% endunless %}
                                                            value="{{ value | escape }}" data-index="option{{ option_index }}"
                                                            name="{{ option.name | handleize }}"
                                                            class="single-option-selector__radio {% unless variant_label_state %} disabled{% endunless %}"
                                                            id="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
-                                                    <label data-advanced-price="{{variant_price}}" title="{{ value | escape }}" {% if option.name == "Färg" %}style="background-color: {{ value | escape }};"{% endif %} for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}" class="{% unless variant_label_state %}disabled{% endunless %}{% if option.selected_value == value %} selected{% endif %}">
+                                                    <label data-advanced-price="{{variant_price}}" title="{{ value | escape }}" {% if option.name == "Färg" %}style="background-color: {{ value | escape }};"{% endif %} for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}" class="{% unless variant_label_state %}disabled{% endunless %}{% if current_variant.options contains value %} selected{% endif %}">
                                                         {% if option.name == "Färg" %}
                                                             {% assign cal = value | handle %}
                                                             {% assign fileName = 'option-' | append: option.name | handleize | append: '-' | append: cal | downcase %}
@@ -201,18 +219,22 @@
                             {% for variant in product.variants %}
                                 {% unless variant.metafields.secomapp.freegifts %}
                                     {% unless variant.title contains '(Freegifts)' %}
-
-                                        {% if variant.available %}
-                                            <option {% if variant == product.selected_or_first_available_variant %}
-                                                selected="selected" {% endif %}
-                                                    data-sku="{{ variant.sku }}"
-                                                    value="{{ variant.id }}"
-                                                    data-price="{{ variant.price }}"
-                                                    data-compare="{{ variant.compare_at_price }}">
+                                        {% if variant.title == current_variant.title %}
+                                            <option 
+                                                selected="selected"
+                                                data-sku="{{ variant.sku }}"
+                                                value="{{ variant.id }}"
+                                                data-price="{{ variant.price }}"
+                                                data-compare="{{ variant.compare_at_price }}">
                                                 {{ variant.title }} - {{ variant.price | money_with_currency }}
                                             </option>
                                         {% else %}
-                                            <option disabled="disabled">
+                                            <option disabled="disabled"
+                                                data-sku="{{ variant.sku }}"
+                                                value="{{ variant.id }}"
+                                                data-price="{{ variant.price }}"
+                                                data-compare="{{ variant.compare_at_price }}"
+                                            >
                                                 {{ variant.title }} - {{ 'products.product.sold_out' | t }}
                                             </option>
                                         {% endif %}
@@ -221,7 +243,6 @@
                                 {%endunless%}
                             {% endfor %}
                         </select>
-
 
                     </div>
 
@@ -243,9 +264,9 @@
 
                         <div class="product-single__add-to-cart{% if section.settings.add_to_cart_button_size == 'large' %} product-single__add-to-cart--full-width{% endif %}">
                             <button type="submit" name="add" id="AddToCart--{{ section.id }}"
-                                    class="add-to-cart btn add-to-cart-1{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
+                                    class="add-to-cart btn add-to-cart-1{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}" {% if current_variant.inventory_quantity <= 0 %}disabled="disabled"{% endif %}>
                             <span class="btn__text">
-                                {% if current_variant.available %}
+                                {% if current_variant.inventory_quantity > 0 %}
                                     {{ 'products.product.add_to_cart' | t }} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"><path data-name="layer2" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" d="M56 62H8l2-44h44l2 44z" stroke-linejoin="round" stroke-linecap="round"></path><path data-name="layer1" d="M22 26V12A10 10 0 0 1 32 2a10 10 0 0 1 10 10v14" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path></svg>
                                 {% else %}
                                     {{ 'products.product.sold_out' | t }}
@@ -321,13 +342,13 @@
                   {% endunless %}
                 </article>
                 <div class="product-form__sticky__submit">
-                  <button type="submit" name="add" id="AddToCart-sticky" {% unless current_variant.available %}disabled="disabled"{% endunless %} class="btn btn--dark product-form__cart-submit{% if product.options.size == 1 and product.variants[0].title == 'Default Title' %} product-form__cart-submit--small{% endif %}">
+                  <button type="submit" name="add" id="AddToCart-sticky" {% if current_variant.inventory_quantity <= 0 %}disabled="disabled"{% endif %} class="btn btn--dark product-form__cart-submit{% if product.options.size == 1 and product.variants[0].title == 'Default Title' %} product-form__cart-submit--small{% endif %}">
                     <span id="AddToCartText-{{ section.id }}">
-                      {% unless current_variant.available %}
-                      {{ 'products.product.sold_out' | t }}
+                      {% if current_variant.inventory_quantity > 0 %}
+                        {{ 'products.product.add_to_cart' | t }}
                       {% else %}
-                      {{ 'products.product.add_to_cart' | t }}
-                      {% endunless %}
+                        {{ 'products.product.sold_out' | t }}
+                      {% endif %}
                     </span>
                   </button>
                 </div>

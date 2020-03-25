@@ -491,14 +491,43 @@ slate.Variants = (function() {
      * @return {object || undefined} found - Variant object from product.variants
      */
     _getVariantFromOptions: function() {
+
       if ($('.inventories-wrapper span[id]').length){
-      	 var inventory_quantity = $('#selected-variant').text();
+         var inventory_quantity = $('#selected-variant').text();
+      } else{
+
+        let inventory_variants = $('.inventories-wrapper span');
+        var inventory_quantity = 0;
+        
+        for (let i = 0; i < inventory_variants.length; i++) {
+          if ($(inventory_variants[i]).text() > 0) {
+            inventory_quantity = $(inventory_variants[i]).text();
+          }
+        }
       }
-      else{
-        var inventory_quantity = $('.inventories-wrapper span:nth-child(1)').text();
-      }
+
+      setTimeout(function(){
+        let url = window.location.href;
+        let variantId = url.split('?variant=')[1];
+        let vartiant_quantity = $('.variants-inventories-wrapper span[id="' + variantId + '"]').data('id');
+    
+        if(variantId) {
+          $('#ProductSelect option[selected="selected"]').removeAttr('selected').attr('disabled', 'disabled');
+          $('#ProductSelect option[value="' + variantId + '"]').removeAttr('disabled').attr('selected', 'selected');
+          if (vartiant_quantity <= 0) {
+            let cartText = "{{ 'products.product.sold_out' | t }}";
+            $('.add-to-cart .btn__text').text(cartText);
+            $('.add-to-cart').attr('disabled','disabled');
+            $('.product-form__sticky__submit span').text(cartText);
+          } else {
+            let cartText = "{{ 'products.product.add_to_cart' | t }}";
+            $('.add-to-cart .btn__text').text(cartText).append($('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"><path data-name="layer2" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" d="M56 62H8l2-44h44l2 44z" stroke-linejoin="round" stroke-linecap="round"></path><path data-name="layer1" d="M22 26V12A10 10 0 0 1 32 2a10 10 0 0 1 10 10v14" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path></svg>'));
+            $('.add-to-cart').removeAttr('disabled');
+            $('.product-form__sticky__submit span').text(cartText);
+          }
+        }
+      }, 100);
       
- 
       if(inventory_quantity >= 10 ){
         var html_instock = '<label class="in-stock">{{ settings.stock_label_above_10 }}</label> <p class="stock-status">{{ settings.delivery_time_above_10 }}</p>';
       	$('.stock-status-wrapper').html(html_instock);
@@ -511,9 +540,8 @@ slate.Variants = (function() {
       
       if(inventory_quantity <= 0 ){
         var html_outof_stock = '<label class="out_of_stock">{{ settings.stock_label_below_0 }}</label> <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
-      	$('.stock-status-wrapper').html(html_outof_stock);
+        $('.stock-status-wrapper').html(html_outof_stock);
       }
-      
       
       var selectedValues = this._getCurrentOptions();
       var variants = this.product.variants;
