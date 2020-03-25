@@ -4025,6 +4025,16 @@ if (mq.matches) {
   });
 }
 
+
+let ifIE = msieversion();
+
+if (ifIE === 1) {
+    $('body').addClass('ie-styles')
+    $('.product__image-slider .img-wrap').each(function(){
+        $(this).find('img').attr('src', $(this).find('img').data('image-for-ie'));
+    });
+}
+
 $(".product__image-slider").slick({
     prevArrow: $('.prod-prev'),
     nextArrow: $('.prod-next'),
@@ -4304,6 +4314,17 @@ function visualPriceUpdate (variant) {
     $('.price__regular .price-item--regular').text(variantPrice);
   }
 };
+
+function msieversion() {
+
+  var ua = window.navigator.userAgent;
+  var msie = ua.indexOf("MSIE ");
+
+  if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+      return 1;
+  }
+  return false;
+}
 
 /**
 ** Pop up Cart
