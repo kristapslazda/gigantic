@@ -41,6 +41,30 @@
 </div>
 
 <script>
+
+    let gliderOptions = {
+        slidesToShow: 3.5,
+        slidesToScroll: 3.5,
+        duration: 1,
+        draggable: true,
+            responsive: [
+            {
+                breakpoint: 490,
+                settings: {
+                    slidesToShow: 2.5,
+                    slidesToScroll: 2.5,
+                }
+            },
+            {
+                breakpoint: 320,
+                settings: {
+                    slidesToShow: 1.5,
+                    slidesToScroll: 1.5,
+                }
+            }
+        ]
+    }
+
     var prodSliderSettings = {
         prevArrow: $('[data-section-id="{{ section.id }}"] .col-slider-prev'),
         nextArrow: $('[data-section-id="{{ section.id }}"] .col-slider-next'),
@@ -71,36 +95,19 @@
                 $('[data-section-id="{{ section.id }}"] .multi-slides').slick(prodSliderSettings)
             } else {
                 $('[data-section-id="{{ section.id }}"] .multi-slides').slick('unslick');
+                setTimeout(function(){
+                    new Glider(document.querySelector('[data-section-id="{{ section.id }}"] .multi-slides'), gliderOptions);
+                }, 300);
             }
         }, 100)
     });
 
     $(document).ready(function(){
-        if($('.template-product').length && $(window).innerWidth() <= 768) {
-            new Glider(document.querySelector('[data-section-id="{{ section.id }}"] .multi-slides'), {
-                slidesToShow: 3.5,
-                slidesToScroll: 3.5,
-                duration: 1,
-                draggable: true,
-                 responsive: [
-                    {
-                        breakpoint: 490,
-                        settings: {
-                            slidesToShow: 2.5,
-                            slidesToScroll: 2.5,
-                        }
-                    },
-                    {
-                        breakpoint: 320,
-                        settings: {
-                            slidesToShow: 1.5,
-                            slidesToScroll: 1.5,
-                        }
-                    }
-                ]
-            });
+        if($(window).innerWidth() <= 769) {
+            new Glider(document.querySelector('[data-section-id="{{ section.id }}"] .multi-slides'), gliderOptions);
         }
     });
+
 </script>
 
 {% schema %}
