@@ -1,0 +1,90 @@
+<div itemtype="http://schema.org/Product" itemscope>
+    {% comment %} name {% endcomment %}
+    <meta itemprop="name" content="{{product.title}}" />
+    
+    {% for _image in product.images %}
+        <link itemprop="image" href="{{_image | img_url: 'master'}}" />
+        {% if forloop.index == 3 %}
+            {% break %}
+        {% endif %}
+    {% endfor %}
+
+    {% comment %} current_variant SKU {% endcomment %}
+    <meta itemprop="sku" content="{{current_variant.sku}}" />
+
+    {% comment %} description {% endcomment %}
+
+    {% assign short_description = product.description | strip_html | split: '.' | first | append: '.' %}
+
+    <meta itemprop="description" content="{{short_description}}" />
+
+    <div itemprop="offers" itemtype="http://schema.org/Offer" itemscope>
+        {% comment %} product link {% endcomment %}
+        {% if no_current_variant %}
+            <link itemprop="url" href="{{product.url}}" />
+        {% else %}
+            {% unless selected_variant %}
+                <link itemprop="url" href="{{product.url}}" />
+            {% else %}
+                <link itemprop="url" href="{{current_variant.url}}" />
+            {% endunless %}
+        {% endif %}
+
+        {% comment %} product availability  {% endcomment %}
+        {% if current_variant.inventory_quantity > 0 %}
+            <meta itemprop="availability" content="https://schema.org/InStock" />
+        {% else %}
+            <meta itemprop="availability" content="https://schema.org/OutOfStock" />
+        {% endif %}
+
+        {% comment %} currency {% endcomment %}
+        <meta itemprop="priceCurrency" content="{{shop.currency}}" />
+
+        {% comment %} condition new or used {% endcomment %}
+        <meta itemprop="itemCondition" content="https://schema.org/NewCondition" />
+
+        {% comment %} product price {% endcomment %}
+        
+        {% assign new_price = current_variant.price | divided_by: 100.0 %}
+        {% assign zero = new_price | split: '.' | last %}
+
+        {% if zero.size == 1 %}
+            {% assign new_price = new_price | append: '0' %}
+        {% endif %}
+        
+        <meta itemprop="price" content="{{new_price}}" />
+
+        {% comment %} price available {% endcomment %}
+        <meta itemprop="priceValidUntil" content="{{product.created_at | date: '%Y-%m-%d'}}" />
+
+        {% comment %} seller {% endcomment %}
+        <div itemprop="seller" itemtype="http://schema.org/Organization" itemscope>
+            <meta itemprop="name" content="{{shop.name}}" />
+        </div>
+    </div>
+
+    {% comment %} rating NEED DATA {% endcomment %}
+
+    {% comment %} <div itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating" itemscope>
+        <meta itemprop="reviewCount" content="89" />
+        <meta itemprop="ratingValue" content="4.4" />
+    </div>
+
+     <div itemprop="review" itemtype="http://schema.org/Review" itemscope>
+        <div itemprop="author" itemtype="http://schema.org/Person" itemscope>
+          <meta itemprop="name" content="Fred Benson" />
+        </div>
+        <div itemprop="reviewRating" itemtype="http://schema.org/Rating" itemscope>
+          <meta itemprop="ratingValue" content="4" />
+          <meta itemprop="bestRating" content="5" />
+        </div>
+    </div> {% endcomment %}
+
+    {% comment %} uniq product id NEED DATA {% endcomment %}
+    {% comment %} <meta itemprop="mpn" content="925872" /> {% endcomment %}
+
+    {% comment %} brand NEED DATA {% endcomment %}
+    {% comment %} <div itemprop="brand" itemtype="http://schema.org/Brand" itemscope>
+        <meta itemprop="name" content="ACME" />
+    </div> {% endcomment %}
+</div>

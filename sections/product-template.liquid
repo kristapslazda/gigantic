@@ -1,3 +1,27 @@
+{% comment %} is elected varian  {% endcomment %}
+{% assign selected_variant = product.selected_variant %}
+
+
+{% unless selected_variant %}
+    {% for variant in product.variants %}
+        {% if variant.inventory_quantity > 0 %}
+            {% assign current_variant = variant %}
+            {% break %}
+        {% endif %}
+    {% endfor %}
+{% else %}
+    {% assign current_variant = product.selected_variant %}
+{% endunless %}
+
+{% unless current_variant %}
+    {% assign current_variant = product.selected_or_first_available_variant %}
+    {% assign no_current_variant = true %}
+{% endunless %}
+
+
+{% include 'google-microdata' %}
+
+
 <div class="product-template__container container"
      id="ProductSection--{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product-template"
      data-enable-history-state="true"
@@ -14,22 +38,6 @@
         float: none!important;
       }
     </style>
-  
-
-    {% comment %} is elected varian  {% endcomment %}
-    {% assign selected_variant = product.selected_variant %}
-
-
-    {% unless selected_variant %}
-        {% for variant in product.variants %}
-            {% if variant.inventory_quantity > 0 %}
-                {% assign current_variant = variant %}
-                {% break %}
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        {% assign current_variant = product.selected_variant %}
-    {% endunless %}
 
     {% comment %} {%- assign current_variant = product.selected_or_first_available_variant -%} {% endcomment %}
     {%- assign compare_at_price = current_variant.compare_at_price -%}
@@ -309,9 +317,16 @@
               </div>
               
                {% if section.settings.trust_img != blank %}
-                  <div class="trust">
+                    <div class="trust">
                         {%- assign img_url = section.settings.trust_img | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
                         <img class="lazyload" src="{{ section.settings.trust_img | img_url: '600x' }}" data-sizes="auto" data-src="{{ img_url }}" alt="Trust-image">
+                    </div>
+               {% endif %}
+
+               {% if section.settings.trust_img_2 != blank %}
+                    <div class="trust">
+                        {%- assign img_url = section.settings.trust_img_2 | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                        <img class="lazyload" src="{{ section.settings.trust_img_2 | img_url: '600x' }}" data-sizes="auto" data-src="{{ img_url }}" alt="Trust-image">
                     </div>
                {% endif %}
 
@@ -418,6 +433,11 @@
       "type": "image_picker",
       "id": "trust_img",
       "label": "Trust"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_img_2",
+      "label": "Second Trust"
     },
     {
       "type": "text",
