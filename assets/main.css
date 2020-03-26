@@ -7787,11 +7787,6 @@ form.search .search__input,
   margin-bottom: 70px;
 }
 
-.product-single .product__image-slider .img-wrap {
-  position: relative;
-  max-height: 750px;
-}
-
 .ie-styles .product-single .product__image-slider .img-wrap {
   opacity: 0;
   transition: opacity 0.1s;
@@ -7802,9 +7797,13 @@ form.search .search__input,
   opacity: 1;
 }
 
+.product-single .product__image-slider .img-wrap {
+  max-height: 750px;
+} 
+
 .product-single .product__image-slider .img-wrap img.lazyloaded {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 730px;
+  max-height: 730px;
   margin: 0 auto;
 }
 
@@ -7812,13 +7811,22 @@ form.search .search__input,
   .product-single .product__image-slider .img-wrap {
     max-height: 536px;
   }
+  .product-single .product__image-slider .img-wrap img.lazyloaded {
+    max-height: 516px;
+    max-width: 516px;
+  }
 }
 
 @media (min-width: 901px) and (max-width: 991px) {
   .product-single .product__image-slider .img-wrap {
     max-height: 378px;
   }
-}
+
+  .product-single .product__image-slider .img-wrap img.lazyloaded {
+    max-height: 358px;
+    max-width: 358px;
+  }
+} 
 
 @media (max-width: 900px) {
   .product-single {
@@ -9918,4 +9926,55 @@ form.search .search__submit {
     width: 100%;
     justify-content: space-between;
   }
+}
+
+.descriptiontab {
+  position: relative;
+}
+
+.read-more-holder {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  background: #f9f9f9;
+}
+
+.colapsed-text {
+  transition: height 0.7s;
+  overflow: hidden;
+}
+
+.colapsed-text > *:first-child {
+  margin-top: 0;
+}
+
+.colapsed-text ul {
+  font-size: 18px;
+}
+
+.read-more {
+  position: absolute;
+  top: 0;
+  left: 15px;
+  cursor: pointer;
+  color: #0066c0;
+}
+
+.read-more:after {
+  content: '';
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItY2hldnJvbi1kb3duIj48cG9seWxpbmUgcG9pbnRzPSI2IDkgMTIgMTUgMTggOSI+PC9wb2x5bGluZT48L3N2Zz4=) no-repeat left center;
+  background-size: cover;
+  width: 15px;
+  background-size: cover;
+  height: 8px;
+  position: absolute;
+  left: -18px;
+  top: 7px;
+  display: block;
+  transform: rotate(90deg);
+  transition: transform 0.7s;
+}
+
+.read-more.open:after {
+  transform: rotate(270deg);
 }
