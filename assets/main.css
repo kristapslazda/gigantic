@@ -6519,25 +6519,19 @@ form.search .search__input,
  
   .product-list-slider .col-slider .header {
     flex-direction: column;
+    text-align: left;
   }
 
   .product-list-slider .col-slider .header > a {
     margin-bottom: 20px;
   }
 
-
   .col-slider .col-slider-prev, .col-slider .col-slider-next {
     display: none;
   }
+
   .col-slider .header {
     justify-content: center !important;
-  }
-  .col-slider .header a {
-    display: none !important;
-  }
-  .col-slider .multi-slides {
-    display: flex;
-    flex-wrap: wrap;
   }
 
   .col-slider .multi-slides .slide {
