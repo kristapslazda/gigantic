@@ -510,10 +510,11 @@ slate.Variants = (function() {
         let url = window.location.href;
         let variantId = url.split('?variant=')[1];
         let vartiant_quantity = $('.variants-inventories-wrapper span[id="' + variantId + '"]').data('id');
-    
+
         if(variantId) {
           $('#ProductSelect option[selected="selected"]').removeAttr('selected').attr('disabled', 'disabled');
           $('#ProductSelect option[value="' + variantId + '"]').removeAttr('disabled').attr('selected', 'selected');
+       
           if (vartiant_quantity <= 0) {
             let cartText = "{{ 'products.product.sold_out' | t }}";
             $('.add-to-cart .btn__text').text(cartText);
@@ -4064,14 +4065,87 @@ if (ifIE === 1) {
 }
 
 $(".product__image-slider").slick({
-    prevArrow: $('.prod-prev'),
-    nextArrow: $('.prod-next'),
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    adaptiveHeight: true,
-    arrows: true,
-    dots: true
-  });
+  prevArrow: $('.prod-prev'),
+  nextArrow: $('.prod-next'),
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: true,
+  dots: true
+});
+
+// product page collaplsed text
+
+let colapsedTextHolder = $('.colapsed-text');
+
+
+if (colapsedTextHolder.length) {
+
+  let parentLineHeight = colapsedTextHolder.css('line-height').slice(0, -2);
+  let totalHeight = colapsedTextHolder.outerHeight();
+
+  if (totalHeight > 210) {
+    let totalChildGeight = countChildrenTotalHeight(colapsedTextHolder, parentLineHeight);
+    let offsetTop = totalChildGeight.targetObject.position().top;
+    let childMarginTop = +totalChildGeight.targetObject.css('margin-top').slice(0, -2);
+    let totalTop = offsetTop + childMarginTop + totalChildGeight.leftedLine * totalChildGeight.lineHeight - 10;
+
+    $('.colapsed-text').css('height', (totalTop) + 'px');
+    $('.colapsed-text').attr('data-height-close', totalTop);
+    $('.colapsed-text').attr('data-height-total', totalHeight);
+    
+    $('.read-more').on('click', function(e){
+      e.preventDefault();
+      let _this = $(this);
+      
+      if(_this.hasClass('open')) {
+        _this.removeClass('open');
+        colapsedTextHolder.css('height', colapsedTextHolder.data('height-close') + 'px');
+        _this.text(_this.data('read-more'));
+      } else {
+        _this.addClass('open');
+        colapsedTextHolder.css('height', colapsedTextHolder.data('height-total') + 'px');
+        _this.text(_this.data('read-less'));
+      }
+    });
+  } else {
+    $('.read-more-holder').remove();
+  }
+}
+
+function countChildrenTotalHeight (wrapper, lineHeight) {
+  let children = wrapper.children();
+  let totalLines = 0;
+  let totalMargin = 0;
+  
+  if (children.length) {
+    for (let i = 0; i < children.length; i++) {
+      let childHeight = $(children[i]).outerHeight();
+      let childMarginBottom = $(children[i]).css('margin-bottom').slice(0, -2);
+      let currentLines = countLines(childHeight, lineHeight);
+      totalLines = totalLines + currentLines;
+
+      if(totalLines >= 5) {
+        return {
+          targetObject: $(children[i]),
+          leftedLine: 5 - (totalLines - currentLines),
+          margin: +totalMargin,
+          lineHeight: +$(children[i]).css('line-height').slice(0, -2)
+        };
+      } else {
+        totalMargin = totalMargin + +childMarginBottom;
+      }
+    }
+  } else {
+    return false;
+  }
+}
+
+function countLines (itemHeight, lineHeight) {
+  let numberOfLines = Math.floor(itemHeight / lineHeight);
+  return numberOfLines
+}
+
+// product page collaplsed text end
 
 $("#page-overlay").click(function () {
   $(".js-drawer-close").click();

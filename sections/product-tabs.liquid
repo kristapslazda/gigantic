@@ -53,7 +53,12 @@
                         {% when 'description' %}
                             <div class="descriptiontab">
                                 <div class="rte">
-                                    {{ product.description }}
+                                    <div class="colapsed-text">
+                                      {{ product.description }}
+                                    </div>
+                                    <div class="read-more-holder">
+                                      <a class="read-more" data-read-less="Read less" data-read-more="Read more">Read more</a>
+                                    </div>
                                 </div>
                             </div>
                         {% when 'reviews' %}

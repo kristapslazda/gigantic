@@ -9940,7 +9940,7 @@ form.search .search__submit {
 }
 
 .colapsed-text {
-  transition: height 0.7s;
+  transition: height 0.5s;
   overflow: hidden;
 }
 
