@@ -64,7 +64,7 @@
             }
         ]
     }
-
+    
     var prodSliderSettings = {
         prevArrow: $('[data-section-id="{{ section.id }}"] .col-slider-prev'),
         nextArrow: $('[data-section-id="{{ section.id }}"] .col-slider-next'),
@@ -104,7 +104,12 @@
 
     $(document).ready(function(){
         if($(window).innerWidth() <= 769) {
-            new Glider(document.querySelector('[data-section-id="{{ section.id }}"] .multi-slides'), gliderOptions);
+            $('[data-section-id="{{ section.id }}"] .multi-slides').slick('unslick');
+            setTimeout(function(){
+                new Glider(document.querySelector('[data-section-id="{{ section.id }}"] .multi-slides'), gliderOptions);
+            }, 300);
+        } else {
+            $('[data-section-id="{{ section.id }}"] .multi-slides').slick(prodSliderSettings);
         }
     });
 
