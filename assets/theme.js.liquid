@@ -514,7 +514,7 @@ slate.Variants = (function() {
         if(variantId) {
           $('#ProductSelect option[selected="selected"]').removeAttr('selected').attr('disabled', 'disabled');
           $('#ProductSelect option[value="' + variantId + '"]').removeAttr('disabled').attr('selected', 'selected');
-
+          
           if (vartiant_quantity <= 0) {
             let cartText = "{{ 'products.product.sold_out' | t }}";
             $('.add-to-cart .btn__text').text(cartText);
@@ -553,6 +553,16 @@ slate.Variants = (function() {
           return _.isEqual(variant[values.index], values.value);
          
         });
+      });
+
+      let variantImage = found.featured_image;
+
+      var numbr = $('.thumb-'+variantImage.id+'').index() - 1;
+      $('.product__image-slider').slickGoTo(numbr);
+
+      this.$container.trigger({
+        type: 'variantImageChange',
+        variant: found
       });
 
       return found;
@@ -618,7 +628,6 @@ slate.Variants = (function() {
       
       var numbr = $('.thumb-'+variantImage.id+'').index() - 1;
       $('.product__image-slider').slickGoTo(numbr);
-      
 
       this.$container.trigger({
         type: 'variantImageChange',
@@ -1194,11 +1203,13 @@ var ajaxCart = (function(module, $) {
     if(cart.item_count >= window.cart_freeship_threshold) {
       $(".cart-shipping .cartShipVal").text("{{'cart.general.shipping_free' | t}}");
       setTimeout(function() {
+        // $(".estimatedTotalVal").text(window.hulkapps.discounts.discounted_price_total);
         $(".estimatedTotalVal").text(theme.Currency.formatMoney(parseInt(window.hulkapps.cart.total_price), theme.strings.moneyFormat));
       }, 800);
     } else {
       $(".cart-shipping .cartShipVal").text(theme.Currency.formatMoney(parseInt(window.cart_freeship_standardPrice), theme.strings.moneyFormat));
       setTimeout(function() {
+        // var discountPrice = window.hulkapps.discounts.discounted_price_total.split(',')[0] * 100;
         var discountPrice = window.hulkapps.cart.total_price;
         var totalPrice = parseInt(window.cart_freeship_standardPrice) + parseInt(discountPrice);
         $(".estimatedTotalVal").text(theme.Currency.formatMoney(totalPrice, theme.strings.moneyFormat));
@@ -4062,6 +4073,10 @@ if (ifIE === 1) {
         $(this).find('img').attr('src', $(this).find('img').data('image-for-ie'));
     });
 }
+
+$('.product__image-slider').on('init', function(event, slick){
+  console.log("Hello World!");
+});
 
 $(".product__image-slider").slick({
   prevArrow: $('.prod-prev'),
