@@ -1,0 +1,59 @@
+<div data-section-id="{{ section.id }}" class="product-list-slider recomendation">
+    <div class="col-slider">
+        <div class="container">
+            <div class="header">
+               {%- if section.settings.heading != blank -%}
+                  <h2>{{ section.settings.heading | escape }}</h2>
+                {%- endif -%}
+            </div>
+              <div class="multi-slides">
+                  {% for product in collections[section.settings.newest_collection].products limit: 16 %}
+                  <div class="slide">
+                      {% assign current_variant = product.selected_or_first_available_variant %}
+                      <a href="{{ product.url }}" class="slide">
+                        {% if current_variant.compare_at_price > current_variant.price %}
+                            {% assign save_price = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | floor %}
+                            <span class="discount-circle">-{{ save_price }}%</span>
+                        {% endif %}
+                            <span class="image-wrap">{%- assign img_url = product.images.first | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                            <img class="lazyload" data-sizes="auto" sizes="(max-width: 300px)" data-src="{{ img_url }}" alt="{{ product.image.alt }}"/></span>
+                        <div class="areviews_product_item areviews_stars{{ product.id }}" data-product-id="{{ product.id }}"></div>
+                        <h3>{{ product.title }}</h3>
+                        <p class="price">
+                            {% if current_variant.compare_at_price > current_variant.price %}
+                                <span class="product-single__price--wrapper" aria-hidden="false">
+                                    <span id="ComparePrice" class="product-single__price--compare-at" style="font-weight: 400"><s>{{ current_variant.compare_at_price | money }}</s></span>
+                                </span>
+                                <span id="ComparePriceA11y" class="sale-price">{{ current_variant.price | money }}</span>
+                            {% else %}
+                                <span id="ComparePriceA11y">{{ current_variant.price | money }}</span>
+                            {% endif %}
+                        </p>
+                        <span class="btn btn-goto">{{ 'collections.general.goto' | t }}</span>
+                        </a>
+                      </div>
+                  {% endfor %}
+              </div>
+              <div class="col-slider-prev"></div>
+              <div class="col-slider-next"></div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Newest Slider",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "newest_collection",
+      "label": "Collection Newest"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    }
+  ]
+}
+{% endschema %}

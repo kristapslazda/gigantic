@@ -557,13 +557,15 @@ slate.Variants = (function() {
 
       let variantImage = found.featured_image;
 
-      var numbr = $('.thumb-'+variantImage.id+'').index() - 1;
-      $('.product__image-slider').slickGoTo(numbr);
-
-      this.$container.trigger({
-        type: 'variantImageChange',
-        variant: found
-      });
+      if (variantImage) {
+        var numbr = $('.thumb-'+variantImage.id+'').index() - 1;
+        $('.product__image-slider').slickGoTo(numbr);
+  
+        this.$container.trigger({
+          type: 'variantImageChange',
+          variant: found
+        });
+      }
 
       return found;
     },
@@ -3760,9 +3762,66 @@ function hoveSecondMenuItems (link) {
   }
 }
 
-
 //Custom
 $(document).ready(function () {
+
+  if($(window).width() > 770) {
+    $('#shopify-section-product-newest-slider .multi-slides').slick(
+      {
+        prevArrow: $('#shopify-section-product-newest-slider .col-slider-prev'),
+        nextArrow: $('#shopify-section-product-newest-slider .col-slider-next'),
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: false,
+        infinite: false,
+        swipeToSlide: true,
+        responsive: [
+            {
+                breakpoint: 1440,
+                settings: {
+                    slidesToShow: 4
+                }
+            },
+            {
+                breakpoint: 770,
+                settings: "unslick"
+            }
+        ]
+      }
+    );
+  } else {
+    setTimeout(function(){
+      new Glider(document.querySelector('#shopify-section-product-newest-slider .multi-slides'), 
+      {
+        slidesToShow: 3.5,
+        slidesToScroll: 3.5,
+        duration: 1,
+        draggable: true,
+        responsive: [
+          {
+            breakpoint: 490,
+            settings: {
+              slidesToShow: 2.5,
+              slidesToScroll: 2.5,
+            }
+          },
+          {
+          breakpoint: 320,
+          settings: {
+            slidesToShow: 1.5,
+            slidesToScroll: 1.5,
+            }
+          }
+        ]
+      }
+      );
+    }, 300);
+  }
+
+  
+
+
+
   $(document).on('click', function(e) {
     if(!$(e.target).hasClass('current-sorting') && $('.current-sorting').hasClass('open')) {
       $('.current-sorting.open').siblings('.dropdown-sorting').slideUp(300);

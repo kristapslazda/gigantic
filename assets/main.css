@@ -6557,6 +6557,7 @@ form.search .search__input,
     color: #000;
   }
 
+  #shopify-section-product-newest-slider a.slide,
   #shopify-section-product-recommendations a.slide {
     width: 100%;
   }
