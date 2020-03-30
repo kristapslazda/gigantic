@@ -6585,10 +6585,11 @@ form.search .search__input,
   .col-slider .multi-slides .slide #ComparePrice {
     color: #5C5966;
   }
-  .col-slider .multi-slides .slide img {
-    width: 100%;
-    object-fit: cover;
+
+  .col-slider .slide.glider-slide .image-wrap, .col-slider .slide.slick-slide .image-wrap {
+    height: 192px;
   }
+
   .col-slider .multi-slides .slide .areviews_rating {
     margin-top: 13px !important;
   }
@@ -7518,12 +7519,27 @@ form.search .search__input,
   display: flex;
   margin-right: 20px;
 }
+
+.template-product .product-form__sticky .product-form__sticky__img {
+  height: 60px;
+  overflow: hidden;
+}
+
 .template-product .product-form__sticky .product-form__sticky__img img,
 .upsell-modal .product-form__sticky .product-form__sticky__img img {
   width: 100%;
   height: auto;
   align-self: flex-start;
 }
+
+.template-product .product-form__sticky .product-form__sticky__img img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+}
+
 .template-product .col-slider,
 .upsell-modal .col-slider {
   margin-top: 20px;
