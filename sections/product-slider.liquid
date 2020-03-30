@@ -5,7 +5,7 @@
                 {%- if section.settings.headline != blank -%}
                     <h2>{{ section.settings.headline }}</h2>
                 {%- endif -%}
-                <a href="{{ section.settings.selcol }}">{{ 'layout.navigation.see_all' | t }}<span class="icon-arrow">{% include "icon-arrow-right" %}</span></a>
+                <a href="{{ collections[section.settings.selcol].url }}">{{ 'layout.navigation.see_all' | t }}<span class="icon-arrow">{% include "icon-arrow-right" %}</span></a>
             </div>
             <div class="multi-slides">
                 {% for product in collections[section.settings.selcol].products limit:16 %}
