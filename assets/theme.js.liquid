@@ -514,7 +514,7 @@ slate.Variants = (function() {
         if(variantId) {
           $('#ProductSelect option[selected="selected"]').removeAttr('selected').attr('disabled', 'disabled');
           $('#ProductSelect option[value="' + variantId + '"]').removeAttr('disabled').attr('selected', 'selected');
-       
+
           if (vartiant_quantity <= 0) {
             let cartText = "{{ 'products.product.sold_out' | t }}";
             $('.add-to-cart .btn__text').text(cartText);
@@ -1193,14 +1193,13 @@ var ajaxCart = (function(module, $) {
 
     if(cart.item_count >= window.cart_freeship_threshold) {
       $(".cart-shipping .cartShipVal").text("{{'cart.general.shipping_free' | t}}");
-      
       setTimeout(function() {
-        $(".estimatedTotalVal").text(window.hulkapps.discounts.discounted_price_total);
+        $(".estimatedTotalVal").text(theme.Currency.formatMoney(parseInt(window.hulkapps.cart.total_price), theme.strings.moneyFormat));
       }, 800);
     } else {
       $(".cart-shipping .cartShipVal").text(theme.Currency.formatMoney(parseInt(window.cart_freeship_standardPrice), theme.strings.moneyFormat));
       setTimeout(function() {
-        var discountPrice = window.hulkapps.discounts.discounted_price_total.split(',')[0] * 100;
+        var discountPrice = window.hulkapps.cart.total_price;
         var totalPrice = parseInt(window.cart_freeship_standardPrice) + parseInt(discountPrice);
         $(".estimatedTotalVal").text(theme.Currency.formatMoney(totalPrice, theme.strings.moneyFormat));
       }, 800);
@@ -4427,6 +4426,12 @@ function msieversion() {
   }
   return false;
 }
+
+// $(window).load(function () {
+//   setTimeout(function() {
+//     $('body .product-recommendations .multi-slides').slick();
+//   }, 3000);
+// });
 
 /**
 ** Pop up Cart
