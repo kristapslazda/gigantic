@@ -193,7 +193,7 @@
         let filterMainCatefory = $('.filter_catogery');
 
         filterMainCatefory.each(function(){
-            let iconImg = $('.first-level-list').find(`a[href="${$(this).attr('href')}"] img`).clone();
+            let iconImg = $('.first-level-list').find('a[href="' + $(this).attr('href') + '"] img').clone();
             $(this).append(iconImg);
         });
 
