@@ -4157,8 +4157,24 @@ $(".product__image-slider").slick({
 
 // product page collaplsed text
 
-let colapsedTextHolder = $('.colapsed-text');
+let colapsedTextHolder = $('.tabs__content .colapsed-text');
+let faqHolder = $('.faq-wrapper');
 
+if (faqHolder.length) {
+  let faqHolderHeight = faqHolder.outerHeight();
+  let faqContentBlocks = faqHolder.find('.content');
+  let contentLineHeight = faqContentBlocks.children().eq(0).css('line-height').slice(0, -2);
+  let neededHeight = faqContentBlocks.eq(0).position().top + contentLineHeight * 2 - 11;
+  
+  faqHolder.css('height',neededHeight + 'px');
+  faqHolder.attr('data-height-close', neededHeight);
+  faqHolder.attr('data-height-total', faqHolderHeight);
+
+  $('.read-more-faq').on('click', function(e){
+    e.preventDefault();
+    readMoreClick($(this), faqHolder);
+  });
+}
 
 if (colapsedTextHolder.length) {
 
@@ -4177,20 +4193,23 @@ if (colapsedTextHolder.length) {
     
     $('.read-more').on('click', function(e){
       e.preventDefault();
-      let _this = $(this);
-      
-      if(_this.hasClass('open')) {
-        _this.removeClass('open');
-        colapsedTextHolder.css('height', colapsedTextHolder.data('height-close') + 'px');
-        _this.text(_this.data('read-more'));
-      } else {
-        _this.addClass('open');
-        colapsedTextHolder.css('height', colapsedTextHolder.data('height-total') + 'px');
-        _this.text(_this.data('read-less'));
-      }
+      readMoreClick($(this), colapsedTextHolder);
     });
   } else {
     $('.read-more-holder').remove();
+  }
+}
+
+function readMoreClick (button, textHolder) {
+  let _this = button;
+  if(_this.hasClass('open')) {
+    _this.removeClass('open');
+    textHolder.css('height', textHolder.data('height-close') + 'px');
+    _this.text(_this.data('read-more'));
+  } else {
+    _this.addClass('open');
+    textHolder.css('height', textHolder.data('height-total') + 'px');
+    _this.text(_this.data('read-less'));
   }
 }
 
@@ -4199,13 +4218,13 @@ function countChildrenTotalHeight (wrapper, lineHeight) {
   let totalLines = 0;
   let totalMargin = 0;
 
+  
   if (children.length) {
     for (let i = 0; i < children.length; i++) {
       let childHeight = $(children[i]).outerHeight();
       let childMarginBottom = $(children[i]).css('margin-bottom').slice(0, -2);
       let currentLines = countLines(childHeight, lineHeight);
       totalLines = totalLines + currentLines;
-
       if(totalLines >= 5) {
         return {
           targetObject: $(children[i]),

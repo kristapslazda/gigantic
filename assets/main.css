@@ -6566,8 +6566,7 @@ form.search .search__input,
     display: none;
   }
   
-  #shopify-section-product-newest-slider .slide:nth-child(n+7),
-  #shopify-section-product-recommendations .slide:nth-child(n+7) {
+  .product-list-slider .multi-slides .slide:nth-child(n+7) {
     display: block;
   }
   
@@ -9994,6 +9993,10 @@ form.search .search__submit {
     width: 100%;
     justify-content: space-between;
   }
+
+  .read-more-faq-holder {
+    margin-bottom: 30px;
+  }
 }
 
 .descriptiontab {
@@ -10007,6 +10010,7 @@ form.search .search__submit {
   background: #f9f9f9;
 }
 
+.faq-wrapper,
 .colapsed-text {
   transition: height 0.5s;
   overflow: hidden;
@@ -10023,12 +10027,13 @@ form.search .search__submit {
 .read-more {
   position: absolute;
   top: 0;
-  left: 15px;
+  left: 0;
   cursor: pointer;
   color: #0066c0;
 }
 
 .read-more:after {
+  display: none;
   content: '';
   background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItY2hldnJvbi1kb3duIj48cG9seWxpbmUgcG9pbnRzPSI2IDkgMTIgMTUgMTggOSI+PC9wb2x5bGluZT48L3N2Zz4=) no-repeat left center;
   background-size: cover;
@@ -10038,11 +10043,39 @@ form.search .search__submit {
   position: absolute;
   left: -18px;
   top: 7px;
-  display: block;
   transform: rotate(90deg);
   transition: transform 0.7s;
 }
 
 .read-more.open:after {
   transform: rotate(270deg);
+}
+
+.read-more-faq-holder {
+  position: relative;
+  background: #ffffff;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.read-more-faq-holder .read-more-faq {
+  background: #ffffff;
+  font-size: 19px;
+  text-transform: uppercase;
+  font-weight: 400;
+  z-index: 2;
+  position: relative;
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+.read-more-faq-holder:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 44%;
+  height: 1px;
+  background: #d6d6d6;
+  z-index: 1;
 }
