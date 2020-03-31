@@ -348,10 +348,13 @@
               </p>
                 </div>
               
-              
               <div class="product-form__sticky">
                 <div class="product-form__sticky__img">
-                  {{ current_variant.image.src | img_url: '100x' | img_tag }}
+                    {% if current_variant.image.src != blank %}
+                        {{ current_variant.image.src | img_url: '100x' | img_tag }}
+                    {% else %}
+                        {{ product.featured_image.src | img_url: '100x' | img_tag }}
+                    {% endif %}
                 </div>
                 <article class="product-form__sticky__inner">
                   <p class="title">{{ product.title }}</p>
