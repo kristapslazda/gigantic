@@ -515,15 +515,24 @@ slate.Variants = (function() {
           $('#ProductSelect option[selected="selected"]').removeAttr('selected').attr('disabled', 'disabled');
           $('#ProductSelect option[value="' + variantId + '"]').removeAttr('disabled').attr('selected', 'selected');
           
-          if (vartiant_quantity <= 0) {
-            let cartText = "{{ 'products.product.sold_out' | t }}";
-            $('.add-to-cart .btn__text').text(cartText);
-            $('.add-to-cart').attr('disabled','disabled');
-            $('.product-form__sticky__submit span').text(cartText);
-          } else {
+          let contineSelling = $('#ProductSelect option[value="' + variantId + '"]').data('continue-selling') === 'continue' ? true : false;
+          let variantImageForTopBar = $('#ProductSelect option[value="' + variantId + '"]').data('image');
+
+          console.log(variantImageForTopBar);
+          
+          if (variantImageForTopBar.length) {
+            $('.product-form__sticky__img img').attr('srcset', variantImageForTopBar);
+          }
+
+          if (contineSelling || vartiant_quantity > 0) {
             let cartText = "{{ 'products.product.add_to_cart' | t }}";
             $('.add-to-cart .btn__text').text(cartText).append($('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"><path data-name="layer2" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" d="M56 62H8l2-44h44l2 44z" stroke-linejoin="round" stroke-linecap="round"></path><path data-name="layer1" d="M22 26V12A10 10 0 0 1 32 2a10 10 0 0 1 10 10v14" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path></svg>'));
             $('.add-to-cart').removeAttr('disabled');
+            $('.product-form__sticky__submit span').text(cartText);
+          } else {
+            let cartText = "{{ 'products.product.sold_out' | t }}";
+            $('.add-to-cart .btn__text').text(cartText);
+            $('.add-to-cart').attr('disabled','disabled');
             $('.product-form__sticky__submit span').text(cartText);
           }
         }
@@ -4189,7 +4198,7 @@ function countChildrenTotalHeight (wrapper, lineHeight) {
   let children = wrapper.children();
   let totalLines = 0;
   let totalMargin = 0;
-  
+
   if (children.length) {
     for (let i = 0; i < children.length; i++) {
       let childHeight = $(children[i]).outerHeight();
