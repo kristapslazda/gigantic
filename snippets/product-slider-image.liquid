@@ -1,0 +1,16 @@
+<img
+    srcset="
+        {{image | img_url: '358x'}} 358w,
+        {{image | img_url: '502x'}} 502w,
+        {{image | img_url: '610x'}} 610w,
+        {{image | img_url: '730x'}} 730w,
+    "
+    sizes="
+        (max-width: 991px) 358px,
+        (max-width: 1199px) 502px,
+        (max-width: 1399px) 610px,
+        730px
+    "
+    data-lazy="{{image | img_url: '730x'}}"
+    data-zoom-image="{{image | img_url: '1500x'}}"
+/>

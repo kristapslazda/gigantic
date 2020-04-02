@@ -10,28 +10,29 @@
             <div class="multi-slides">
                 {% for product in collections[section.settings.selcol].products limit:16 %}
                     {% assign current_variant = product.selected_or_first_available_variant %}
-                    <a href="{{ product.url }}" class="slide">
-
-                        {% if current_variant.compare_at_price > current_variant.price %}
-                            {% assign save_price = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | floor %}
-                            <span class="discount-circle">-{{ save_price }}%</span>
-                        {% endif %}
-                            <span class="image-wrap">{%- assign img_url = product.images.first | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-                            <img class="lazyload" data-sizes="auto" sizes="(max-width: 300px)" data-src="{{ img_url }}" alt="{{ product.image.alt }}"/></span>
-                        <div class="areviews_product_item areviews_stars{{ product.id }}" data-product-id="{{ product.id }}"></div>
-                        <h3>{{ product.title }}</h3>
-                        <p class="price">
+                    <div class="slide">
+                        <a href="{{ product.url }}" class="slide">
                             {% if current_variant.compare_at_price > current_variant.price %}
-                                <span class="product-single__price--wrapper" aria-hidden="false">
-                                    <span id="ComparePrice" class="product-single__price--compare-at" style="font-weight: 400"><s>{{ current_variant.compare_at_price | money }}</s></span>
-                                </span>
-                                <span id="ComparePriceA11y" class="sale-price">{{ current_variant.price | money }}</span>
-                            {% else %}
-                                <span id="ComparePriceA11y">{{ current_variant.price | money }}</span>
+                                {% assign save_price = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | floor %}
+                                <span class="discount-circle">-{{ save_price }}%</span>
                             {% endif %}
-                        </p>
-                        <span class="btn btn-goto">{{ 'collections.general.goto' | t }}</span>
-                    </a>
+                                <span class="image-wrap">{%- assign img_url = product.images.first | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                                <img class="lazyload" data-sizes="auto" sizes="(max-width: 300px)" data-src="{{ img_url }}" alt="{{ product.image.alt }}"/></span>
+                            <div class="areviews_product_item areviews_stars{{ product.id }}" data-product-id="{{ product.id }}"></div>
+                            <h3>{{ product.title }}</h3>
+                            <p class="price">
+                                {% if current_variant.compare_at_price > current_variant.price %}
+                                    <span class="product-single__price--wrapper" aria-hidden="false">
+                                        <span id="ComparePrice" class="product-single__price--compare-at" style="font-weight: 400"><s>{{ current_variant.compare_at_price | money }}</s></span>
+                                    </span>
+                                    <span id="ComparePriceA11y" class="sale-price">{{ current_variant.price | money }}</span>
+                                {% else %}
+                                    <span id="ComparePriceA11y">{{ current_variant.price | money }}</span>
+                                {% endif %}
+                            </p>
+                            <span class="btn btn-goto">{{ 'collections.general.goto' | t }}</span>
+                        </a>
+                    </div>
                 {% endfor %}
             </div>
             <div class="col-slider-prev"></div>
@@ -39,82 +40,6 @@
         </div>
     </div>
 </div>
-
-<script>
-
-    let gliderOptions = {
-        slidesToShow: 3.5,
-        slidesToScroll: 3.5,
-        duration: 1,
-        draggable: true,
-            responsive: [
-            {
-                breakpoint: 490,
-                settings: {
-                    slidesToShow: 2.5,
-                    slidesToScroll: 2.5,
-                }
-            },
-            {
-                breakpoint: 320,
-                settings: {
-                    slidesToShow: 1.5,
-                    slidesToScroll: 1.5,
-                }
-            }
-        ]
-    }
-    
-    var prodSliderSettings = {
-        prevArrow: $('[data-section-id="{{ section.id }}"] .col-slider-prev'),
-        nextArrow: $('[data-section-id="{{ section.id }}"] .col-slider-next'),
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        autoplay: false,
-        infinite: false,
-        swipeToSlide: true,
-        responsive: [
-            {
-                breakpoint: 1440,
-                settings: {
-                    slidesToShow: 4
-                }
-            },
-            {
-                breakpoint: 770,
-                settings: "unslick"
-            }
-        ]
-    };
-
-    $('[data-section-id="{{ section.id }}"] .multi-slides').slick(prodSliderSettings);
-
-    $(window).on('resize', function () {
-        setTimeout(function () {
-            if ($(window).innerWidth() > 769) {
-                $('[data-section-id="{{ section.id }}"] .multi-slides').slick(prodSliderSettings)
-            } else {
-                $('[data-section-id="{{ section.id }}"] .multi-slides').slick('unslick');
-                setTimeout(function(){
-                    new Glider(document.querySelector('[data-section-id="{{ section.id }}"] .multi-slides'), gliderOptions);
-                }, 300);
-            }
-        }, 100)
-    });
-
-    $(document).ready(function(){
-        if($(window).innerWidth() <= 769) {
-            $('[data-section-id="{{ section.id }}"] .multi-slides').slick('unslick');
-            setTimeout(function(){
-                new Glider(document.querySelector('[data-section-id="{{ section.id }}"] .multi-slides'), gliderOptions);
-            }, 300);
-        } else {
-            $('[data-section-id="{{ section.id }}"] .multi-slides').slick(prodSliderSettings);
-        }
-    });
-
-</script>
-
 {% schema %}
 {
   "name": "Product Slider",

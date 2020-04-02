@@ -56,32 +56,41 @@
 
     {% include 'breadcrumbs' %}
     <div class="product-single{% if section.settings.enable_payment_button %} product-single--{{ section.settings.image_size }}-image{% endif %}">
-      <div class="product__image-wrapper">
-      <div class="product__image-slider">
+      <ul class="product-slider-nav">
             {% for image in product.images %}
-                <div class="img-wrap thumb-{{ image.id }}">
-                    {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-                    <img class="lazyload" data-image-for-ie="{{image | img_url: '750x'}}" data-sizes="auto" data-src="{{ img_url }}" alt="{{ image }}">
+                <div>
+                    <li data-index={{forloop.index | minus: 1}} class="nav-for-slider">
+                        <img src="{{image | img_url: '40x'}}"/>
+                    </li>
                 </div>
             {% endfor %}
-      </div>
+        </ul>
+       <div class="product__image-wrapper">
+            <div class="product__image-slider">
+                    {% for image in product.images %}
+                        <div class="img-wrap thumb-{{ image.id }}" data-image-name="{{image | split: '/' | last | split: '.' | first}}">
+                            {% comment %} {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                            <img class="lazyload" data-image-for-ie="{{image | img_url: '750x'}}" data-sizes="auto" data-src="{{ img_url }}" alt="{{ image }}"> {% endcomment %}
+                            {% include 'product-slider-image' %}
+                        </div>
+                    {% endfor %}
+            </div>                    
+            {% comment %} <div class="prod-prev">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
+                    <g>
+                        <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z"></path>
+                    </g>
+                </svg>
+            </div>
             
-      <div class="prod-prev">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
-            <g>
-                <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z"></path>
-            </g>
-        </svg>
-      </div>
-      
-      <div class="prod-next">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
-            <g>
-                <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z"></path>
-            </g>
-        </svg>
-      </div>
- </div>
+            <div class="prod-next">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
+                    <g>
+                        <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z"></path>
+                    </g>
+                </svg>
+            </div> {% endcomment %}
+        </div>
         <div class="product__image-wrap mb-only">
             <div class="main-image-slider">
                 {% for image in product.images %}
@@ -235,6 +244,7 @@
                                                 value="{{ variant.id }}"
                                                 data-price="{{ variant.price }}"
                                                 data-compare="{{ variant.compare_at_price }}"
+                                                data-image-id="{{variant.image.id}}"
                                                 data-image="{{variant.image.src | img_url: '100x'}}"
                                                 data-continue-selling="{{variant.inventory_policy}}"
                                                 >
