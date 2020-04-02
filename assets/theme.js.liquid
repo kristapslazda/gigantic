@@ -4288,6 +4288,8 @@ if( productAddToCart ){
 // 
 // ------------------------------------------------------
 $(document).ready(function() {
+  // win width
+  let winWidth = $(window).width();
 
   //Mega menu
   $(".site-header__nav > ul > .menu-item").each(function() {
@@ -4319,14 +4321,12 @@ $(document).ready(function() {
     }
   }
 
-  // win width
-  let winWidth = $(window).width();
-
   if ($('.product-single').length) {
     // get init slide if product has variants
     let selectedId = $('#ProductSelect [selected="selected"]').data('image-id');
     let initSlide = $('.thumb-' + selectedId).index();
-    
+    if (initSlide < 0) initSlide = 0;
+        
     // product slider
     let productSlider = $(".product__image-slider").slick({
       slidesToShow: 1,
@@ -4342,10 +4342,8 @@ $(document).ready(function() {
       },
       onInit: function (slider) {
         let currentSlide = slider.currentSlide;
-        console.log(currentSlide);
-
         slideThumbnailsStateChange(currentSlide);
-        let interval = setInterval(() => {
+        let interval = setInterval(function () {
           if( $('.zoomContainer').length) {
             clearInterval(interval);
             enableZoomForActiveSlide(currentSlide);
@@ -4353,7 +4351,7 @@ $(document).ready(function() {
         }, 100);
       }
     });
-      
+
     // thumbnails for product slider
     $('.nav-for-slider').on('mouseenter', function() {
       let _this = $(this);
@@ -4546,7 +4544,6 @@ function slideThumbnailsStateChange (index) {
     }
   });
 }
-
 
 // check if Explorer
 function msieversion() {
