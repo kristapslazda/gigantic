@@ -177,7 +177,8 @@
       "remove": "Fjern {{ product }}",
       "total": "I alt",
       "update": "Opdatér",
-      "overview": "Ordreoversigt"
+      "overview": "Ordreoversigt",
+      "remove1": "Fjern"
     },
     "popup": {
       "added_to_cart": "Netop føjet til din indkøbskurv",

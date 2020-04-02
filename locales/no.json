@@ -182,7 +182,8 @@
       "remove": "Fjern {{ product }}",
       "total": "I alt",
       "update": "Oppdater",
-      "overview": "Oversikt"
+      "overview": "Oversikt",
+      "remove1": "Fjern"
     },
     "popup": {
       "added_to_cart": "Just added to your cart",

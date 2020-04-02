@@ -16,7 +16,8 @@
       "USP3": "60 päivän palautusoikeus",
       "description": "Tuotteen Kuvaus",
       "reviews": "Arvostelut",
-      "productBundle_html": "Osta {{ amount }} koiraa <span class='price'>{{ price }}<\/span> kappaleelta ja <i>säästä {{ percentage }}<\/i>"
+      "productBundle_html": "Osta {{ amount }} koiraa <span class='price'>{{ price }}<\/span> kappaleelta ja <i>säästä {{ percentage }}<\/i>",
+      "sold_out": "Loppuunmyyty"
     },
     "collection": {
       "return": "Palaa kokoelmasivulle"
@@ -39,14 +40,17 @@
       "shipping_label": "Laivaus",
       "estimated-total": "Arvioitu kokonaissumma",
       "continue_shopping": "Jatka ostoksia",
-      "terms_html": "Ik accepteer <a target='_blank' href='{{ link }}'>toimitusehdot<\/a>"
+      "terms_html": "Ik accepteer <a target='_blank' href='{{ link }}'>toimitusehdot<\/a>",
+      "ATC_short": "Lisää",
+      "shipping_free": "Ilmainen toimitus"
     },
     "label": {
       "total": "Yhteensä",
       "quantity": "Määrä",
       "overview": "Tilauskatsaus",
       "product": "Tuote",
-      "price": "Hinta"
+      "price": "Hinta",
+      "remove1": "Poista"
     }
   },
   "general": {
@@ -55,6 +59,9 @@
       "next": "Seuraava sivu",
       "showing_html": "",
       "current_page": "Sivu {{ current }}\/{{ total }}"
+    },
+    "payment": {
+      "method": "Maksutavat"
     },
     "search": {
       "no_results_html": "Your search for \"{{ terms }}\" did not yield any results.",

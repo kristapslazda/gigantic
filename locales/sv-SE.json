@@ -186,7 +186,8 @@
       "remove": "Ta bort {{ product }}",
       "total": "Totalt",
       "update": "Uppdatera",
-      "overview": "Översikt"
+      "overview": "Översikt",
+      "remove1": "Ta bort"
     },
     "popup": {
       "added_to_cart": "Nyss tillagd i din varukorg",

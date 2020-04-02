@@ -184,7 +184,8 @@
       "regular_total": "Regelbunden total",
       "remove": "Ta bort {{ product }}",
       "total": "Totalt",
-      "update": "Uppdatera"
+      "update": "Uppdatera",
+      "remove1": "Ta bort"
     },
     "popup": {
       "added_to_cart": "Nyss tillagd i din varukorg",
@@ -400,14 +401,15 @@
       "more_images": "Se [count] andra foton",
       "description": "Produktbeskrivning",
       "reviews": "Recension",
-      "satisfaction_guarantee": "XXXXXXXXXXXXXXXXXX",
-      "in_stock_status": "XXXXXXXXXXXX",
-      "deliverytime": "XXXXXXXXX",
-      "deliverydays": "XXXXXXXXX",
-      "USP1": "Gratis fragt XXXXXXX",
-      "USP2": "Hurtig levering XXXXXX",
-      "USP2vidadrobs": "Hurtig levering XXXXXXXXX",
-      "USP3": "60 dages returret XXXXXX"
+      "satisfaction_guarantee": "Nöjdhetsgaranti",
+      "in_stock_status": "I lager",
+      "deliverytime": "Leveranstid",
+      "deliverydays": "dagar",
+      "USP1": "Fri frakt vid köp av 2 st.",
+      "USP2": "Försäkrad frakt",
+      "USP2vidadrobs": "Försäkrad frakt",
+      "USP3": "60 dagars returrätt",
+      "productBundle_html": "Köp {{ amount }} för <span class='price'>{{ price }}<\/span> per styck och <i>spara {{ percentage }}<\/i>"
     }
   },
   "gift_cards": {
