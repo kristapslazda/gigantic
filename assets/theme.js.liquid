@@ -3985,34 +3985,9 @@ var hamburger = document.querySelector('.hamburger'),
   });
 
 var mq = window.matchMedia( "(max-width: 1025px)" );
+
 if (mq.matches) {
-  $(document).ready(function () {
-    setTimeout(function () {
-      var tabContent = $(".tabs__content").children();
-      var tabBtn = $(".tabs__nav").children();
-      $(".tabs__content .tabs__content-item").each(function( index ) {
-        $(this).clone().insertAfter($(".tabs__nav [data-tab-index='"+ index +"']"));
-      });
-    }, 1000)
-  })
-
-  $(".tabs__nav-item").click(function () {
-      $(this).parent().find(".tabs__content-item--active").removeClass("tabs__content-item--active");
-      $(this).find(".tabs__content-item").addClass("tabs__content-item--active");
-  });
-
   $(".site-header").insertAfter("#shopify-section-header");
-
-  {% comment %}
-    var hamburger = document.querySelector('.hamburger'),
-        menu = document.querySelector('#mobile-menu')
-
-    $(document).on('click', '.hamburger', function () {
-      this.classList.toggle('open');
-      menu.classList.toggle('open');
-      $("#page-overlay").toggleClass("show");
-    });
-  {% endcomment %}
 
   var touchtime = 0;
   $(".sub-link").each(function () {
@@ -4106,52 +4081,6 @@ if (ifIE === 1) {
     });
 }
 
-// product page collaplsed text
-
-let colapsedTextHolder = $('.tabs__content .colapsed-text');
-let faqHolder = $('.faq-wrapper');
-
-if (faqHolder.length) {
-  let faqHolderHeight = faqHolder.outerHeight();
-  let faqContentBlocks = faqHolder.find('.content');
-  let contentLineHeight = faqContentBlocks.children().eq(0).css('line-height').slice(0, -2);
-  let neededHeight = faqContentBlocks.eq(0).position().top + contentLineHeight * 2 - 11;
-  
-  faqHolder.css('height',neededHeight + 'px');
-  faqHolder.attr('data-height-close', neededHeight);
-  faqHolder.attr('data-height-total', faqHolderHeight);
-
-  $('.read-more-faq').on('click', function(e){
-    e.preventDefault();
-    readMoreClick($(this), faqHolder);
-  });
-}
-
-if (colapsedTextHolder.length) {
-
-  let parentLineHeight = colapsedTextHolder.css('line-height').slice(0, -2);
-  let totalHeight = colapsedTextHolder.outerHeight();
-
-  if (totalHeight > 210) {
-    let totalChildGeight = countChildrenTotalHeight(colapsedTextHolder, parentLineHeight);
-    let offsetTop = totalChildGeight.targetObject.position().top;
-    let childMarginTop = +totalChildGeight.targetObject.css('margin-top').slice(0, -2);
-    let totalTop = offsetTop + childMarginTop + totalChildGeight.leftedLine * totalChildGeight.lineHeight - 10;
-
-    $('.colapsed-text').css('height', (totalTop) + 'px');
-    $('.colapsed-text').attr('data-height-close', totalTop);
-    $('.colapsed-text').attr('data-height-total', totalHeight);
-    
-    $('.read-more').on('click', function(e){
-      e.preventDefault();
-      readMoreClick($(this), colapsedTextHolder);
-    });
-  } else {
-    $('.read-more-holder').remove();
-  }
-}
-
-// product page collaplsed text end
 
 $("#page-overlay").click(function () {
   $(".js-drawer-close").click();
@@ -4326,7 +4255,7 @@ $(document).ready(function() {
     let selectedId = $('#ProductSelect [selected="selected"]').data('image-id');
     let initSlide = $('.thumb-' + selectedId).index();
     if (initSlide < 0) initSlide = 0;
-        
+
     // product slider
     let productSlider = $(".product__image-slider").slick({
       slidesToShow: 1,
@@ -4441,6 +4370,74 @@ $(document).ready(function() {
       );
     });
   }
+
+  // mobile tabs 
+  let mq = window.matchMedia( "(max-width: 1025px)" );
+
+  let colapsedTextHolder = $('.tabs__content .colapsed-text');
+
+  console.log(mq);
+
+  if (mq.matches) {
+    $(".tabs__content .tabs__content-item").each(function( index ) {
+      $(this).clone().attr('data-content-index', index).insertAfter($(".tabs__nav [data-tab-index='"+ index +"']"));
+    });
+    
+    $(".tabs__nav-item").click(function () {
+      $(this).parent().find(".tabs__content-item--active").removeClass("tabs__content-item--active");
+      $(this).find(".tabs__content-item").addClass("tabs__content-item--active");
+    });
+    
+    colapsedTextHolder = $('.tabs__nav .colapsed-text');
+  }
+
+  console.log(colapsedTextHolder);
+  // product page collaplsed text
+  let faqHolder = $('.faq-wrapper');
+
+  if (faqHolder.length) {
+    let faqHolderHeight = faqHolder.outerHeight();
+    let faqContentBlocks = faqHolder.find('.content');
+    let contentLineHeight = faqContentBlocks.children().eq(0).css('line-height').slice(0, -2);
+    let neededHeight = faqContentBlocks.eq(0).position().top + contentLineHeight * 2 - 11;
+    
+    faqHolder.css('height',neededHeight + 'px');
+    faqHolder.attr('data-height-close', neededHeight);
+    faqHolder.attr('data-height-total', faqHolderHeight);
+
+    $('.read-more-faq').on('click', function(e){
+      e.preventDefault();
+      readMoreClick($(this), faqHolder);
+    });
+  }
+
+  console.log(colapsedTextHolder.length);
+
+  if (colapsedTextHolder.length) {
+
+    let parentLineHeight = colapsedTextHolder.css('line-height').slice(0, -2);
+    let totalHeight = colapsedTextHolder.outerHeight();
+
+    if (totalHeight > 210) {
+      let totalChildGeight = countChildrenTotalHeight(colapsedTextHolder, parentLineHeight);
+      let offsetTop = totalChildGeight.targetObject.position().top;
+      let childMarginTop = +totalChildGeight.targetObject.css('margin-top').slice(0, -2);
+      let totalTop = offsetTop + childMarginTop + totalChildGeight.leftedLine * totalChildGeight.lineHeight - 10;
+
+      $('.colapsed-text').css('height', (totalTop) + 'px');
+      $('.colapsed-text').attr('data-height-close', totalTop);
+      $('.colapsed-text').attr('data-height-total', totalHeight);
+      
+      $('.read-more').on('click', function(e){
+        e.preventDefault();
+        readMoreClick($(this), colapsedTextHolder);
+      });
+    } else {
+      // $('.read-more-holder').remove();
+    }
+  }
+// product page collaplsed text end
+
 });
 
 // events

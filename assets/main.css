@@ -8690,7 +8690,7 @@ body {
     background-color: #fff;
     color: #000;
     font-weight: normal;
-    padding-bottom: 0;
+    padding-bottom: 40px;
     border-top: 1px solid #C8C8C8;
     padding-top: 25px !important;
   }
@@ -10078,25 +10078,6 @@ form.search .search__submit {
   color: #0066c0;
 }
 
-.read-more:after {
-  display: none;
-  content: '';
-  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItY2hldnJvbi1kb3duIj48cG9seWxpbmUgcG9pbnRzPSI2IDkgMTIgMTUgMTggOSI+PC9wb2x5bGluZT48L3N2Zz4=) no-repeat left center;
-  background-size: cover;
-  width: 15px;
-  background-size: cover;
-  height: 8px;
-  position: absolute;
-  left: -18px;
-  top: 7px;
-  transform: rotate(90deg);
-  transition: transform 0.7s;
-}
-
-.read-more.open:after {
-  transform: rotate(270deg);
-}
-
 .read-more-faq-holder {
   position: relative;
   background: #ffffff;
@@ -10124,4 +10105,24 @@ form.search .search__submit {
   height: 1px;
   background: #d6d6d6;
   z-index: 1;
+}
+
+@media (max-width: 1025px) {
+  .read-more:after {
+    content: '';
+    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItY2hldnJvbi1kb3duIj48cG9seWxpbmUgcG9pbnRzPSI2IDkgMTIgMTUgMTggOSI+PC9wb2x5bGluZT48L3N2Zz4=) no-repeat left center;
+    background-size: cover;
+    width: 15px;
+    background-size: cover;
+    height: 8px;
+    position: absolute;
+    left: -18px;
+    top: 7px;
+    transform: rotate(90deg);
+    transition: transform 0.7s;
+  }
+  
+  .read-more.open:after {
+    transform: rotate(270deg);
+  }
 }
