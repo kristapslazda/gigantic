@@ -110,11 +110,12 @@
                             data-src="{{image | img_url: 'x'}}"
                             class="lazyload" 
                         />
+                        <div class="loader">
+                            <div class="lds-dual-ring"></div>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
-
-
 
             {% if product.images.size > 1 %}
                 <div class="thumbnails-wrapper">
