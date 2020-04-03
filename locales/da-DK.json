@@ -177,7 +177,8 @@
       "remove": "Fjern {{ product }}",
       "total": "I alt",
       "update": "Opdatér",
-      "overview": "Ordreoversigt"
+      "overview": "Ordreoversigt",
+      "remove1": "Fjern"
     },
     "popup": {
       "added_to_cart": "Netop føjet til din indkøbskurv",
@@ -400,7 +401,11 @@
       "USP1": "Gratis fragt ved køb af 2 varer",
       "USP2": "Hurtig levering (1-3 dage)",
       "USP2vidadrobs": "Hurtig levering (4-6 dage)",
-      "USP3": "60 dages returret"
+      "USP3": "60 dages returret",
+      "read_more": "Read more",
+      "read_less": "Read less",
+      "read_more_faq": "Read more faq",
+      "read_less_faq": "Read less faq"
     }
   },
   "gift_cards": {

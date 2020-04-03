@@ -75,7 +75,8 @@
       "product": "Product",
       "price": "Prijs",
       "quantity": "Aantal",
-      "total": "Totale"
+      "total": "Totale",
+      "remove1": "Verwijderen"
     },
     "upsell": {
       "popup_addtocart": "Voeg toe aan winkelwagen"

@@ -56,32 +56,39 @@
 
     {% include 'breadcrumbs' %}
     <div class="product-single{% if section.settings.enable_payment_button %} product-single--{{ section.settings.image_size }}-image{% endif %}">
-      <div class="product__image-wrapper">
-      <div class="product__image-slider">
+      <ul class="product-slider-nav">
             {% for image in product.images %}
-                <div class="img-wrap thumb-{{ image.id }}">
-                    {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-                    <img class="lazyload" data-image-for-ie="{{image | img_url: '750x'}}" data-sizes="auto" data-src="{{ img_url }}" src="{{image | img_url: '750x'}}" alt="{{ image }}">
-                </div>
+                <li data-index={{forloop.index | minus: 1}} class="nav-for-slider">
+                    <img src="{{image | img_url: '40x'}}"/>
+                </li>
             {% endfor %}
-      </div>
-      
-      <div class="prod-prev">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
-            <g>
-                <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z"></path>
-            </g>
-        </svg>
-      </div>
-      
-      <div class="prod-next">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
-            <g>
-                <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z"></path>
-            </g>
-        </svg>
-      </div>
- </div>
+        </ul>
+       <div class="product__image-wrapper">
+            <div class="product__image-slider">
+                    {% for image in product.images %}
+                        <div class="img-wrap thumb-{{ image.id }}" data-image-name="{{image | split: '/' | last | split: '.' | first}}">
+                            {% comment %} {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                            <img class="lazyload" data-image-for-ie="{{image | img_url: '750x'}}" data-sizes="auto" data-src="{{ img_url }}" alt="{{ image }}"> {% endcomment %}
+                            {% include 'product-slider-image' %}
+                        </div>
+                    {% endfor %}
+            </div>                    
+            {% comment %} <div class="prod-prev">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
+                    <g>
+                        <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z"></path>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="prod-next">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
+                    <g>
+                        <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z"></path>
+                    </g>
+                </svg>
+            </div> {% endcomment %}
+        </div>
         <div class="product__image-wrap mb-only">
             <div class="main-image-slider">
                 {% for image in product.images %}
@@ -133,7 +140,7 @@
               
                 <table id="tilfredshedsgaranti" style="margin-bottom: 15px;">
 				<tr>
-				<td><strong>&nbsp;&nbsp;&#10003;&nbsp;&nbsp;Tilfredshedsgaranti&nbsp;&nbsp;</strong></td>
+				<td><strong>&nbsp;&nbsp;&#10003;&nbsp;&nbsp;{{ 'products.product.satisfaction_guarantee' | t }}&nbsp;&nbsp;</strong></td>
 				</tr>
 				</table>
              
@@ -194,7 +201,7 @@
                                                             {% comment %} {% if option.selected_value == value %} checked="checked"{% endif %} {% endcomment %}
                                                             {% if current_variant.options contains value %} checked="checked"{% endif %}
 
-                                                            {% unless variant_label_state %} disabled="disabled"{% endunless %}
+                                                            {% comment %} {% unless variant_label_state %} disabled="disabled"{% endunless %} {% endcomment %}
                                                            value="{{ value | escape }}" data-index="option{{ option_index }}"
                                                            name="{{ option.name | handleize }}"
                                                            class="single-option-selector__radio {% unless variant_label_state %} disabled{% endunless %}"
@@ -234,7 +241,11 @@
                                                 data-sku="{{ variant.sku }}"
                                                 value="{{ variant.id }}"
                                                 data-price="{{ variant.price }}"
-                                                data-compare="{{ variant.compare_at_price }}">
+                                                data-compare="{{ variant.compare_at_price }}"
+                                                data-image-id="{{variant.image.id}}"
+                                                data-image="{{variant.image.src | img_url: '100x'}}"
+                                                data-continue-selling="{{variant.inventory_policy}}"
+                                                >
                                                 {{ variant.title }} - {{ variant.price | money_with_currency }}
                                             </option>
                                         {% else %}
@@ -243,6 +254,8 @@
                                                 value="{{ variant.id }}"
                                                 data-price="{{ variant.price }}"
                                                 data-compare="{{ variant.compare_at_price }}"
+                                                data-continue-selling="{{variant.inventory_policy}}"
+                                                data-image="{{variant.image.src | img_url: '100x'}}"
                                             >
                                                 {{ variant.title }} - {{ 'products.product.sold_out' | t }}
                                             </option>
@@ -264,18 +277,16 @@
                       <div class="best-price-wrapper">{{ section.settings.timer_text_1 }} <span id="timer">15:00</span> {{ section.settings.timer_text_2 }}</div>
                     </div>
               		{% endif %}
-              
                     <div class="product-actions">
                         <div class="product-single__quantity">
                             <label for="Quantity" class="product-single__quantity-label js-quantity-selector">{{ 'products.product.quantity' | t }}</label>
                             <input type="number" hidden="hidden" id="Quantity" name="quantity" value="1" min="1" class="js-quantity-selector">
                         </div>
-
                         <div class="product-single__add-to-cart{% if section.settings.add_to_cart_button_size == 'large' %} product-single__add-to-cart--full-width{% endif %}">
                             <button type="submit" name="add" id="AddToCart--{{ section.id }}"
-                                    class="add-to-cart btn add-to-cart-1{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}" {% if current_variant.inventory_quantity <= 0 %}disabled="disabled"{% endif %}>
+                                    class="add-to-cart btn add-to-cart-1{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}" {% unless current_variant.inventory_policy == 'continue' or current_variant.inventory_quantity > 0 %}disabled="disabled"{% endunless %}>
                             <span class="btn__text">
-                                {% if current_variant.inventory_quantity > 0 %}
+                                {% if current_variant.inventory_policy == 'continue' or current_variant.inventory_quantity > 0 %}
                                     {{ 'products.product.add_to_cart' | t }} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"><path data-name="layer2" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" d="M56 62H8l2-44h44l2 44z" stroke-linejoin="round" stroke-linecap="round"></path><path data-name="layer1" d="M22 26V12A10 10 0 0 1 32 2a10 10 0 0 1 10 10v14" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path></svg>
                                 {% else %}
                                     {{ 'products.product.sold_out' | t }}
@@ -284,6 +295,7 @@
                                 <span class="is-add-text"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-spinner" viewBox="0 0 20 20"><path d="M7.229 1.173a9.25 9.25 0 1 0 11.655 11.412 1.25 1.25 0 1 0-2.4-.698 6.75 6.75 0 1 1-8.506-8.329 1.25 1.25 0 1 0-.75-2.385z" fill="#fff"/></svg></span>
                             </button>
                         </div>
+
                     </div>
 				</div>
                     {% if section.settings.enable_payment_button %}
@@ -344,10 +356,13 @@
               </p>
                 </div>
               
-              
               <div class="product-form__sticky">
                 <div class="product-form__sticky__img">
-                  {{ product.featured_image | img_url: '100x' | img_tag }}
+                    {% if current_variant.image.src != blank %}
+                        {{ current_variant.image.src | img_url: '100x' | img_tag }}
+                    {% else %}
+                        {{ product.featured_image.src | img_url: '100x' | img_tag }}
+                    {% endif %}
                 </div>
                 <article class="product-form__sticky__inner">
                   <p class="title">{{ product.title }}</p>
@@ -358,9 +373,9 @@
                   {% endunless %}
                 </article>
                 <div class="product-form__sticky__submit">
-                  <button type="submit" name="add" id="AddToCart-sticky" {% if current_variant.inventory_quantity <= 0 %}disabled="disabled"{% endif %} class="btn btn--dark product-form__cart-submit{% if product.options.size == 1 and product.variants[0].title == 'Default Title' %} product-form__cart-submit--small{% endif %}">
+                  <button type="submit" name="add" id="AddToCart-sticky" {% unless current_variant.inventory_policy == 'continue' or current_variant.inventory_quantity > 0 %}disabled="disabled"{% endunless %} class="btn btn--dark product-form__cart-submit{% if product.options.size == 1 and product.variants[0].title == 'Default Title' %} product-form__cart-submit--small{% endif %}">
                     <span id="AddToCartText-{{ section.id }}">
-                      {% if current_variant.inventory_quantity > 0 %}
+                      {% if current_variant.inventory_policy == 'continue' or current_variant.inventory_quantity > 0 %}
                         {{ 'products.product.add_to_cart' | t }}
                       {% else %}
                         {{ 'products.product.sold_out' | t }}
