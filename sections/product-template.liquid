@@ -94,10 +94,26 @@
                 {% for image in product.images %}
                     <div class="img-wrap thumb-{{ image.id }}">
                         {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-                        <img class="lazyload" data-sizes="auto" data-src="{{ img_url }}" alt="{{ product.image }}">
+                        {% comment %} <img class="lazyload" data-sizes="auto" data-src="{{ img_url }}" alt="{{ product.image }}"> {% endcomment %}
+                        <img
+                            sizes="
+                                (max-width: 480px) 480px,
+                                (max-width: 767px) 767px,
+                                (max-width: 900px) 900px,
+                                767px
+                            "
+                            data-srcset="
+                                {{image | img_url: '480x'}} 480w,
+                                {{image | img_url: '767x'}} 767w,
+                                {{image | img_url: '900x'}} 900w
+                            "                            
+                            data-src="{{image | img_url: 'x'}}"
+                            class="lazyload" 
+                        />
                     </div>
                 {% endfor %}
             </div>
+
 
 
             {% if product.images.size > 1 %}
