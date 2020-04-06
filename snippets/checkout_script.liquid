@@ -51,6 +51,16 @@
     width:49% !important;
   }
   @media screen and (max-width: 767px) {
+    [data-step="shipping_method"] .section:not(.section--shipping-method),
+    .order-summary-toggle:not(.visible) {
+    	display: none;
+    }
+    
+    .section--shipping-method {
+    	padding-top: 0;
+      	margin-top: -1.5em;
+    }
+
     .wyustit:first-child {
       padding-top: 35px;
     }
@@ -171,7 +181,9 @@
     if (wnd.indexOf("checkout") > -1 && (dsXt = document.getElementById("checkout_reduction_code"), document.body.insertAdjacentHTML("afterbegin", '<div class="content prH7"><div class="wrap"><div class="ar64"><div class="image_contain"><div id="sp1" class="s8 s8c"><a href="/cart"><span id="spn1"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg> '+pSettings.topBartext1+'</span></a></div><div id="sp2" class="s8 s8c current"><a href="'+string+'?step=contact_information" > <span id="spn2">'+pSettings.topBartext2+'</span></a></div><div id="sp3" class="s8"><a href="'+string+'?previous_step=contact_information&step=shipping_method"><span id="spn3">'+pSettings.topBartext3+'</span></a></div><div id="sp4" class="s8"><a href="'+string+'?previous_step=shipping_method&step=payment_method"><span id="spn4"> '+pSettings.topBartext4+'</span></a></div></div></div></div></div>'), -1 === wnd.indexOf("thank_you"))) {
       if(align == 'contact_information'){document.getElementsByClassName("step__footer__continue-btn")[0].getElementsByClassName("btn__content")[0].insertAdjacentHTML("afterend", '<img class="truck-img" src="'+pSettings.whitetruckimage+'">')}
       if(align == 'shipping_method'){document.getElementsByClassName("step__footer__continue-btn")[0].getElementsByClassName("btn__content")[0].insertAdjacentHTML("afterend", '<img class="card-img" src="'+pSettings.creditcardimage+'">');}	
-      if(align == 'payment_method'){document.getElementsByClassName("step__footer__continue-btn")[0].getElementsByClassName("btn__content")[0].insertAdjacentHTML("afterend", '<img class="check-img" src="'+pSettings.tickmarkimage+'">')}
+      if(align == 'payment_method'){
+        document.getElementsByClassName("order-summary-toggle")[0].classList.add('visible');
+        document.getElementsByClassName("step__footer__continue-btn")[0].getElementsByClassName("btn__content")[0].insertAdjacentHTML("afterend", '<img class="check-img" src="'+pSettings.tickmarkimage+'">')}
       if (screen.width > 999) {
         if(align == 'contact_information'){document.getElementsByClassName("edit_checkout")[0].insertAdjacentHTML("beforeend",'<div class="fieldset-description emailclass" data-buyer-accepts-marketing=""><div class="section__content"><div class="checkbox-wrapper"><div class="checkbox__input"><input name="checkout[buyer_accepts_marketing]" type="hidden" value="0"><input class="input-checkbox" data-backup="buyer_accepts_marketing" type="checkbox" value="1" name="checkout[buyer_accepts_marketing]" id="checkout_buyer_accepts_marketing"></div><label class="checkbox__label" for="checkout_buyer_accepts_marketing">'+pSettings.newsletter_text+'</label></div></div></div>')}				
         document.getElementsByClassName("main__content")[0].insertAdjacentHTML("afterbegin", '<p class="desktoponly" style="color:#cc0000;text-align:left;font-size:18px;margin-bottom:35px;font-weight:bold;"></p><div id = "desktop" style="padding: 0px 0px 20px 0px;"><div id="countdown" class="countdownhere" style="font-weight:bold;padding-left:5px"> <div>'+pSettings.highDemandText+' <span id="time"></span> '+pSettings.highDemandText2+' </div></div></div>');
@@ -189,7 +201,7 @@
         if(align == 'payment_method'){document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<button aria-busy="false" class="step__footer__continue-btn btn " type="submit" name="button"><span class="btn__content">'+pSettings.completeorderBtntext+'</span><img class="check-img" src="'+pSettings.tickmarkimage+'"><i class="btn__spinner icon icon--button-spinner"></i></button>')}					
 		*/
         let visibleStyle = '';
-        
+
         if (!pSettings.whyUstitle.length && !pSettings.whyUsTitle1.length && !pSettings.whyUsTitle2.length && !pSettings.whyUsText1.length && !pSettings.whyUsText2) {
           visibleStyle = "display: none";
         }
@@ -253,10 +265,8 @@
 
     if(align == 'contact_information'){document.getElementsByClassName("step__footer__continue-btn")[0].getElementsByClassName("btn__content")[0].insertAdjacentHTML("afterend", '<img class="truck-img" src="'+pSettings.whitetruckimage+'">')}
     if(align == 'shipping_method'){document.getElementsByClassName("step__footer__continue-btn")[0].getElementsByClassName("btn__content")[0].insertAdjacentHTML("afterend", '<img class="card-img" src="'+pSettings.creditcardimage+'">');}	
-    if(align == 'payment_method'){
-      document.getElementsByClassName("step__footer__continue-btn")[0].getElementsByClassName("btn__content")[0].insertAdjacentHTML("afterend", '<img class="check-img" src="'+pSettings.tickmarkimage+'">')
-                 
-                                 }
+    if(align == 'payment_method'){document.getElementsByClassName("step__footer__continue-btn")[0].getElementsByClassName("btn__content")[0].insertAdjacentHTML("afterend", '<img class="check-img" src="'+pSettings.tickmarkimage+'">')
+    }
     if (screen.width > 999) {
       document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<div class="mobile-pay-logo" style="width: 100%; display: block; padding-top: 10px; text-align: right;"><img class="payment_logo" src="'+pSettings.guranteeCheckoutbadge+'"></div>')
 
