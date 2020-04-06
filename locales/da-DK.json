@@ -85,6 +85,9 @@
     },
     "currency": {
       "dropdown_label": "Valuta"
+    },
+    "navigation": {
+      "view_more_collections": "Vis alt"
     }
   },
   "sections": {

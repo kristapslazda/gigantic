@@ -10008,10 +10008,27 @@ form.search .search__submit {
     margin: 0 0 20px;
   }
 
+  .mobile-nav-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: -31px -15px 17px 0;
+  }
+
   .sub-menu-block h3 {
-    padding: 0 30px;
-    margin-top: -31px;
-    text-align: center;
+    margin: 0;
+    padding: 0 0 0 25px;
+  }
+
+  .view-more-collection.view-more-collection {
+    border: 1px solid #000;
+    border-radius: 6px;
+    padding: 2px 5px 2px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 14px;
+    white-space: nowrap;
   }
   
   .featured-products {
