@@ -7541,7 +7541,10 @@ form.search .search__input,
   margin: 0 auto;
 }
 
-.template-product .col-slider,
+#shopify-section-product-recommendations {
+  margin-bottom: 0;
+}
+
 .upsell-modal .col-slider {
   margin-top: 20px;
 }
