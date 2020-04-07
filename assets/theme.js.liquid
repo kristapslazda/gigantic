@@ -4351,6 +4351,7 @@ $(document).ready(function() {
   let colapsedTextHolder = $('.tabs__content .colapsed-text');
 
   if (mq.matches) {
+
     // mobile slider init
     $('.main-image-slider').slick({
       slidesToShow: 1,
@@ -4367,7 +4368,25 @@ $(document).ready(function() {
             fade: false
           }
         }
-      ]
+      ],
+      onBeforeChange: function(slider, index) {
+        $('.product__image-wrap').removeClass('loader');
+      },
+      onAfterChange: function(slider, index) {
+          let slide = $('.main-image-slider .img-wrap[index="' + index + '"]');
+
+          if (!slide.find('.lazyloaded').length) {
+            $('.product__image-wrap').addClass('loader');
+          }
+
+          let interval = setInterval(function() {
+              console.log('interval');
+              if (slide.find('.lazyloaded').length) {
+                $('.product__image-wrap').removeClass('loader');
+                clearInterval(interval);
+              }
+          });
+      }
     });
     
     $('.product-single__thumbnails').slick({

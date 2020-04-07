@@ -90,6 +90,7 @@
             </div> {% endcomment %}
         </div>
         <div class="product__image-wrap mb-only">
+            <div class="lds-dual-ring"></div>
             <div class="main-image-slider">
                 {% for image in product.images %}
                     <div class="img-wrap thumb-{{ image.id }}">
@@ -97,22 +98,17 @@
                         {% comment %} <img class="lazyload" data-sizes="auto" data-src="{{ img_url }}" alt="{{ product.image }}"> {% endcomment %}
                         <img
                             sizes="
-                                (max-width: 480px) 480px,
                                 (max-width: 767px) 767px,
                                 (max-width: 900px) 900px,
                                 767px
                             "
                             data-srcset="
-                                {{image | img_url: '480x'}} 480w,
                                 {{image | img_url: '767x'}} 767w,
                                 {{image | img_url: '900x'}} 900w
                             "                            
-                            data-src="{{image | img_url: 'x'}}"
+                            data-src="{{image | img_url: '900x'}}"
                             class="lazyload" 
                         />
-                        <div class="loader">
-                            <div class="lds-dual-ring"></div>
-                        </div>
                     </div>
                 {% endfor %}
             </div>
