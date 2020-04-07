@@ -82,6 +82,9 @@
     },
     "currency": {
       "dropdown_label": "Currency"
+    },
+    "navigation": {
+      "view_more_collections": "Show all"
     }
   },
   "sections": {
@@ -373,7 +376,11 @@
       "include_taxes": "Tax included.",
       "shipping_policy_html": "<a href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
       "unit_price_label": "Unit price",
-      "view_cart": "View cart"
+      "view_cart": "View cart",
+      "product_read_more": "Read more",
+      "product_read_less": "Read less",
+      "product_read_more_faq": "Read more faq",
+      "product_read_less_faq": "Read less faq"
     }
   },
   "gift_cards": {
