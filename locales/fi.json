@@ -37,7 +37,7 @@
       "shipping_at_checkout": " Laskettu seuraavassa vaiheessa",
       "update": "Päivitä ostoskori",
       "remove": "Poista",
-      "shipping_label": "Laivaus",
+      "shipping_label": "Toimitusmaksu",
       "estimated-total": "Arvioitu kokonaissumma",
       "continue_shopping": "Jatka ostoksia",
       "terms_html": "Ik accepteer <a target='_blank' href='{{ link }}'>toimitusehdot<\/a>",
