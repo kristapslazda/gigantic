@@ -53,12 +53,16 @@
                         {% when 'description' %}
                             <div class="descriptiontab">
                                 <div class="rte">
+                                  {% if section.settings.collapse_descripition %}
                                     <div class="colapsed-text">
                                       {{ product.description }}
                                     </div>
                                     <div class="read-more-holder">
-                                      <a class="read-more" data-read-less="{{ 'products.product.read_less' | t }}" data-read-more="{{ 'products.product.read_more' | t }}">{{ 'products.product.read_more' | t }}</a>
+                                      <a class="read-more" data-read-less="{{ 'products.product.product_read_less' | t }}" data-read-more="{{ 'products.product.product_read_more' | t }}">{{ 'products.product.product_read_more' | t }}</a>
                                     </div>
+                                  {% else %}
+                                      {{ product.description }}
+                                  {% endif %}
                                 </div>
                             </div>
                         {% when 'reviews' %}
@@ -97,6 +101,14 @@
 {
   "name": "Product tabs",
   "class": "shopify-section__product-tabs",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "collapse_descripition",
+      "label": "Colapse Text?",
+      "default": false
+    }
+  ],
   "blocks": [
     {
       "type": "description",

@@ -121,6 +121,21 @@
     ]
   },
   {
+    "name": "Google Optimize",
+    "settings": [
+      {
+        "type": "text",
+        "id": "google_id_1",
+        "label": "Google Analitics ID "
+      },
+      {
+        "type": "text",
+        "id": "google_id_2",
+        "label": "Google Optimize ID"
+      }
+    ]
+  },
+  {
     "name": {
       "da": "Farver",
       "de": "Farben",

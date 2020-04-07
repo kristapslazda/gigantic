@@ -85,6 +85,9 @@
     },
     "currency": {
       "dropdown_label": "Valuta"
+    },
+    "navigation": {
+      "view_more_collections": "Show all"
     }
   },
   "sections": {
@@ -401,7 +404,11 @@
       "USP1": "Gratis fragt ved køb af 2 varer",
       "USP2": "Dansk kundeservice",
       "USP2vidadrobs": "Hurtig levering (4-6 dage)",
-      "USP3": "60 dages returret"
+      "USP3": "60 dages returret",
+      "product_read_more": "Read more",
+      "product_read_less": "Read less",
+      "product_read_more_faq": "Read more faq",
+      "product_read_less_faq": "Read less faq"
     }
   },
   "gift_cards": {

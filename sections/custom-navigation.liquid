@@ -104,7 +104,12 @@
                   <a class="mobile-arrow-back">{% include "icon-arrow-right" %}</a>
                     {% if link.links.size > 0 %}
                       <div class="sub-menu-block">
-                        <a href="{{link.url}}"><h3>{{link.title}}</h3></a>
+                        <div class="mobile-nav-heading">
+                          <a href="{{link.url}}">
+                            <h3>{{link.title}}</h3>
+                          </a>
+                          <a href="{{link.url}}" class="view-more-collection">{{'general.navigation.view_more_collections' | t}}</a>
+                        </div>
                         {% comment %} mobile nav second level links {% endcomment %}
                         <ul class="advanced-sub-links">
                           {% for sub_link in link.links %}
@@ -112,10 +117,13 @@
                               <a href="{{ sub_link.url }}" data-collection-name="{{sub_link.title}}">{{ sub_link.title }}</a>
                               {% if sub_link.links.size > 0 %}
                                 <div class="mobile-nav-third-level">
-                                  <a class="third-level-back">{% include "icon-arrow-right" %}</a>
-                                  <a href="{{ sub_link.url }}">
-                                    <h3>{{sub_link.title}}</h3>
-                                  </a>
+                                  <div class="mobile-nav-heading">
+                                    <a class="third-level-back">{% include "icon-arrow-right" %}</a>
+                                    <a href="{{ sub_link.url }}">
+                                      <h3>{{sub_link.title}}</h3>
+                                    </a>
+                                    <a href="{{link.url}}" class="view-more-collection">{{'general.navigation.view_more_collections' | t}}</a>
+                                  </div>
                                   {% comment %} mobile nav third level links {% endcomment %}
                                   <ul>
                                     {% for third_level_link in sub_link.links %}

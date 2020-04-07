@@ -93,6 +93,9 @@
     },
     "currency": {
       "dropdown_label": "Valuta"
+    },
+    "navigation": {
+      "view_more_collections": "Show all"
     }
   },
   "sections": {
@@ -409,7 +412,11 @@
       "USP2": "Försäkrad frakt",
       "USP2vidadrobs": "Försäkrad frakt",
       "USP3": "60 dagars returrätt",
-      "productBundle_html": "Köp {{ amount }} för <span class='price'>{{ price }}<\/span> per styck och <i>spara {{ percentage }}<\/i>"
+      "productBundle_html": "Köp {{ amount }} för <span class='price'>{{ price }}<\/span> per styck och <i>spara {{ percentage }}<\/i>",
+      "product_read_more": "Read more",
+      "product_read_less": "Read less",
+      "product_read_more_faq": "Read more faq",
+      "product_read_less_faq": "Read less faq"
     }
   },
   "gift_cards": {

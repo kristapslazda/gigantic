@@ -85,6 +85,9 @@
     },
     "currency": {
       "dropdown_label": "Valuta"
+    },
+    "navigation": {
+      "view_more_collections": "Vis alt"
     }
   },
   "sections": {
@@ -402,10 +405,10 @@
       "USP2": "Hurtig levering (1-3 dage)",
       "USP2vidadrobs": "Hurtig levering (4-6 dage)",
       "USP3": "60 dages returret",
-      "read_more": "Read more",
-      "read_less": "Read less",
-      "read_more_faq": "Read more faq",
-      "read_less_faq": "Read less faq"
+      "product_read_more": "Read more",
+      "product_read_less": "Read less",
+      "product_read_more_faq": "Read more faq",
+      "product_read_less_faq": "Read less faq"
     }
   },
   "gift_cards": {

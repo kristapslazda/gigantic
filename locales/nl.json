@@ -28,6 +28,9 @@
       "title": "Pagina niet gevonden",
       "subtext": "Pagina niet gevonden",
       "link": "Doorgaan met winkelen"
+    },
+    "navigation": {
+      "view_more_collections": "Show all"
     }
   },
   "collections": {
@@ -53,7 +56,11 @@
       "USP1": "Gratis verzending als je 2 items koopt",
       "USP2": "Snelle ondersteuning",
       "USP2vidadrobs": "Snelle ondersteuning",
-      "USP3": "60 dagen bedenktijd"
+      "USP3": "60 dagen bedenktijd",
+      "product_read_more": "Read more",
+      "product_read_less": "Read less",
+      "product_read_more_faq": "Read more faq",
+      "product_read_less_faq": "Read less faq"
     }
   },
   "cart": {
