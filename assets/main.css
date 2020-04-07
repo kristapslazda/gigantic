@@ -8644,6 +8644,12 @@ body {
   }
 }
 
+@media (max-width: 480px) {
+  .product-single .main-image-slider .img-wrap {
+    min-height: 100vw;
+  }
+}
+
 @media (min-width: 901px) and (max-width: 1025px) {
   .product-single .main-image-slider .img-wrap img {
     max-height: 50vh;
@@ -8682,10 +8688,6 @@ body {
 @media (max-width: 767px) {
   .product-single .thumbnails-wrapper {
     display: none;
-  }
-
-  .product-single .main-image-slider .img-wrap {
-    min-height: 100vw;
   }
 } 
 
