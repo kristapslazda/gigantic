@@ -235,7 +235,7 @@
                                         <select class="single-option-selector__radio single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
                                             {% for value in option.values %}
                                                 {% unless value contains '% off)' %}
-                                                    <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value | escape }}</option>
+                                                    <option data="{{current_variant.options}}" value="{{ value | escape }}"{% if current_variant.options contains value %} selected="selected"{% endif %}>{{ value | escape }}</option>
                                                 {% endunless %}
                                             {% endfor %}
                                         </select>
@@ -248,7 +248,7 @@
                             {% for variant in product.variants %}
                                 {% unless variant.metafields.secomapp.freegifts %}
                                     {% unless variant.title contains '(Freegifts)' %}
-                                        {% if variant.title == current_variant.title %}
+                                        {% if variant.id == current_variant.id %}
                                             <option 
                                                 selected="selected"
                                                 data-sku="{{ variant.sku }}"
@@ -256,9 +256,10 @@
                                                 data-price="{{ variant.price }}"
                                                 data-compare="{{ variant.compare_at_price }}"
                                                 data-image-id="{{variant.image.id}}"
-                                                data-image="{{variant.image.src | img_url: '100x'}}"
+                                                data-image="{% if variant.image.src != blank %} {{variant.image.src | img_url: '100x'}} {% endif %}"
                                                 data-continue-selling="{{variant.inventory_policy}}"
-                                                >
+                                                data-inventory-managment="{% if variant.inventory_management != blank %}true{% else %}false{% endif %}"
+                                            >
                                                 {{ variant.title }} - {{ variant.price | money_with_currency }}
                                             </option>
                                         {% else %}
@@ -268,7 +269,8 @@
                                                 data-price="{{ variant.price }}"
                                                 data-compare="{{ variant.compare_at_price }}"
                                                 data-continue-selling="{{variant.inventory_policy}}"
-                                                data-image="{{variant.image.src | img_url: '100x'}}"
+                                                data-image="{% if variant.image.src != blank %} {{variant.image.src | img_url: '100x'}} {% endif %}"
+                                                data-inventory-managment="{% if variant.inventory_management != blank %}true{% else %}false{% endif %}"
                                             >
                                                 {{ variant.title }} - {{ 'products.product.sold_out' | t }}
                                             </option>
