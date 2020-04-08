@@ -40,8 +40,12 @@
       fbq("track", "PageView");
 	
       var qty = ({% for prod in checkout.line_items%}{{prod.quantity}}{% unless forloop.last == true %}+{% endunless %}{% endfor%});
-      $(document).ready(function(e) {
-        $('[data-trekkie-id="complete_order_button"]').attr("onClick", 'fbq("trackSingle", "{{ settings.fbPixel_code1 }}", "Purchase", {value: {{ checkout.line_items_subtotal_price | divided_by: 100 }},currency: "{{ shop.currency }}",content_type: "product",content_ids: [{% for prod in checkout.line_items%}{{prod.variant_id}}{% unless forloop.last == true %},{% endunless %}{% endfor%}],num_items: qty});fbq("trackSingle", "{{ settings.fbPixel_code1 }}", "AddPaymentInfo");{% if settings.fbPixel_code2 != blank %}fbq("trackSingle", "{{ settings.fbPixel_code2 }}", "Purchase", {value: {{ checkout.line_items_subtotal_price | divided_by: 100 }},currency: "{{ shop.currency }}",content_type: "product",content_ids: [{% for prod in checkout.line_items%}{{prod.variant_id}}{% unless forloop.last == true %},{% endunless %}{% endfor%}],num_items: qty});fbq("trackSingle", "{{ settings.fbPixel_code2 }}", "AddPaymentInfo");{% endif %}')
+      $(document).on('click', '[data-trekkie-id="complete_order_button"]', function() {
+        fbq("trackSingle", "{{ settings.fbPixel_code1 }}", "Purchase", {value: {{ checkout.line_items_subtotal_price | divided_by: 100 }},currency: "{{ shop.currency }}",content_type: "product",content_ids: [{% for prod in checkout.line_items%}{{prod.variant_id}}{% unless forloop.last == true %},{% endunless %}{% endfor%}],num_items: qty});fbq("trackSingle", "{{ settings.fbPixel_code1 }}", "AddPaymentInfo");
+        
+        {% if settings.fbPixel_code2 != blank %}
+          fbq("trackSingle", "{{ settings.fbPixel_code2 }}", "Purchase", {value: {{ checkout.line_items_subtotal_price | divided_by: 100 }},currency: "{{ shop.currency }}",content_type: "product",content_ids: [{% for prod in checkout.line_items%}{{prod.variant_id}}{% unless forloop.last == true %},{% endunless %}{% endfor%}],num_items: qty});fbq("trackSingle", "{{ settings.fbPixel_code2 }}", "AddPaymentInfo");
+        {% endif %}
       });
         {% endif %}
     </script>
