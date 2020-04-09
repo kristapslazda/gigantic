@@ -594,20 +594,20 @@ slate.Variants = (function() {
 
           if (isTrackQuantity && vartiant_quantity === 0) {
             if (contineSelling) {
-              let cartText = "{{ 'products.product.add_to_cart' | t }}";
-              $('.add-to-cart .btn__text').text(cartText).append($('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"><path data-name="layer2" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" d="M56 62H8l2-44h44l2 44z" stroke-linejoin="round" stroke-linecap="round"></path><path data-name="layer1" d="M22 26V12A10 10 0 0 1 32 2a10 10 0 0 1 10 10v14" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path></svg>'));
-              $('.add-to-cart, #AddToCart-sticky').removeAttr('disabled');
+              let cartText = "{{ 'products.product.add_to_cart' | t }} ";
+              $('.product-single .add-to-cart .btn__text').text(cartText).append($('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"><path data-name="layer2" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" d="M56 62H8l2-44h44l2 44z" stroke-linejoin="round" stroke-linecap="round"></path><path data-name="layer1" d="M22 26V12A10 10 0 0 1 32 2a10 10 0 0 1 10 10v14" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path></svg>'));
+              $('.product-single .add-to-cart, #AddToCart-sticky').removeAttr('disabled');
               $('.product-form__sticky__submit span').text(cartText);
             } else {
-              let cartText = "{{ 'products.product.sold_out' | t }}";
-              $('.add-to-cart .btn__text').text(cartText);
-              $('.add-to-cart, #AddToCart-sticky').attr('disabled','disabled');
+              let cartText = "{{ 'products.product.sold_out' | t }} ";
+              $('.product-single .add-to-cart .btn__text').text(cartText);
+              $('.product-single .add-to-cart, #AddToCart-sticky').attr('disabled','disabled');
               $('.product-form__sticky__submit span').text(cartText);
             }
           } else {
-            let cartText = "{{ 'products.product.add_to_cart' | t }}";
-            $('.add-to-cart .btn__text').text(cartText).append($('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"><path data-name="layer2" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" d="M56 62H8l2-44h44l2 44z" stroke-linejoin="round" stroke-linecap="round"></path><path data-name="layer1" d="M22 26V12A10 10 0 0 1 32 2a10 10 0 0 1 10 10v14" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path></svg>'));
-            $('.add-to-cart, #AddToCart-sticky').removeAttr('disabled');
+            let cartText = "{{ 'products.product.add_to_cart' | t }} ";
+            $('.product-single .add-to-cart .btn__text').text(cartText).append($('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"><path data-name="layer2" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" d="M56 62H8l2-44h44l2 44z" stroke-linejoin="round" stroke-linecap="round"></path><path data-name="layer1" d="M22 26V12A10 10 0 0 1 32 2a10 10 0 0 1 10 10v14" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path></svg>'));
+            $('.product-single .add-to-cart, #AddToCart-sticky').removeAttr('disabled');
             $('.product-form__sticky__submit span').text(cartText);
           }
         }
