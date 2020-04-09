@@ -10209,3 +10209,13 @@ form.search .search__submit {
     transform: rotate(270deg);
   }
 }
+
+[data-section-id="product-slider-3"] {
+  margin-top: 30px;
+}
+
+@media (max-width: 769px) {
+  [data-section-id="product-slider-3"] .container {
+    padding: 0;
+  }
+}
