@@ -591,7 +591,6 @@ slate.Variants = (function() {
           if (variantImageForTopBar.length) {
             $('.product-form__sticky__img img').attr('srcset', variantImageForTopBar);
           }
-
           if (isTrackQuantity && vartiant_quantity === 0) {
             if (contineSelling) {
               let cartText = "{{ 'products.product.add_to_cart' | t }} ";
@@ -4364,9 +4363,11 @@ $(document).ready(function() {
 
     // mobile slider init
     $('.main-image-slider').slick({
+      nextArrow: $('.mobile-arrows .next-arrow'),
+      prevArrow:$('.mobile-arrows .prev-arrow'),
       slidesToShow: 1,
       slidesToScroll: 1,
-      arrows: false,
+      arrows: true,
       fade: true,
       asNavFor: '.product-single__thumbnails',
       adaptiveHeight: true,
@@ -4385,23 +4386,31 @@ $(document).ready(function() {
       onAfterChange: function(slider, index) {
           let slide = $('.main-image-slider .img-wrap[index="' + index + '"]');
 
-          if (!slide.find('.video-wrapper').length) {
+          if (!slide.hasClass('mobile-video-wrapper')) {
             if (!slide.find('.lazyloaded').length) {
               $('.product__image-wrap').addClass('loader');
             }
 
             let interval = setInterval(function() {
-                console.log('interval');
                 if (slide.find('.lazyloaded').length) {
+                  console.log('interval');
                   $('.product__image-wrap').removeClass('loader');
                   clearInterval(interval);
                 }
-            });
+            }, 200);
+
+            setTimeout(function() {
+              clearInterval(interval);
+            }, 500);
+            $('.main-image-slider').addClass('hide-arrows');
+          } else {
+            $('.main-image-slider').removeClass('hide-arrows');
+            $('.product__image-wrap').removeClass('loader');
           }
       },
       onInit: function() {
         let sliderWidth = $('.main-image-slider').outerWidth();
-        $('.main-image-slider .video-wrapper').css('height', sliderWidth / 1.78);
+        $('.main-image-slider .mobile-video-wrapper').css('height', sliderWidth / 1.78);
       }
     });
     
@@ -4412,6 +4421,15 @@ $(document).ready(function() {
       dots: false,
       arrows: false,
       focusOnSelect: true
+    });
+
+    $('.mobile-video-wrapper').on('click', function(){
+        let id = $(this).data('video-id');
+        let alreadyPlayer = $(this).hasClass('added');
+        if(!alreadyPlayer) {
+          $(this).addClass('added');
+          $(this).append('<iframe frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope;" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/' + id + '?controls=1&enablejsapi=1&modestbranding=1&autoplay=1&playsinline=1&rel=0"></iframe>')
+        }
     });
 
     $(".tabs__content .tabs__content-item").each(function( index ) {
