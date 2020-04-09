@@ -402,10 +402,10 @@
       "USP2vidadrobs": "Rask kundeservice",
       "USP3": "60 dagers returrett",
       "productBundle_html": "Kjøp {{ amount }} for <span class='price'>{{ price }}<\/span> per stykk og <i>spar {{ percentage }}<\/i>",
-      "product_read_more": "Read more",
-      "product_read_less": "Read less",
-      "product_read_more_faq": "Read more faq",
-      "product_read_less_faq": "Read less faq"
+      "product_read_more": "Les mer",
+      "product_read_less": "Les mindre",
+      "product_read_more_faq": "Les mer",
+      "product_read_less_faq": "Les mindre"
     }
   },
   "gift_cards": {
