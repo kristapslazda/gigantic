@@ -409,10 +409,10 @@
       "USP2vidadrobs": "Försäkrad frakt",
       "USP3": "60 dagars returrätt",
       "productBundle_html": "Köp {{ amount }} för <span class='price'>{{ price }}<\/span> per styck och <i>spara {{ percentage }}<\/i>",
-      "product_read_more": "Read more",
-      "product_read_less": "Read less",
-      "product_read_more_faq": "Read more faq",
-      "product_read_less_faq": "Read less faq"
+      "product_read_more": "Läs mer",
+      "product_read_less": "Läs mindre",
+      "product_read_more_faq": "Läs mer",
+      "product_read_less_faq": "Läs mindre"
     }
   },
   "gift_cards": {

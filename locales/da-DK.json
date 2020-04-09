@@ -405,10 +405,10 @@
       "USP2": "Hurtig levering (1-3 dage)",
       "USP2vidadrobs": "Hurtig levering (4-6 dage)",
       "USP3": "60 dages returret",
-      "product_read_more": "Read more",
-      "product_read_less": "Read less",
-      "product_read_more_faq": "Read more faq",
-      "product_read_less_faq": "Read less faq"
+      "product_read_more": "Læs mere",
+      "product_read_less": "Læs mindre",
+      "product_read_more_faq": "Læs mere",
+      "product_read_less_faq": "Læs mindre"
     }
   },
   "gift_cards": {
