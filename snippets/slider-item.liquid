@@ -1,0 +1,41 @@
+{% case media.media_type %}
+    {% when 'image' %}
+        {% assign media_image = media.preview_image.src %}
+        {% assign image_id = media.preview_image.id %}
+        {%- assign img_url = media_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+       <div class="img-wrap thumb-{{ image_id }}" data-image-name="{{media_image | split: '/' | last | split: '.' | first}}">
+            <img
+                sizes="
+                    (max-width: 991px) 358px,
+                    (max-width: 1199px) 502px,
+                    (max-width: 1399px) 610px,
+                    730px
+                "
+                data-srcset="
+                    {{media_image | img_url: '358x'}} 358w,
+                    {{media_image | img_url: '502x'}} 502w,
+                    {{media_image | img_url: '610x'}} 610w,
+                    {{media_image | img_url: '730x'}} 730w,
+                "
+                data-zoom-image="{{media_image | img_url: '1500x'}}"
+                data-src="{{media_image | img_url: '730x'}}"
+                class="lazyload" 
+            />
+       </div>
+    {% when 'external_video' %}
+        <div class="img-wrap" data-media-id="{{ media.id }}">
+            {{ media | external_video_tag }}
+        </div>
+    {% when 'video' %}
+        <div class="product-single__media" data-media-id="{{ media.id }}">
+            {{ media | video_tag: controls: true }}
+        </div>
+    {% when 'model' %}
+        <div class="product-single__media" style="padding-top: 100%" data-media-id="{{ media.id }}">
+            {{ media | model_viewer_tag }}
+        </div>
+    {% else %}
+        <div class="product-single__media" style="padding-top: 100%;" data-media-id="{{ media.id }}">
+            {{ media | media_tag }}
+        </div>
+{% endcase %}
