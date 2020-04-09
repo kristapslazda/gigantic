@@ -55,6 +55,41 @@
     .order-summary-toggle:not(.visible) {
     	display: none;
     }
+
+    [data-step="payment_method"] {
+      padding: 19px 0 29px;
+    }
+
+    [data-step="payment_method"] .content-box__row--secondary {
+      display: none;
+    }
+
+    [data-step="payment_method"] .section--payment-method {
+      padding-top: 13px;
+    }
+
+    [data-step="payment_method"] .section.section--billing-address {
+      padding-top: 3px;
+      border-bottom: 1px solid #d9d9d9;
+    }
+
+    .section--billing-address .section__header {
+      margin-bottom: 9px;
+    }
+
+    #terms-con-con#terms-con-con {
+      padding-top: 5px;
+      padding-bottom: 12px;
+      text-align: center;
+    }
+
+    .mobile-pay-logo {
+      display: none;
+    }
+
+    [data-step="contact_information"] .mobile-pay-logo {
+      display: block;
+    }
     
     .section--shipping-method {
     	padding-top: 0;
@@ -188,7 +223,6 @@
         btn.getElementsByClassName("btn__content")[0].insertAdjacentHTML("afterend", '<img class="check-img" src="'+pSettings.tickmarkimage+'">')
         
         document.getElementsByClassName("order-summary-toggle")[0].classList.add('visible');
-        document.getElementsByClassName("step__footer__continue-btn")[0].getElementsByClassName("btn__content")[0].insertAdjacentHTML("afterend", '<img class="check-img" src="'+pSettings.tickmarkimage+'">')
       }
       if (screen.width > 999) {
         if(align == 'contact_information'){document.getElementsByClassName("edit_checkout")[0].insertAdjacentHTML("beforeend",'<div class="fieldset-description emailclass" data-buyer-accepts-marketing=""><div class="section__content"><div class="checkbox-wrapper"><div class="checkbox__input"><input name="checkout[buyer_accepts_marketing]" type="hidden" value="0"><input class="input-checkbox" data-backup="buyer_accepts_marketing" type="checkbox" value="1" name="checkout[buyer_accepts_marketing]" id="checkout_buyer_accepts_marketing"></div><label class="checkbox__label" for="checkout_buyer_accepts_marketing">'+pSettings.newsletter_text+'</label></div></div></div>')}				
@@ -196,7 +230,7 @@
         var e = 600,
             t = Date.now(),
             s = rdC("pRtC"); 
-        s ? t < s ? e = (s - t) / 1e3 : (eSC("pRtC"), crC("pRtC", Date.now() + 1e3 * e, e + 1)) : crC("pRtC", Date.now() + 1e3 * e, e + 1), display = document.querySelector("#time"), stTM(t, e, display), document.getElementsByClassName("countdownhere")[0].insertAdjacentHTML("afterbegin", '<div class="flame-img" style="vertical-align: middle; display: inline-block; position: relative; top: 2px; margin-right: 10px;"><img src="'+pSettings.flamecartimage+'"></div><div style="font-weight: 700; display: inline-block;padding:0 0 0 5px"> </div>'), "" != pSettings.discountText && dsXt && dsXt.setAttribute("placeholder", pSettings.discountText), document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<div class="mobile-pay-logo" style="width: 100%; display: block; padding-top: 10px; text-align: right;"><img class="payment_logo" src="'+pSettings.guranteeCheckoutbadge+'"></div>'), document.getElementsByClassName("order-summary__sections")[0].insertAdjacentHTML("beforeend", '<div style="position: relative; clear: both;"><div class="wyustit" style="position:relative;z-index:1;text-align:center"><span style="background:#fafafa;padding:0 15px">'+pSettings.whyUstitle+'</span></div><div style="display:table;vertical-align:middle;width:100%;border-spacing:0px 20px"><div class="wyuscs"><div class="wyuscs1"><img src="' + pSettings.whyUsImg1 + '"></div><div class="wyuscs2"><span>' + pSettings.whyUsTitle1 + "</span><p>" + pSettings.whyUsText1 + '</p></div></div><div class="wyuscs"><div class="wyuscs1"><img src="' + pSettings.whyUsImg2 + '"></div><div class="wyuscs2"><span>' + pSettings.whyUsTitle2 + "</span><p>" + pSettings.whyUsText2 + "</p></div></div></div></div>"), document.getElementsByClassName("order-summary__sections")[0].insertAdjacentHTML("beforeend", '<div class="review_title"></div><div style="position:relative;"><div class="wyustit" style="position:relative;z-index:1;text-align:center; margin:0 0 10px 0;"><span style="background:#fafafa;padding:0 15px">'+pSettings.customerreviewTitle+'</span></div><div class="reviews"><img src="'+pSettings.customerreviewimage+'">'+pSettings.customerReviewhtml+' </div>');	
+        s ? t < s ? e = (s - t) / 1e3 : (eSC("pRtC"), crC("pRtC", Date.now() + 1e3 * e, e + 1)) : crC("pRtC", Date.now() + 1e3 * e, e + 1), display = document.querySelector("#time"), stTM(t, e, display), document.getElementsByClassName("countdownhere")[0].insertAdjacentHTML("afterbegin", '<div class="flame-img" style="vertical-align: middle; display: inline-block; position: relative; top: 2px; margin-right: 10px;"><img src="'+pSettings.flamecartimage+'"></div><div style="font-weight: 700; display: inline-block;padding:0 0 0 5px"> </div>'), "" != pSettings.discountText && dsXt && dsXt.setAttribute("placeholder", pSettings.discountText), document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<div class="mobile-pay-logo" style="width: 100%; padding-top: 10px; text-align: right;"><img class="payment_logo" src="'+pSettings.guranteeCheckoutbadge+'"></div>'), document.getElementsByClassName("order-summary__sections")[0].insertAdjacentHTML("beforeend", '<div style="position: relative; clear: both;"><div class="wyustit" style="position:relative;z-index:1;text-align:center"><span style="background:#fafafa;padding:0 15px">'+pSettings.whyUstitle+'</span></div><div style="display:table;vertical-align:middle;width:100%;border-spacing:0px 20px"><div class="wyuscs"><div class="wyuscs1"><img src="' + pSettings.whyUsImg1 + '"></div><div class="wyuscs2"><span>' + pSettings.whyUsTitle1 + "</span><p>" + pSettings.whyUsText1 + '</p></div></div><div class="wyuscs"><div class="wyuscs1"><img src="' + pSettings.whyUsImg2 + '"></div><div class="wyuscs2"><span>' + pSettings.whyUsTitle2 + "</span><p>" + pSettings.whyUsText2 + "</p></div></div></div></div>"), document.getElementsByClassName("order-summary__sections")[0].insertAdjacentHTML("beforeend", '<div class="review_title"></div><div style="position:relative;"><div class="wyustit" style="position:relative;z-index:1;text-align:center; margin:0 0 10px 0;"><span style="background:#fafafa;padding:0 15px">'+pSettings.customerreviewTitle+'</span></div><div class="reviews"><img src="'+pSettings.customerreviewimage+'">'+pSettings.customerReviewhtml+' </div>');	
 
       } else {
         
@@ -227,7 +261,7 @@
           '<div class="wyuscs"><div class="wyuscs1"><img src="' + pSettings.whyUsImg2 + '"></div>' + 
           '<div class="wyuscs2"><span>' + pSettings.whyUsTitle2 + "</span><p>" + pSettings.whyUsText2 + "</p></div></div>" + 
         "</div></div>"
-        ), document.getElementsByClassName("step__footer__continue-btn")[0].insertAdjacentHTML("afterend", '<div class="mobile-pay-logo" style="width: 100%; display: block; padding-top: 10px; text-align: right;"><img class="payment_logo" src="'+pSettings.guranteeCheckoutbadge+'"></div>');
+        ), document.getElementsByClassName("step__footer__continue-btn")[0].insertAdjacentHTML("afterend", '<div class="mobile-pay-logo" style="width: 100%; padding-top: 10px; text-align: right;"><img class="payment_logo" src="'+pSettings.guranteeCheckoutbadge+'"></div>');
 
       }
 
@@ -274,14 +308,14 @@
     if(align == 'payment_method'){document.getElementsByClassName("step__footer__continue-btn")[0].getElementsByClassName("btn__content")[0].insertAdjacentHTML("afterend", '<img class="check-img" src="'+pSettings.tickmarkimage+'">')
     }
     if (screen.width > 999) {
-      document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<div class="mobile-pay-logo" style="width: 100%; display: block; padding-top: 10px; text-align: right;"><img class="payment_logo" src="'+pSettings.guranteeCheckoutbadge+'"></div>')
+      document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<div class="mobile-pay-logo" style="width: 100%; padding-top: 10px; text-align: right;"><img class="payment_logo" src="'+pSettings.guranteeCheckoutbadge+'"></div>')
 
     } else {
       /*
       if(align == 'contact_information'){document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<button aria-busy="false" class="step__footer__continue-btn btn " type="submit" name="button"><span class="btn__content">'+pSettings.continueBtntext+'<img class="truck-img" src="'+pSettings.whitetruckimage+'"></span><i class="btn__spinner icon icon--button-spinner"></i></button>')}
       if(align == 'shipping_method'){document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<button aria-busy="false" class="step__footer__continue-btn btn " type="submit" name="button"><span class="btn__content">'+pSettings.paymentBtntext+'</span><img class="card-img" src="'+pSettings.creditcardimage+'"><i class="btn__spinner icon icon--button-spinner"></i></button>');}
       if(align == 'payment_method'){document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<button aria-busy="false" class="step__footer__continue-btn btn " type="submit" name="button"><span class="btn__content">'+pSettings.completeorderBtntext+'</span><img class="check-img" src="'+pSettings.tickmarkimage+'"><i class="btn__spinner icon icon--button-spinner"></i></button>')}
-      document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<div class="review_title"></div><div class="wyustit" style="position:relative;z-index:1;text-align:center; margin:0 0 10px 0;"><span style="background:#fafafa;padding:0 15px">'+pSettings.customerreviewTitle+'</span></div>'),document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<div style="position: relative; padding: 10px 0px; clear: both;"><div style="display:table;vertical-align:middle;width:100%;border-spacing:0px 20px"><div class="wyuscs"><div class="wyuscs1"><img src="' + pSettings.whyUsImg1 + '"></div><div class="wyuscs2"><span>' + pSettings.whyUsTitle1 + "</span><p>" + pSettings.whyUsText1 + '</p></div></div><div class="wyuscs"><div class="wyuscs1"><img src="' + pSettings.whyUsImg2 + '"></div><div class="wyuscs2"><span>' + pSettings.whyUsTitle2 + "</span><p>" + pSettings.whyUsText2 + "</p></div></div></div></div>"), document.getElementsByClassName("step__footer__continue-btn")[0].insertAdjacentHTML("afterend", '<div class="mobile-pay-logo" style="width: 100%; display: block; padding-top: 10px; text-align: right;"><img class="payment_logo" src="'+pSettings.guranteeCheckoutbadge+'"></div>');
+      document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<div class="review_title"></div><div class="wyustit" style="position:relative;z-index:1;text-align:center; margin:0 0 10px 0;"><span style="background:#fafafa;padding:0 15px">'+pSettings.customerreviewTitle+'</span></div>'),document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<div style="position: relative; padding: 10px 0px; clear: both;"><div style="display:table;vertical-align:middle;width:100%;border-spacing:0px 20px"><div class="wyuscs"><div class="wyuscs1"><img src="' + pSettings.whyUsImg1 + '"></div><div class="wyuscs2"><span>' + pSettings.whyUsTitle1 + "</span><p>" + pSettings.whyUsText1 + '</p></div></div><div class="wyuscs"><div class="wyuscs1"><img src="' + pSettings.whyUsImg2 + '"></div><div class="wyuscs2"><span>' + pSettings.whyUsTitle2 + "</span><p>" + pSettings.whyUsText2 + "</p></div></div></div></div>"), document.getElementsByClassName("step__footer__continue-btn")[0].insertAdjacentHTML("afterend", '<div class="mobile-pay-logo" style="width: 100%; padding-top: 10px; text-align: right;"><img class="payment_logo" src="'+pSettings.guranteeCheckoutbadge+'"></div>');
 	  */
     }
   }
