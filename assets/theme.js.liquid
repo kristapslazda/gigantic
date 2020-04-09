@@ -4252,6 +4252,10 @@ $(document).ready(function() {
       onInit: function (slider) {
         let currentSlide = slider.currentSlide;
         slideThumbnailsStateChange(currentSlide);
+        
+        let sliderWidth = $('.product__image-slider').outerWidth();
+        $('.product__image-slider .video-wrapper').css('height', sliderWidth / 1.78);
+
         let interval = setInterval(function () {
           if( $('.zoomContainer').length) {
             clearInterval(interval);
@@ -4381,17 +4385,23 @@ $(document).ready(function() {
       onAfterChange: function(slider, index) {
           let slide = $('.main-image-slider .img-wrap[index="' + index + '"]');
 
-          if (!slide.find('.lazyloaded').length) {
-            $('.product__image-wrap').addClass('loader');
-          }
+          if (!slide.find('.video-wrapper').length) {
+            if (!slide.find('.lazyloaded').length) {
+              $('.product__image-wrap').addClass('loader');
+            }
 
-          let interval = setInterval(function() {
-              console.log('interval');
-              if (slide.find('.lazyloaded').length) {
-                $('.product__image-wrap').removeClass('loader');
-                clearInterval(interval);
-              }
-          });
+            let interval = setInterval(function() {
+                console.log('interval');
+                if (slide.find('.lazyloaded').length) {
+                  $('.product__image-wrap').removeClass('loader');
+                  clearInterval(interval);
+                }
+            });
+          }
+      },
+      onInit: function() {
+        let sliderWidth = $('.main-image-slider').outerWidth();
+        $('.main-image-slider .video-wrapper').css('height', sliderWidth / 1.78);
       }
     });
     

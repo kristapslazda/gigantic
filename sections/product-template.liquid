@@ -57,72 +57,74 @@
     {% include 'breadcrumbs' %}
     <div class="product-single{% if section.settings.enable_payment_button %} product-single--{{ section.settings.image_size }}-image{% endif %}">
       <ul class="product-slider-nav">
-            {% for image in product.images %}
+            {% for media in product.media %}
                 <li data-index={{forloop.index | minus: 1}} class="nav-for-slider">
-                    <img src="{{image | img_url: '40x'}}"/>
+                    {% case media.media_type %}
+                        {% when 'image' %}
+                            <img src="{{media.preview_image.src | img_url: '40x'}}"/>
+                        {% when 'external_video' %}
+                            <div class="thumb-video"></div>
+                        {% else %}
+                    {% endcase %}
                 </li>
             {% endfor %}
         </ul>
        <div class="product__image-wrapper">
             <div class="product__image-slider">
-                    {% for image in product.images %}
-                        <div class="img-wrap thumb-{{ image.id }}" data-image-name="{{image | split: '/' | last | split: '.' | first}}">
-                            {% comment %} {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-                            <img class="lazyload" data-image-for-ie="{{image | img_url: '750x'}}" data-sizes="auto" data-src="{{ img_url }}" alt="{{ image }}"> {% endcomment %}
-                            {% include 'product-slider-image' %}
-                        </div>
+                    {% for media in product.media %}
+                        {% include 'slider-item' %}
                     {% endfor %}
+
             </div>                    
-            {% comment %} <div class="prod-prev">
-                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
-                    <g>
-                        <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z"></path>
-                    </g>
-                </svg>
-            </div>
-            
-            <div class="prod-next">
-                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
-                    <g>
-                        <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z"></path>
-                    </g>
-                </svg>
-            </div> {% endcomment %}
         </div>
         <div class="product__image-wrap mb-only">
             <div class="lds-dual-ring"></div>
             <div class="main-image-slider">
-                {% for image in product.images %}
-                    <div class="img-wrap thumb-{{ image.id }}">
-                        {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-                        {% comment %} <img class="lazyload" data-sizes="auto" data-src="{{ img_url }}" alt="{{ product.image }}"> {% endcomment %}
-                        <img
-                            sizes="
-                                (max-width: 767px) 767px,
-                                (max-width: 900px) 900px,
-                                767px
-                            "
-                            data-srcset="
-                                {{image | img_url: '767x'}} 767w,
-                                {{image | img_url: '900x'}} 900w
-                            "                            
-                            data-src="{{image | img_url: '900x'}}"
-                            class="lazyload" 
-                        />
-                    </div>
+
+                {% for media in product.media %}
+                    {% case media.media_type %}
+                        {% when 'image' %}
+                            {% assign media_image = media.preview_image %}
+                            {%- assign img_url = media_image.src | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                                <div class="img-wrap thumb-{{ media_image.id }}">
+                                <img
+                                    sizes="
+                                        (max-width: 767px) 767px,
+                                        (max-width: 900px) 900px,
+                                        900px
+                                    "
+                                    data-srcset="
+                                        {{media_image.src | img_url: '767x'}} 767w,
+                                        {{media_image.src | img_url: '900x'}} 900w
+                                    "                            
+                                    data-src="{{media_image.src | img_url: '767x'}}"
+                                    class="lazyload" 
+                                />
+                            </div>
+                        {% when 'external_video' %}
+                            <div class="img-wrap mobile-video-wrapper" data-media-id="{{ media.id }}">
+                                {{ media | external_video_tag }}
+                            </div>
+                        {% else %}
+                    {% endcase %}
                 {% endfor %}
             </div>
 
             {% if product.images.size > 1 %}
                 <div class="thumbnails-wrapper">
                     <div class="grid grid--uniform product-single__thumbnails product-single__thumbnails-{{ section.id }}">
-                        {% for image in product.images %}
-                                <div class="text-link product-single__thumbnail product-single__thumbnail--{{ section.id }}"
-                                   data-thumbnail-id="{{ image.id }}">
-                                    <img class="product-single__thumbnail-image"
-                                         src="{{ image.src | img_url: '110x110', scale: 2 }}"
-                                         alt="{{ 'sections.featured_product.gallery_thumbnail_alt' | t: imageAlt: image.alt | escape }}">
-                                </div>
+                         {% for media in product.media %}
+                            {% assign media_image = media.preview_image %}
+                            <div class="text-link product-single__thumbnail product-single__thumbnail--{{ section.id }}"
+                                   data-thumbnail-id="{{ media_image.id }}">
+                                {% case media.media_type %}
+                                    {% when 'image' %}
+                                        <img class="product-single__thumbnail-image" src="{{media_image.src | img_url: '110x110', scale: 2}}"/>
+                                    {% when 'external_video' %}
+                                        <div class="thumb-video"></div>
+                                    {% else %}
+                                {% endcase %}
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
