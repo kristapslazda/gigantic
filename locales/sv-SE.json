@@ -175,7 +175,8 @@
       "close_cart": "Close Cart",
       "shipping_label": "Frakt",
       "estimated-total": "Total",
-      "shipping_free": "Fri"
+      "shipping_free": "Fri",
+      "terms_html": "Jag accepterar <a href=\"#\">handelsvillkoren<\/a>"
     },
     "label": {
       "discounted_total": "Rabatterad summa",

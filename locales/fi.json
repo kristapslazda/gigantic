@@ -50,7 +50,7 @@
       "shipping_label": "Toimitusmaksu",
       "estimated-total": "Arvioitu kokonaissumma",
       "continue_shopping": "Jatka ostoksia",
-      "terms_html": "Ik accepteer <a href=\"{{ link }}\">toimitusehdot<\/a>",
+      "terms_html": "Ik accepteer <a href=\"#\">toimitusehdot<\/a>",
       "ATC_short": "Lisää",
       "shipping_free": "Ilmainen toimitus"
     },
