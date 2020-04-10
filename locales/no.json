@@ -170,8 +170,8 @@
     "terms_and_conditions": {
       "disagree": "Jeg er uenig",
       "accept": "Jeg aksepterer",
-      "hide_tos": "Skjul kjøpsbetingelser",
-      "show_tos": "Vis kjøpsbetingelser"
+      "hide_tos": "Skjul",
+      "show_tos": "Vis betingelser"
     },
     "label": {
       "discounted_total": "Samled pris med rabat",
@@ -532,7 +532,7 @@
         "billing_address_description": " ",
         "same_billing_address_label": "Samme som leveringsadressen",
         "different_billing_address_label": "Bruk en annen faktureringsadresse",
-        "offsite_gateway_redirect_hint": "Velg mellom Vipps eller kortbetaling, og klikk deretter på den grønne knappen “{{ button_label }}”"
+        "offsite_gateway_redirect_hint": "Velg ønsket betalingsmåte og klikk deretter på den grønne knappen “{{ button_label }}”"
       },
       "shipping_errors": {
         "shipping_method": "Handlekurven din er oppdatert, og den forrige fraktprisen er ikke gyldig. Velg en ny her."
