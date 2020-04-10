@@ -201,6 +201,12 @@
       "product_details": "Produktinformation",
       "quantity": "Kvantitet",
       "quantity_label": "Kvantitet: {{ quantity_count }}"
+    },
+    "terms_and_conditions": {
+      "disagree": "Avslå",
+      "accept": "Godkänn",
+      "hide_tos": "Dölj handelsvillkoren",
+      "show_tos": "Visa handelsvillkoren"
     }
   },
   "collections": {
