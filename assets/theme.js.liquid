@@ -4389,19 +4389,13 @@ $(document).ready(function() {
           if (!slide.hasClass('mobile-video-wrapper')) {
             if (!slide.find('.lazyloaded').length) {
               $('.product__image-wrap').addClass('loader');
-            }
-
-            let interval = setInterval(function() {
+              let interval = setInterval(function() {
                 if (slide.find('.lazyloaded').length) {
-                  console.log('interval');
                   $('.product__image-wrap').removeClass('loader');
                   clearInterval(interval);
                 }
-            }, 200);
-
-            setTimeout(function() {
-              clearInterval(interval);
-            }, 500);
+              }, 100);
+            }
             $('.main-image-slider').addClass('hide-arrows');
           } else {
             $('.main-image-slider').removeClass('hide-arrows');
