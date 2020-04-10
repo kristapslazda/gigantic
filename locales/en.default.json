@@ -160,7 +160,7 @@
       "cookies_required": "Enable cookies to use the shopping cart",
       "continue_shopping": "Continue shopping",
       "cart_error": "There was an error while updating your cart. Please try again.",
-      "terms_html": "Accepter vores <a target='_blank' href='{{ link }}'>handelsbetingelser<\/a>"
+      "terms_html": "Accepter vores <a target=\"_blank\" href=\"{{link}}\">handelsbetingelser<\/a>"
     },
     "label": {
       "discounted_total": "Discounted total",
