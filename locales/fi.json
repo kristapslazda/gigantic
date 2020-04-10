@@ -33,6 +33,12 @@
     }
   },
   "cart": {
+    "terms_and_conditions": {
+      "disagree": "Olla eri mieltä",
+      "accept": "Olla samaa mieltä",
+      "hide_tos": "Piilota termit",
+      "show_tos": "Näytä ehdot"
+    },
     "general": {
       "title": "Ostoskori",
       "empty": "Ostoskori on tyhjä",
@@ -44,7 +50,7 @@
       "shipping_label": "Toimitusmaksu",
       "estimated-total": "Arvioitu kokonaissumma",
       "continue_shopping": "Jatka ostoksia",
-      "terms_html": "Ik accepteer <a target=\"_blank\" href=\"{{ link }}\">toimitusehdot<\/a>",
+      "terms_html": "Ik accepteer <a href=\"{{ link }}\">toimitusehdot<\/a>",
       "ATC_short": "Lisää",
       "shipping_free": "Ilmainen toimitus"
     },
