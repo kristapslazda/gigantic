@@ -174,7 +174,8 @@
       "cart_error": "Ett fel uppstod när du uppdaterade din varukorg. Var god försök igen.",
       "close_cart": "Close Cart",
       "shipping_free": "Gratis frakt",
-      "terms_html": "Jag accepterar <a href=\"#\">handelsvillkoren<\/a>"
+      "terms_html": "Jag accepterar <a href=\"#\">handelsvillkoren<\/a>",
+      "ATC_short": "Lägg till"
     },
     "label": {
       "discounted_total": "Rabatterad summa",

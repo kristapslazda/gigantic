@@ -177,7 +177,8 @@
       "shipping_free": "Gratis frakt",
       "terms_html": "Jag accepterar <a href=\"#\">handelsvillkoren<\/a>",
       "shipping_label": "Frakt",
-      "estimated-total": "Beräknade totala"
+      "estimated-total": "Beräknade totala",
+      "ATC_short": "Lägg till"
     },
     "label": {
       "discounted_total": "Rabatterad summa",

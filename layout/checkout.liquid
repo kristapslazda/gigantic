@@ -174,7 +174,7 @@
             /*****START Invoice address function ******/
       
           //Show Invoice address is the same text and chnage link
-            jQuery('.section--billing-address .section__header').append("<p class='change-shipping-address'><b>Faktureringsadresse: </b>{{ settings.text_invoice_address }} (<span class='change-shipping'>{{ settings.text_change_invoice_address }}</span>)</p>");
+            jQuery('.section--billing-address .section__header').append("<p class='change-shipping-address'><b>{{ "customer.order.billing_address" | t }}: </b>{{ settings.text_invoice_address }} (<span class='change-shipping'>{{ settings.text_change_invoice_address }}</span>)</p>");
 
           // Select Invoice address is the same as the delivery addresss by default                                                                                                                                       
             jQuery("#checkout_different_billing_address_false").trigger('click');

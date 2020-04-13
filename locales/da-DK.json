@@ -166,7 +166,8 @@
       "terms_html": "Jeg accepterer <a href=\"#\">handelsbetingelserne<\/a>",
       "shipping_label": "Fragt (1-3 dage)",
       "shipping_free": "Gratis",
-      "estimated-total": "Estimeret total"
+      "estimated-total": "Estimeret total",
+      "ATC_short": "Tilføj"
     },
     "label": {
       "discounted_total": "Samled pris med rabat",

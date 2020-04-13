@@ -165,7 +165,8 @@
       "terms_html": "Jeg aksepterer <a href=\"#\">kjøpsbetingelser<\/a>",
       "shipping_label": "Frakt",
       "shipping_free": "Gratis",
-      "estimated-total": "Estimert total"
+      "estimated-total": "Estimert total",
+      "ATC_short": "Legg til"
     },
     "terms_and_conditions": {
       "disagree": "Jeg er uenig",
