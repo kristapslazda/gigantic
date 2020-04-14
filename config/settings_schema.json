@@ -1959,6 +1959,16 @@
       },
       {
         "type": "header",
+        "content": "\"Klarna images\""
+      },
+      {
+        "id": "add_klarna_images",
+        "label": "Show \"Klarna images\"",
+        "type": "checkbox",
+        "default": false
+      },
+      {
+        "type": "header",
         "content": "Why buy us"
       },
       {

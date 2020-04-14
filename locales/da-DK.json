@@ -336,6 +336,9 @@
       "email": "E-mail",
       "password": "Adgangskode",
       "submit": "Opret"
+    },
+    "payment_gateway": {
+      "credit_card_label": ""
     }
   },
   "homepage": {

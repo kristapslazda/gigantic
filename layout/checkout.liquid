@@ -119,8 +119,19 @@
     <!----- CUSTOM code to replace quick pay image with text------>
 		<script>
         setTimeout(function(){ 
-            $("[data-select-gateway=26053836897] label").html('Kortbetaling');
-        }, 500);
+          let krefitCardLabel = "{{ 'general.payment_gateway.credit_card_label' | t }}";
+          let addKlarnaImages = "{{settings.add_klarna_images}}";
+          let paymentMethodsRaws = $('.section--payment-method .radio-wrapper.content-box__row');
+
+          if (krefitCardLabel.indexOf('.credit_card_label') === -1 && krefitCardLabel.length) {
+            paymentMethodsRaws.eq(0).find('label').html(krefitCardLabel);
+          }
+
+          if (addKlarnaImages == 'true') {
+            paymentMethodsRaws.eq(2).find('label').html('<img src="{{"Klarna_1.png" | asset_url}}">');
+            paymentMethodsRaws.eq(4).find('label').html('<img src="{{"Klarna_2.png" | asset_url}}">');
+          }
+        }, 100);
 		</script>
     
     <!----- CUSTOM code to make terms and conditions clickable------>

@@ -96,6 +96,9 @@
     },
     "navigation": {
       "view_more_collections": "Show all"
+    },
+    "payment_gateway": {
+      "credit_card_label": ""
     }
   },
   "sections": {
