@@ -120,17 +120,41 @@
 		<script>
         setTimeout(function(){ 
           let krefitCardLabel = "{{ 'general.payment_gateway.credit_card_label' | t }}";
-          let addKlarnaImages = "{{settings.add_klarna_images}}";
           let paymentMethodsRaws = $('.section--payment-method .radio-wrapper.content-box__row');
+          let paymentVariants = $('[data-payment-subform="required"] [data-gateway-group]');
 
-          if (krefitCardLabel.indexOf('.credit_card_label') === -1 && krefitCardLabel.length) {
-            paymentMethodsRaws.eq(0).find('label').html(krefitCardLabel);
-          }
+          paymentVariants.each(function() {
+            
+            // if QuickPay method and "credit card label" text is exist.
+            let conditionForQuickPay = $(this).find('[data-payment-icon="visa"]').length || $(this).find('[data-payment-icon="master"]').length || $(this).find('[data-payment-icon="diners-club"]').length;
 
-          if (addKlarnaImages == 'true') {
-            paymentMethodsRaws.eq(2).find('label').html('<img src="{{"Klarna_1.png" | asset_url}}">');
-            paymentMethodsRaws.eq(4).find('label').html('<img src="{{"Klarna_2.png" | asset_url}}">');
-          }
+            if (conditionForQuickPay && krefitCardLabel.indexOf('.credit_card_label') === -1 && krefitCardLabel.length) {
+              $(this).find('label').html(krefitCardLabel);
+            }
+
+            // if Klarna Pay Later method and image is exist.
+            let PayLaterImage = "{{settings.buy_now_klarna_images | img_url: '250x'}}";
+            let conditionForKlarnapayLater = 
+              $(this).find('[data-payment-icon="klarna"]') && 
+              ($(this).find('label').text().indexOf('myöhemmin') != -1 || 
+              $(this).find('label').text().indexOf('betal senere') != -1);
+
+            if (conditionForKlarnapayLater && PayLaterImage.indexOf('no-image') === -1) {
+                $(this).find('label').html('<img src="' + PayLaterImage + '"/>');
+            }
+
+            // if Klarna Share Payments method and image is exist.
+            let SharePaymentsImage = "{{settings.share_paymen_klarna_images | img_url: '250x'}}";
+            let conditionForKlarnapayShare = 
+              $(this).find('[data-payment-icon="klarna"]') && 
+              ($(this).find('label').text().indexOf('Pilko maksut') != -1 || 
+              $(this).find('label').text().indexOf('betalinge') != -1 || 
+              $(this).find('label').text().indexOf('delbetalning') != -1);
+
+            if (conditionForKlarnapayShare && SharePaymentsImage.indexOf('no-image') === -1) {
+                $(this).find('label').html('<img src="' + SharePaymentsImage + '"/>');
+            }
+          });
         }, 100);
 
         let isShippingPage = $('.section--shipping-method');

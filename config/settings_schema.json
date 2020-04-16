@@ -1959,13 +1959,17 @@
       },
       {
         "type": "header",
-        "content": "\"Klarna images\""
+        "content": "Klarna images"
       },
       {
-        "id": "add_klarna_images",
-        "label": "Show \"Klarna images\"",
-        "type": "checkbox",
-        "default": false
+        "id": "buy_now_klarna_images",
+        "label": "Buy now pay later",
+        "type": "image_picker"
+      },
+      {
+        "id": "share_paymen_klarna_images",
+        "label": "Share paymen",
+        "type": "image_picker"
       },
       {
         "type": "header",
