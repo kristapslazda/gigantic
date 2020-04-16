@@ -6117,6 +6117,16 @@ form.search .search__input,
   padding: 15px;
   max-width: 400px;
 }
+
+.usp-bar .usp {
+  display: flex;
+  justify-content: space-between;
+}
+
+.usp-bar .usp-top-point {
+  text-align: center;
+}
+
 @media (max-width: 1025px) {
   .usp-bar {
     display: none;
