@@ -6121,6 +6121,7 @@ form.search .search__input,
 .usp-bar .usp {
   display: flex;
   justify-content: space-between;
+  font-size: 14px;
 }
 
 .usp-bar .usp-top-point {
