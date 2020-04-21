@@ -610,22 +610,29 @@ slate.Variants = (function() {
             $('.product-form__sticky__submit span').text(cartText);
           }
         }
+      
+        let noTrackQuantity = $('#ProductSelect option[selected="selected"]').data('inventory-managment');
+
+        if (!noTrackQuantity) {
+          var html__instock = '<label class="in-stock">{{ settings.stock_label_above_10 }}</label>';
+          $('.stock-status-wrapper').html(html__instock);
+        } else {
+          if(inventory_quantity >= 10){
+            var html_instock = '<label class="in-stock">{{ settings.stock_label_above_10 }}</label> <p class="stock-status">{{ settings.delivery_time_above_10 }}</p>';
+            $('.stock-status-wrapper').html(html_instock);
+          }
+          
+          if(inventory_quantity < 10){
+            var html_9_instock = '<label class="in-stock">'+inventory_quantity+' {{ settings.stock_label_below_10 }}</label> <p class="stock-status">{{ settings.delivery_time_below_10 }}</p>';
+            $('.stock-status-wrapper').html(html_9_instock);
+          }
+          
+          if(inventory_quantity <= 0 ){
+            var html_outof_stock = '<label class="out_of_stock">{{ settings.stock_label_below_0 }}</label> <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
+            $('.stock-status-wrapper').html(html_outof_stock);
+          }
+        }
       }, 100);
-      
-      if(inventory_quantity >= 10 ){
-        var html_instock = '<label class="in-stock">{{ settings.stock_label_above_10 }}</label> <p class="stock-status">{{ settings.delivery_time_above_10 }}</p>';
-      	$('.stock-status-wrapper').html(html_instock);
-      }
-      
-      if(inventory_quantity < 10 ){
-        var html_9_instock = '<label class="in-stock">'+inventory_quantity+' {{ settings.stock_label_below_10 }}</label> <p class="stock-status">{{ settings.delivery_time_below_10 }}</p>';
-      	$('.stock-status-wrapper').html(html_9_instock);
-      }
-      
-      if(inventory_quantity <= 0 ){
-        var html_outof_stock = '<label class="out_of_stock">{{ settings.stock_label_below_0 }}</label> <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
-        $('.stock-status-wrapper').html(html_outof_stock);
-      }
       
       var selectedValues = this._getCurrentOptions();
       var variants = this.product.variants;
