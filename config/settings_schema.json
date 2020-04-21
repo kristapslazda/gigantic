@@ -1863,6 +1863,15 @@
         "type": "text",
         "id": "delivery_time_below_0",
         "label": "Delivery time"
+      },
+      {
+        "type": "header",
+        "content": "Product Has \"vidaXL\" tag"
+      },
+      {
+        "type": "text",
+        "id": "delivery_time_vidaxl",
+        "label": "Delivery time"
       }
     ]
   },
