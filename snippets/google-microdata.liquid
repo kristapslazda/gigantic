@@ -31,12 +31,16 @@
         {% endif %}
 
         {% comment %} product availability  {% endcomment %}
-        {% if current_variant.inventory_quantity > 0 %}
+        {% if current_variant.inventory_management == blank %}
             <meta itemprop="availability" content="https://schema.org/InStock" />
         {% else %}
-            <meta itemprop="availability" content="https://schema.org/OutOfStock" />
+            {% if current_variant.inventory_quantity > 0 or product.tags contains 'vidaxl' %}
+                <meta itemprop="availability" content="https://schema.org/InStock" />
+            {% else %}
+                <meta itemprop="availability" content="https://schema.org/OutOfStock" />
+            {% endif %}
         {% endif %}
-
+        
         {% comment %} currency {% endcomment %}
         <meta itemprop="priceCurrency" content="{{shop.currency}}" />
 
