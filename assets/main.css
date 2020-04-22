@@ -4764,6 +4764,8 @@ body {
 
 #shopify-section-header {
   margin-bottom: 0;
+  position: relative;
+  z-index: 9999999999;
 }
 
 .rte {
