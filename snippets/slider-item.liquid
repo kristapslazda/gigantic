@@ -1,9 +1,16 @@
 {% case media.media_type %}
     {% when 'image' %}
         {% assign media_image = media.preview_image.src %}
-        {% assign image_id = media.preview_image.id %}
         {%- assign img_url = media_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-       <div class="img-wrap thumb-{{ image_id }}" data-image-name="{{media_image | split: '/' | last | split: '.' | first}}">
+        {% assign media_image_name = media_image | split: '/' | last | split: '.' | first %}
+
+        {% for _image in images_with_urls_and_id %}
+            {% if _image contains media_image_name %}
+                {% assign image_id = _image | split: '---' | first %}
+            {% endif %}
+        {% endfor %}
+
+        <div class="img-wrap thumb-{{ image_id }}" data-image-name="{{media_image | split: '/' | last | split: '.' | first}}">
             <img
                 sizes="
                     (max-width: 991px) 358px,
@@ -21,7 +28,7 @@
                 data-src="{{media_image | img_url: '730x'}}"
                 class="lazyload" 
             />
-       </div>
+        </div>
     {% when 'external_video' %}
         <div class="img-wrap" data-media-id="{{ media.id }}">
             {{ media | external_video_tag }}

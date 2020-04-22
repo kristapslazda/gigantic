@@ -119,8 +119,70 @@
     <!----- CUSTOM code to replace quick pay image with text------>
 		<script>
         setTimeout(function(){ 
-            $("[data-select-gateway=26053836897] label").html('Kortbetaling');
-        }, 500);
+          let krefitCardLabel = "{{ 'general.payment_gateway.credit_card_label' | t }}";
+          let paymentMethodsRaws = $('.section--payment-method .radio-wrapper.content-box__row');
+          let paymentVariants = $('[data-payment-subform="required"] [data-gateway-group]');
+
+          paymentVariants.each(function() {
+            
+            // if QuickPay method and "credit card label" text is exist.
+            let conditionForQuickPay = $(this).find('[data-payment-icon="visa"]').length || $(this).find('[data-payment-icon="master"]').length || $(this).find('[data-payment-icon="diners-club"]').length;
+
+            if (conditionForQuickPay && krefitCardLabel.indexOf('.credit_card_label') === -1 && krefitCardLabel.length) {
+              $(this).find('label').html(krefitCardLabel);
+            }
+
+            // if Klarna Pay Later method and image is exist.
+            let PayLaterImage = "{{settings.buy_now_klarna_images | img_url: '250x'}}";
+            let conditionForKlarnapayLater = 
+              $(this).find('[data-payment-icon="klarna"]') && 
+              ($(this).find('label').text().indexOf('myöhemmin') != -1 || 
+              $(this).find('label').text().indexOf('betal senere') != -1);
+
+            if (conditionForKlarnapayLater && PayLaterImage.indexOf('no-image') === -1) {
+                $(this).find('label').html('<img src="' + PayLaterImage + '"/>');
+            }
+
+            // if Klarna Share Payments method and image is exist.
+            let SharePaymentsImage = "{{settings.share_paymen_klarna_images | img_url: '250x'}}";
+            let conditionForKlarnapayShare = 
+              $(this).find('[data-payment-icon="klarna"]') && 
+              ($(this).find('label').text().indexOf('Pilko maksut') != -1 || 
+              $(this).find('label').text().indexOf('betalinge') != -1 || 
+              $(this).find('label').text().indexOf('delbetalning') != -1);
+
+            if (conditionForKlarnapayShare && SharePaymentsImage.indexOf('no-image') === -1) {
+                $(this).find('label').html('<img src="' + SharePaymentsImage + '"/>');
+            }
+          });
+        }, 100);
+
+        let isShippingPage = $('.section--shipping-method');
+
+        if (isShippingPage.length) {
+
+          let shippineText_1 = "{{settings.shipping_name_1}}";
+          let shippineText_2 = "{{settings.shipping_name_2}}";
+          let shippineText_3 = "{{settings.shipping_name_3}}";
+          let shippineText_4 = "{{settings.shipping_name_4}}";
+          let shippineText_5 = "{{settings.shipping_name_5}}";
+
+          if (shippineText_1.length) {
+            $('[data-shipping-method-label-title="' + shippineText_1 + '"]').prepend('<img class="shipping-logo" src="{{settings.shipping_image_1 | img_url: "200x"}}"/>');
+          }
+          if (shippineText_2.length) {
+            $('[data-shipping-method-label-title="' + shippineText_2 + '"]').prepend('<img class="shipping-logo" src="{{settings.shipping_image_2 | img_url: "200x"}}"/>');
+          }
+          if (shippineText_3.length) {
+            $('[data-shipping-method-label-title="' + shippineText_3 + '"]').prepend('<img class="shipping-logo" src="{{settings.shipping_image_3 | img_url: "200x"}}"/>');
+          }
+          if (shippineText_4.length) {
+            $('[data-shipping-method-label-title="' + shippineText_4 + '"]').prepend('<img class="shipping-logo" src="{{settings.shipping_image_4 | img_url: "200x"}}"/>');
+          }
+          if (shippineText_5.length) {
+            $('[data-shipping-method-label-title="' + shippineText_5 + '"]').prepend('<img class="shipping-logo" src="{{settings.shipping_image_5 | img_url: "200x"}}"/>');
+          }
+        }
 		</script>
     
     <!----- CUSTOM code to make terms and conditions clickable------>
@@ -174,7 +236,7 @@
             /*****START Invoice address function ******/
       
           //Show Invoice address is the same text and chnage link
-            jQuery('.section--billing-address .section__header').append("<p class='change-shipping-address'><b>Faktureringsadresse: </b>{{ settings.text_invoice_address }} (<span class='change-shipping'>{{ settings.text_change_invoice_address }}</span>)</p>");
+            jQuery('.section--billing-address .section__header').append("<p class='change-shipping-address'><b>{{ "customer.order.billing_address" | t }}: </b>{{ settings.text_invoice_address }} (<span class='change-shipping'>{{ settings.text_change_invoice_address }}</span>)</p>");
 
           // Select Invoice address is the same as the delivery addresss by default                                                                                                                                       
             jQuery("#checkout_different_billing_address_false").trigger('click');
@@ -210,7 +272,7 @@
     <style>
       /*****START  Payment step, accept terms ******/
       /*****Added: 17-01-2020 */
-      #terms-con-con{padding-top:30px;padding-bottom:10px;position:relative}#terms-con-con #terms-con{position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;padding-left:34px}#terms-con-con #terms-con a{color:#000;text-decoration:underline}#terms-con-con #terms-con input{position:absolute;opacity:0}#terms-con-con .gr-checkmark{position:absolute;height:20px;width:20px;left:0;top:0;background-color:#fff;border:1px solid #e8e9eb}#terms-con-con #terms-con input:checked~.gr-checkmark{background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwN2ExOGYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWNoZWNrIj48cG9seWxpbmUgcG9pbnRzPSIyMCA2IDkgMTcgNCAxMiI+PC9wb2x5bGluZT48L3N2Zz4=);background-position:center center;background-size:70%;background-repeat:no-repeat}#terms-con-con #terms-error{color:#f44336;margin-top:7px}.cart-alert-section{margin-bottom:0}.cart-alert-section{margin-bottom:0}.cart-alert-section .alert{position:fixed;background-color:#fff;width:600px;left:50%;top:50%;transform:translate(-50%,-50%);z-index:99999;padding:40px 40px 20px}.cart-alert-section .alert .read-terms{margin-top:20px}.cart-alert-section .alert .read-terms .showTos{font-size:14px;font-weight:600;display:flex;justify-content:center}.cart-alert-section .alert .read-terms .showTos div{cursor:pointer}.cart-alert-section .alert .read-terms .tosText{transition:all .3s ease;background:#f4f4f4;height:0;overflow:hidden;padding:0;text-align:left;margin-top:10px}.cart-alert-section .alert .read-terms .tosText.shown{padding:20px;overflow:auto;height:30vh}.cart-alert-section .alert p{font-size:14px}.cart-alert-section .alert p.h2{font-size:28px;margin:0 0 10px}.cart-alert-section .alert .grid{width:100%;display:flex;margin-top:10px;}.cart-alert-section .alert .grid .grid__item{width:50%}.cart-alert-section .alert .grid .grid__item:last-child{padding-left:22px}.cart-alert-section .alert .grid .grid__item .btn-terms{padding:15px 40px 14px;text-align:center;cursor:pointer}.cart-alert-section .alert .grid .grid__item #terms_disagree{background-color:#ccc;border-color:#ccc;color:#000}.cart-alert-section .alert .grid .grid__item #terms_agree{background-color:#07a18f;border-color:#07a18f;color:#fff;font-weight:700}@media (max-width:768px){.cart-alert-section .alert{height:auto;width:90%;left:50%;top:50%;transform:translate(-50%,-50%);z-index:999999999;padding:20px;box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.12),0 1px 5px 0 rgba(0,0,0,.2)}.cart-alert-section .alert .grid{position:unset;margin-left:0;width:auto}.cart-alert-section .alert .grid .grid__item{padding-left:0;width:49%}.cart-alert-section .alert .grid .grid__item .btn-terms{padding:15px 20px 14px;align-items:center;display:flex;justify-content:center;height:100%}.cart-alert-section .alert .grid .grid__item:first-child{margin-right:2%}}.showTos div.hide{display:none}.cart-alert-section .alert strong {font-weight:600;font-size:1.1em}.cart-alert-section .overlay {width: 100%;height: 100vh;position: fixed;top: 0;left: 0;background-color: rgba(0, 0, 0, 0.4);z-index: 9999;}[data-trekkie-id="complete_order_button"]:disabled{opacity:.4;}
+      #terms-con-con{padding-top:30px;padding-bottom:10px;position:relative}#terms-con-con #terms-con{position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;padding-left:34px}#terms-con-con #terms-con a{color:#000;text-decoration:underline}#terms-con-con #terms-con input{position:absolute;opacity:0}#terms-con-con .gr-checkmark{position:absolute;height:20px;width:20px;left:0;top:0;background-color:#fff;border:1px solid #e8e9eb}#terms-con-con #terms-con input:checked~.gr-checkmark{background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwN2ExOGYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWNoZWNrIj48cG9seWxpbmUgcG9pbnRzPSIyMCA2IDkgMTcgNCAxMiI+PC9wb2x5bGluZT48L3N2Zz4=);background-position:center center;background-size:70%;background-repeat:no-repeat}#terms-con-con #terms-error{color:#f44336;margin-top:7px}.cart-alert-section{margin-bottom:0}.cart-alert-section{margin-bottom:0}.cart-alert-section .alert{position:fixed;background-color:#fff;width:600px;left:50%;top:50%;transform:translate(-50%,-50%);z-index:99999;padding:40px 40px 20px}.cart-alert-section .alert .read-terms{margin-top:20px}.cart-alert-section .alert .read-terms .showTos{font-size:14px;font-weight:600;display:flex;justify-content:center}.cart-alert-section .alert .read-terms .showTos div{cursor:pointer}.cart-alert-section .alert .read-terms .tosText{transition:all .3s ease;background:#f4f4f4;height:0;overflow:hidden;padding:0;text-align:left;margin-top:10px}.cart-alert-section .alert .read-terms .tosText.shown{padding:20px;overflow:auto;height:30vh}.cart-alert-section .alert p{font-size:14px}.cart-alert-section .alert p.h2{font-size:28px;margin:0 0 10px}.cart-alert-section .alert .grid{width:100%;display:flex;margin-top:10px;}.cart-alert-section .alert .grid .grid__item{width:50%}.cart-alert-section .alert .grid .grid__item:last-child{padding-left:22px}.cart-alert-section .alert .grid .grid__item .btn-terms{padding:15px 40px 14px;text-align:center;cursor:pointer; box-sizing: border-box;}.cart-alert-section .alert .grid .grid__item #terms_disagree{background-color:#ccc;border-color:#ccc;color:#000}.cart-alert-section .alert .grid .grid__item #terms_agree{background-color:#07a18f;border-color:#07a18f;color:#fff;font-weight:700}@media (max-width:768px){.cart-alert-section .alert{height:auto;width:90%;left:50%;top:50%;transform:translate(-50%,-50%);z-index:999999999;padding:20px;box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.12),0 1px 5px 0 rgba(0,0,0,.2)}.cart-alert-section .alert .grid{position:unset;margin-left:0;width:auto}.cart-alert-section .alert .grid .grid__item{padding-left:0;width:49%}.cart-alert-section .alert .grid .grid__item .btn-terms{padding:15px 20px 14px;align-items:center;display:flex;justify-content:center;height:100%}.cart-alert-section .alert .grid .grid__item:first-child{margin-right:2%}}.showTos div.hide{display:none}.cart-alert-section .alert strong {font-weight:600;font-size:1.1em}.cart-alert-section .overlay {width: 100%;height: 100vh;position: fixed;top: 0;left: 0;background-color: rgba(0, 0, 0, 0.4);z-index: 9999;}[data-trekkie-id="complete_order_button"]:disabled{opacity:.4;}
     </style>
     <script>
       if (typeof $("form[data-payment-form]") !== 'undefined') {

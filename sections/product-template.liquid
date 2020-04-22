@@ -54,6 +54,16 @@
     <meta content="{{ shop.url }}{{ product.url }}">
     <meta content="{{ product.featured_image.src | img_url: 'grande' }}">
 
+     {% assign prod_images = product.images %}
+
+    {% assign images_with_urls_and_id = '' %}
+
+    {% for single_image in prod_images %}
+        {% assign images_with_urls_and_id = images_with_urls_and_id | append: single_image.id | append: '---' | append: single_image | append: '^&^' %}
+    {% endfor %}
+
+    {% assign images_with_urls_and_id = images_with_urls_and_id | split: '^&^' %}
+
     {% include 'breadcrumbs' %}
     <div class="product-single{% if section.settings.enable_payment_button %} product-single--{{ section.settings.image_size }}-image{% endif %}">
       <ul class="product-slider-nav">
@@ -86,7 +96,7 @@
                             {% when 'image' %}
                                 {% assign media_image = media.preview_image %}
                                 {%- assign img_url = media_image.src | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-                                    <div class="img-wrap thumb-{{ media_image.id }}">
+                                    <div class="img-wrap thumb-{{ media.id }}">
                                     <img
                                         sizes="
                                             (max-width: 767px) 767px,

@@ -50,6 +50,17 @@
   body [data-address-field="province"]{
     width:49% !important;
   }
+
+  [data-step="payment_method"] .section--payment-method .content-box__row--secondary {
+    display: none;
+  }
+
+  .shipping-logo {
+    max-height: 30px;
+    vertical-align: top;
+    margin-right: 10px;
+  }
+
   @media screen and (max-width: 767px) {
     [data-step="shipping_method"] .section:not(.section--shipping-method),
     .order-summary-toggle:not(.visible) {
@@ -60,9 +71,6 @@
       padding: 19px 0 29px;
     }
 
-    [data-step="payment_method"] .content-box__row--secondary {
-      display: none;
-    }
 
     [data-step="payment_method"] .section--payment-method {
       padding-top: 13px;
@@ -93,7 +101,6 @@
     
     .section--shipping-method {
     	padding-top: 0;
-      	margin-top: -1.5em;
     }
 
     .wyustit:first-child {

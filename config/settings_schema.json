@@ -1863,6 +1863,15 @@
         "type": "text",
         "id": "delivery_time_below_0",
         "label": "Delivery time"
+      },
+      {
+        "type": "header",
+        "content": "Product Has \"vidaXL\" tag"
+      },
+      {
+        "type": "text",
+        "id": "delivery_time_vidaxl",
+        "label": "Delivery time"
       }
     ]
   },
@@ -1956,6 +1965,93 @@
         "label": "Text 4",
         "type": "text",
         "default": "4.Payment"
+      },
+      {
+        "type": "header",
+        "content": "Klarna images"
+      },
+      {
+        "id": "buy_now_klarna_images",
+        "label": "Buy now pay later",
+        "type": "image_picker"
+      },
+      {
+        "id": "share_paymen_klarna_images",
+        "label": "Share paymen",
+        "type": "image_picker"
+      },
+      {
+        "type": "header",
+        "content": "Shipping Images"
+      },
+      {
+        "id": "shipping_image_1",
+        "label": "Shipping Image",
+        "type": "image_picker"
+      },
+      {
+        "id": "shipping_name_1",
+        "label": "Shipping Company Name",
+        "type": "text"
+      },
+      {
+        "id": "shipping_image_2",
+        "label": "Shipping Image",
+        "type": "image_picker"
+      },
+      {
+        "id": "shipping_name_2",
+        "label": "Shipping Company Name",
+        "type": "text"
+      },
+      {
+        "id": "shipping_image_3",
+        "label": "Shipping Image",
+        "type": "image_picker"
+      },
+      {
+        "id": "shipping_name_3",
+        "label": "Shipping Company Name",
+        "type": "text"
+      },
+      {
+        "id": "shipping_image_4",
+        "label": "Shipping Image",
+        "type": "image_picker"
+      },
+      {
+        "id": "shipping_name_4",
+        "label": "Shipping Company Name",
+        "type": "text"
+      },
+      {
+        "id": "shipping_image_5",
+        "label": "Shipping Image",
+        "type": "image_picker"
+      },
+      {
+        "id": "shipping_name_5",
+        "label": "Shipping Company Name",
+        "type": "text"
+      },
+      {
+        "type": "header",
+        "content": "Upsale Collection"
+      },
+      {
+        "id": "checkout_upsale_product_1",
+        "label": "Product 1",
+        "type": "text"
+      },
+      {
+        "id": "checkout_upsale_product_2",
+        "label": "Product 2",
+        "type": "text"
+      },
+      {
+        "id": "checkout_upsale_product_3",
+        "label": "Product 3",
+        "type": "text"
       },
       {
         "type": "header",
