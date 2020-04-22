@@ -216,6 +216,12 @@
       "postal_code": "Postinumero"
     }
   },
+
+  "customer": {
+    "order": {
+      "billing_address": "Postitusosoite"
+    }
+  },
   "discount_ninja": {
     "from": "From",
     "here": "here",
