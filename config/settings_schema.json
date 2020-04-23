@@ -1871,7 +1871,8 @@
       {
         "type": "text",
         "id": "delivery_time_vidaxl",
-        "label": "Delivery time"
+        "label": "Delivery time",
+        "default": "Leveringstid: 4 - 6 dage<br>Bestil nu og vi sender varen straks den kommer på lager igen. Vi hæver <i>ikke</i> penge før varen sendes til dig."
       }
     ]
   },
