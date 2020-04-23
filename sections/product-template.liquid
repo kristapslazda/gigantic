@@ -21,6 +21,12 @@
 
 {% include 'google-microdata' %}
 
+{% assign sell_anyway = false %}
+    {% for tag in product.tags %}
+        {% if tag contains 'vidaxl' %}
+            {% assign sell_anyway = true %}
+        {% endif %}
+{% endfor %}
 
 <div class="product-template__container container"
      id="ProductSection--{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product-template"
@@ -277,8 +283,7 @@
                                 </div>
                             {% endfor %}
                         {% endunless %}
-
-                        <select name="id" id="ProductSelect" class="product-single__variants no-js">
+                        <select name="id" id="ProductSelect" class="product-single__variants no-js" data-sell-anyway="{{sell_anyway}}">
                             {% for variant in product.variants %}
                                 {% unless variant.metafields.secomapp.freegifts %}
                                     {% unless variant.title contains '(Freegifts)' %}
