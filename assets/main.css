@@ -10171,6 +10171,11 @@ form.search .search__submit {
   overflow: hidden;
 }
 
+.colapsed-text .video-wrapper {
+  max-width: 640px;
+  max-height: 480px;
+}
+
 .colapsed-text > *:first-child {
   margin-top: 0;
 }

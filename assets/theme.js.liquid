@@ -4476,25 +4476,43 @@ $(document).ready(function() {
   if (colapsedTextHolder.length) {
 
     let parentLineHeight = colapsedTextHolder.css('line-height').slice(0, -2);
-    let totalHeight = colapsedTextHolder.outerHeight();
-
-    if (totalHeight > 210) {
-      let totalChildGeight = countChildrenTotalHeight(colapsedTextHolder, parentLineHeight);
-      let offsetTop = totalChildGeight.targetObject.position().top;
-      let childMarginTop = +totalChildGeight.targetObject.css('margin-top').slice(0, -2);
-      let totalTop = offsetTop + childMarginTop + totalChildGeight.leftedLine * totalChildGeight.lineHeight - 10;
-
-      $('.colapsed-text').css('height', (totalTop) + 'px');
-      $('.colapsed-text').attr('data-height-close', totalTop);
-      $('.colapsed-text').attr('data-height-total', totalHeight);
-      
-      $('.read-more').on('click', function(e){
-        e.preventDefault();
-        readMoreClick($(this), colapsedTextHolder);
+    let inTextimages = colapsedTextHolder.find('img');
+    let inTextVideo = $('.colapsed-text .video-wrapper');
+    let images = [];
+    
+    if (inTextVideo.length) {
+      inTextVideo.each(function() {
+        let wrapperWidth = $(this).outerWidth();
+        $(this).css('height', wrapperWidth / 1.78 + 'px');
       });
-    } else {
-      // $('.read-more-holder').remove();
     }
+
+    if (inTextimages.length) {
+      images.push(new Promise(function(resolve) {
+        $(this).on('load', function(){
+          resolve();
+        });
+      }));
+    }
+
+    Promise.all(images).then(function() {
+      let totalHeight = colapsedTextHolder.outerHeight();
+      if (totalHeight > 210) {
+        let totalChildHeight = countChildrenTotalHeight(colapsedTextHolder, parentLineHeight);
+        let offsetTop = totalChildHeight.targetObject.position().top;
+        let childMarginTop = +totalChildHeight.targetObject.css('margin-top').slice(0, -2);
+        let totalTop = offsetTop + childMarginTop + totalChildHeight.leftedLine * totalChildHeight.lineHeight - 10;
+
+        $('.colapsed-text').css('height', (totalTop) + 'px');
+        $('.colapsed-text').attr('data-height-close', totalTop);
+        $('.colapsed-text').attr('data-height-total', totalHeight);
+        
+        $('.read-more').on('click', function(e){
+          e.preventDefault();
+          readMoreClick($(this), colapsedTextHolder);
+        });
+      }
+    });
   }
 // product page collaplsed text end
 
