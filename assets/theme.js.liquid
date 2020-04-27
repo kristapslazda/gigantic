@@ -4511,6 +4511,8 @@ $(document).ready(function() {
           e.preventDefault();
           readMoreClick($(this), colapsedTextHolder);
         });
+      } else {
+        $('.read-more-holder').remove();
       }
     });
   }
