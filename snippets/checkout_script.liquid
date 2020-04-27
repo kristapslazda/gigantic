@@ -231,39 +231,31 @@
         
         document.getElementsByClassName("order-summary-toggle")[0].classList.add('visible');
       }
+
+      if(align == 'contact_information'){
+        let firstInput = document.querySelector('[data-buyer-accepts-marketing]');
+        firstInput.remove();
+
+        let rememberMe = document.querySelector('[for="checkout_remember_me"]');
+        rememberMe.parentNode.insertAdjacentHTML("afterend",
+          '<div class="fieldset-description emailclass" data-buyer-accepts-marketing=""><div class="section__content"><div class="checkbox-wrapper"><div class="checkbox__input"><input name="checkout[buyer_accepts_marketing]" type="hidden" value="0"><input class="input-checkbox" data-backup="buyer_accepts_marketing" type="checkbox" value="1" name="checkout[buyer_accepts_marketing]" id="checkout_buyer_accepts_marketing"></div><label class="checkbox__label" for="checkout_buyer_accepts_marketing">'+pSettings.newsletter_text+'</label></div></div></div>'
+        );
+
+        rememberMe.parentNode.remove();
+      }
+
       if (screen.width > 999) {
-        if(align == 'contact_information'){
-          let firstInput = document.querySelector('[data-buyer-accepts-marketing]');
-          firstInput.remove();
-
-          let rememberMe = document.querySelector('[for="checkout_remember_me"]');
-          rememberMe.parentNode.insertAdjacentHTML("afterend",
-            '<div class="fieldset-description emailclass" data-buyer-accepts-marketing=""><div class="section__content"><div class="checkbox-wrapper"><div class="checkbox__input"><input name="checkout[buyer_accepts_marketing]" type="hidden" value="0"><input class="input-checkbox" data-backup="buyer_accepts_marketing" type="checkbox" value="1" name="checkout[buyer_accepts_marketing]" id="checkout_buyer_accepts_marketing"></div><label class="checkbox__label" for="checkout_buyer_accepts_marketing">'+pSettings.newsletter_text+'</label></div></div></div>'
-          );
-
-          rememberMe.parentNode.remove();
-        }		
-
         document.getElementsByClassName("main__content")[0].insertAdjacentHTML("afterbegin", '<p class="desktoponly" style="color:#cc0000;text-align:left;font-size:18px;margin-bottom:35px;font-weight:bold;"></p><div id = "desktop" style="padding: 0px 0px 20px 0px;"><div id="countdown" class="countdownhere" style="font-weight:bold;padding-left:5px"> <div class="timer-text">'+pSettings.highDemandText+' <span id="time"></span> '+pSettings.highDemandText2+' </div></div></div>');
         var e = 600,
             t = Date.now(),
             s = rdC("pRtC"); 
         s ? t < s ? e = (s - t) / 1e3 : (eSC("pRtC"), crC("pRtC", Date.now() + 1e3 * e, e + 1)) : crC("pRtC", Date.now() + 1e3 * e, e + 1), display = document.querySelector("#time"), stTM(t, e, display), document.getElementsByClassName("countdownhere")[0].insertAdjacentHTML("afterbegin", '<div class="flame-img" style="vertical-align: middle; display: inline-block; position: relative; top: 2px; margin-right: 10px;"><img src="'+pSettings.flamecartimage+'"></div><div style="font-weight: 700; display: inline-block;padding:0 0 0 5px"> </div>'), "" != pSettings.discountText && dsXt && dsXt.setAttribute("placeholder", pSettings.discountText), document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<div class="mobile-pay-logo" style="width: 100%; padding-top: 10px; text-align: right;"><img class="payment_logo" src="'+pSettings.guranteeCheckoutbadge+'"></div>'), document.getElementsByClassName("order-summary__sections")[0].insertAdjacentHTML("beforeend", '<div style="position: relative; clear: both;"><div class="wyustit" style="position:relative;z-index:1;text-align:center"><span style="background:#fafafa;padding:0 15px">'+pSettings.whyUstitle+'</span></div><div style="display:table;vertical-align:middle;width:100%;border-spacing:0px 20px"><div class="wyuscs"><div class="wyuscs1"><img src="' + pSettings.whyUsImg1 + '"></div><div class="wyuscs2"><span>' + pSettings.whyUsTitle1 + "</span><p>" + pSettings.whyUsText1 + '</p></div></div><div class="wyuscs"><div class="wyuscs1"><img src="' + pSettings.whyUsImg2 + '"></div><div class="wyuscs2"><span>' + pSettings.whyUsTitle2 + "</span><p>" + pSettings.whyUsText2 + "</p></div></div></div></div>"), document.getElementsByClassName("order-summary__sections")[0].insertAdjacentHTML("beforeend", '<div class="review_title"></div><div style="position:relative;"><div class="wyustit" style="position:relative;z-index:1;text-align:center; margin:0 0 10px 0;"><span style="background:#fafafa;padding:0 15px">'+pSettings.customerreviewTitle+'</span></div><div class="reviews"><img src="'+pSettings.customerreviewimage+'">'+pSettings.customerReviewhtml+' </div>');	
-
       } else {
-        
-        if(align == 'contact_information'){/*document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<button aria-busy="false" class="step__footer__continue-btn btn " type="submit" name="button"><span class="btn__content">'+pSettings.continueBtntext+' <img class="truck-img" src="'+pSettings.whitetruckimage+'"></span><i class="btn__spinner icon icon--button-spinner"></i></button>'),*/document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("beforeend",'<div class="fieldset-description emailclass" data-buyer-accepts-marketing=""><div class="section__content"><div class="checkbox-wrapper"><div class="checkbox__input"><input name="checkout[buyer_accepts_marketing]" type="hidden" value="0"><input class="input-checkbox" data-backup="buyer_accepts_marketing" type="checkbox" value="1" name="checkout[buyer_accepts_marketing]" id="checkout_buyer_accepts_marketing"></div><label class="checkbox__label" for="checkout_buyer_accepts_marketing">'+pSettings.newsletter_text+'</label></div></div></div>')}
-        /*
-        if(align == 'shipping_method'){document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<button aria-busy="false" class="step__footer__continue-btn btn " type="submit" name="button"><span class="btn__content">'+pSettings.paymentBtntext+'</span><img class="card-img" src="'+pSettings.creditcardimage+'"><i class="btn__spinner icon icon--button-spinner"></i></button>');
-                                      }
-        if(align == 'payment_method'){document.getElementsByClassName("step__footer")[0].insertAdjacentHTML("afterend", '<button aria-busy="false" class="step__footer__continue-btn btn " type="submit" name="button"><span class="btn__content">'+pSettings.completeorderBtntext+'</span><img class="check-img" src="'+pSettings.tickmarkimage+'"><i class="btn__spinner icon icon--button-spinner"></i></button>')}					
-		*/
         let visibleStyle = '';
 
         if (!pSettings.whyUstitle.length && !pSettings.whyUsTitle1.length && !pSettings.whyUsTitle2.length && !pSettings.whyUsText1.length && !pSettings.whyUsText2) {
           visibleStyle = "display: none";
         }
-
 
         document.getElementsByClassName("order-summary-toggle")[0].insertAdjacentHTML("beforebegin", '<div id = "mobile" class ="outer_count_div"><div id="countdown" class="countdownhere" style="font-weight:bold;padding-left:5px"> <div class="timer-text">'+pSettings.highDemandText+' <span id="time"></span> '+pSettings.highDemandText2+' </div></div></div>');
         var e = 600,
@@ -280,9 +272,7 @@
           '<div class="wyuscs2"><span>' + pSettings.whyUsTitle2 + "</span><p>" + pSettings.whyUsText2 + "</p></div></div>" + 
         "</div></div>"
         ), document.getElementsByClassName("step__footer__continue-btn")[0].insertAdjacentHTML("afterend", '<div class="mobile-pay-logo" style="width: 100%; padding-top: 10px; text-align: right;"><img class="payment_logo" src="'+pSettings.guranteeCheckoutbadge+'"></div>');
-
       }
-
     }	
     b1j = document.getElementById("sp1"), b2j = document.getElementById("sp2"), b3j = document.getElementById("sp3"), b4j = document.getElementById("sp4"),c1j = document.getElementById("spn1"), c2j = document.getElementById("spn2"), c3j = document.getElementById("spn3"), c4j = document.getElementById("spn4"),c2=document.getElementById("sp2"),c3=document.getElementById("sp3"),c4=document.getElementById("sp4"),wnd.indexOf("step=contact_information") > -1 && (b1j.className = "s8 s8c", c2.className="s8 s8c current"), wnd.indexOf("previous_step=contact_information") > -1 && (b1j.className = "s8 s8c", b2j.className = "s8 s8c",  c3.className="s8 s8c current", c2j.insertAdjacentHTML("afterbegin", chsg)), wnd.indexOf("previous_step=shipping_method") > -1 && (b1j.className = "s8 s8c", b2j.className = "s8 s8c", b3j.className = "s8 s8c", b4j.className = "s8 s8c", c4.className="s8 s8c current", c2j.insertAdjacentHTML("afterbegin", chsg), c3j.insertAdjacentHTML("afterbegin", chsg)), wnd.indexOf("thank_you") > -1 && (b1j.className = "s8 s8c", b2j.className = "s8 s8c", b3j.className = "s8 s8c",b4j.className = "s8 s8c" ,c4j.insertAdjacentHTML("afterbegin", chsg))
   }); 
