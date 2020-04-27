@@ -642,15 +642,12 @@ slate.Variants = (function() {
           }
         }
       }, 100);
-      
+
       var selectedValues = this._getCurrentOptions();
       var variants = this.product.variants;
-
       var found = _.find(variants, function(variant) {
-     
         return selectedValues.every(function(values) {
           return _.isEqual(variant[values.index], values.value);
-         
         });
       });
       return found;
@@ -661,23 +658,6 @@ slate.Variants = (function() {
      */
     _onSelectChange: function() {
       var variant = this._getVariantFromOptions();
-      var variant_id = variant.id ;
-      var inventory_quantity = $('.variant-'+variant_id).text();
- 
-      if(inventory_quantity >= 10 ){
-        var html_instock = '<label class="in-stock">{{ settings.stock_label_above_10 }}</label> <p class="stock-status">{{ settings.delivery_time_above_10 }}</p>';
-      	$('.stock-status-wrapper').html(html_instock);
-      }
-      
-      if(inventory_quantity < 10 ){
-        var html_9_instock = '<label class="in-stock">'+inventory_quantity+' {{ settings.stock_label_below_10 }}</label> <p class="stock-status">{{ settings.delivery_time_below_10 }}</p>';
-      	$('.stock-status-wrapper').html(html_9_instock);
-      }
-      
-      if(inventory_quantity <= 0 ){
-        var html_outof_stock = '<label class="out_of_stock">{{ settings.stock_label_below_0 }}</label> <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
-      	$('.stock-status-wrapper').html(html_outof_stock);
-      }
       
       this.$container.trigger({
         type: 'variantChange',

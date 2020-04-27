@@ -211,9 +211,41 @@
                 {% endfor %}
             </div>
               
-              <div class="stock-status-wrapper">
-                
-              </div>
+            <div class="stock-status-wrapper">
+                {% if current_variant.inventory_management == blank %}
+                    <label class="in-stock">{{ settings.stock_label_above_10 }}</label>
+                    {% if sell_anyway %}
+                        <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
+                    {% endif %}
+                {% else %}
+                    {% if current_variant.inventory_quantity  >= 10 %}
+                        <label class="in-stock">{{ settings.stock_label_above_10 }}</label>
+                        {% if sell_anyway %}
+                            <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
+                        {% else %}
+                            <p class="stock-status">{{ settings.delivery_time_above_10 }}</p>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if current_variant.inventory_quantity  < 10 %}
+                        <label class="in-stock">{{ settings.stock_label_below_10 }}</label>
+                        {% if sell_anyway %}
+                            <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
+                        {% else %}
+                            <p class="stock-status">{{ settings.delivery_time_below_10 }}</p>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if current_variant.inventory_quantity  < 0 %}
+                        <label class="out_of_stock">{{ settings.stock_label_below_0 }}</label>
+                        {% if sell_anyway %}
+                            <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
+                        {% else %}
+                            <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
                     {% include 'sca_freegift_price' with product %}
                     <div class="product-single__variants-wrapper{% if sca_product_variantCount == 1 %} only-default{% endif %}">
                         {% unless product.has_only_default_variant %}
