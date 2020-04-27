@@ -132,12 +132,11 @@
               $(this).find('label').html(krefitCardLabel);
             }
 
+            let labelText = $(this).find('label').text().toLowerCase();
+
             // if Klarna Pay Later method and image is exist.
             let PayLaterImage = "{{settings.buy_now_klarna_images | img_url: '250x'}}";
-            let conditionForKlarnapayLater = 
-              $(this).find('[data-payment-icon="klarna"]') && 
-              ($(this).find('label').text().indexOf('myöhemmin') != -1 || 
-              $(this).find('label').text().indexOf('betal senere') != -1);
+            let conditionForKlarnapayLater = $(this).find('[data-payment-icon="klarna"]') && (labelText.indexOf('myöhemmin') != -1 || labelText.indexOf('betal senere') != -1);
 
             if (conditionForKlarnapayLater && PayLaterImage.indexOf('no-image') === -1) {
                 $(this).find('label').html('<img src="' + PayLaterImage + '"/>');
@@ -145,11 +144,9 @@
 
             // if Klarna Share Payments method and image is exist.
             let SharePaymentsImage = "{{settings.share_paymen_klarna_images | img_url: '250x'}}";
-            let conditionForKlarnapayShare = 
-              $(this).find('[data-payment-icon="klarna"]') && 
-              ($(this).find('label').text().indexOf('Pilko maksut') != -1 || 
-              $(this).find('label').text().indexOf('betalinge') != -1 || 
-              $(this).find('label').text().indexOf('delbetalning') != -1);
+
+            let conditionForKlarnapayShare = $(this).find('[data-payment-icon="klarna"]') && (labelText.indexOf('pilko maksut') != -1 || labelText.indexOf('betalinge') != -1 || 
+            labelText.indexOf('delbetalning')!= -1);
 
             if (conditionForKlarnapayShare && SharePaymentsImage.indexOf('no-image') === -1) {
                 $(this).find('label').html('<img src="' + SharePaymentsImage + '"/>');
