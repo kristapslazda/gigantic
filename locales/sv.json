@@ -449,7 +449,7 @@
     "checkout": {
       "payment": {
         "billing_address_description": " ",
-        "card_security_notice": "Vi ber dig välja mellan kortbetalning eller Klarna.",
+        "card_security_notice": "Välj önskad betalningsmetod",
         "offsite_gateway_redirect_hint": "Välj önskad betalningsmetod och klicka sedan på den gröna knappen \"Fortsätt\"."
       }
     }
