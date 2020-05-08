@@ -304,11 +304,31 @@
                                             {% endfor %}
                                         </fieldset>
                                     {% else %}
+                                        {% comment %} list of available options {% endcomment %}
+                                        {% assign _available_variants = '' %}
+
+                                        {% for _product_variant in product.variants %}
+                                            {% assign _variant_quantity = _product_variant.inventory_quantity %}
+                                            {% assign _variant_continue_selling = _product_variant.inventory_policy %}
+                                            {% assign _variatn_options = _product_variant.options %}
+                                            
+                                            {% if _variant_quantity > 0 or _variant_continue_selling == 'continue' %}
+                                                {% for _variant_option in _variatn_options %}
+                                                    {% unless _available_variants contains _variant_option %}
+                                                        {% assign _available_variants = _available_variants | append: _variant_option | append: ',' %}
+                                                    {% endunless %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
+
                                         <select class="single-option-selector__radio single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
                                             {% for value in option.values %}
-                                                {% unless value contains '% off)' %}
-                                                    <option data="{{current_variant.options}}" value="{{ value | escape }}"{% if current_variant.options contains value %} selected="selected"{% endif %}>{{ value | escape }}</option>
-                                                {% endunless %}
+                                                {% assign _value = value | escape %}
+                                                {% if _available_variants contains _value %}
+                                                    {% unless value contains '% off)' %}
+                                                        <option data="{{current_variant.options}}" value="{{ _value }}"{% if current_variant.options contains value %} selected="selected"{% endif %}>{{ _value }}</option>
+                                                    {% endunless %}
+                                                {% endif %}
                                             {% endfor %}
                                         </select>
                                     {% endif %}
