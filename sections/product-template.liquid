@@ -374,12 +374,11 @@
                                 class="add-to-cart btn add-to-cart-1{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}" 
     
                                 {% unless current_variant.inventory_management == blank %}
-                                    {% if current_variant.inventory_quantity == 0 and current_variant.inventory_policy == 'deny' %}
+                                    {% if current_variant.inventory_quantity <= 0 and current_variant.inventory_policy == 'deny' %}
                                         disabled="disabled"
                                     {% endif %}
                                 {% endunless %}
                             >
-                                                        
                             <span class="btn__text">
                                 {% if current_variant.inventory_management == blank %}
                                     {{ 'products.product.add_to_cart' | t }} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"><path data-name="layer2" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" d="M56 62H8l2-44h44l2 44z" stroke-linejoin="round" stroke-linecap="round"></path><path data-name="layer1" d="M22 26V12A10 10 0 0 1 32 2a10 10 0 0 1 10 10v14" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path></svg>
@@ -474,11 +473,11 @@
                 <div class="product-form__sticky__submit">
                   <button type="submit" name="add" id="AddToCart-sticky" 
 
-                    {% unless current_variant.inventory_management == blank %}
-                        {% if current_variant.inventory_quantity == 0 and current_variant.inventory_policy == 'deny' %}
-                            disabled="disabled"
-                        {% endif %}
-                    {% endunless %}
+                        {% unless current_variant.inventory_management == blank %}
+                            {% if current_variant.inventory_quantity <= 0 and current_variant.inventory_policy == 'deny' %}
+                                disabled="disabled"
+                            {% endif %}
+                        {% endunless %}
 
                    class="btn btn--dark product-form__cart-submit{% if product.options.size == 1 and product.variants[0].title == 'Default Title' %} product-form__cart-submit--small{% endif %}">
                     <span id="AddToCartText-{{ section.id }}">
