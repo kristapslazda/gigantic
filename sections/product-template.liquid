@@ -311,8 +311,9 @@
                                             {% assign _variant_quantity = _product_variant.inventory_quantity %}
                                             {% assign _variant_continue_selling = _product_variant.inventory_policy %}
                                             {% assign _variatn_options = _product_variant.options %}
-                                            
-                                            {% if _variant_quantity > 0 or _variant_continue_selling == 'continue' %}
+                                            {% assign _variant_inventory_managment = _product_variant.inventory_management %}
+
+                                            {% if _variant_inventory_managment == blank or _variant_quantity > 0 or _variant_continue_selling == 'continue' %}
                                                 {% for _variant_option in _variatn_options %}
                                                     {% unless _available_variants contains _variant_option %}
                                                         {% assign _available_variants = _available_variants | append: _variant_option | append: ',' %}
