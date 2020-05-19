@@ -1,6 +1,8 @@
 window.theme = window.theme || {};
 window.slate = window.slate || {};
 
+let productSlider;
+
 var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 if(iOS) {
   $("body").addClass("ios");
@@ -630,6 +632,9 @@ slate.Variants = (function() {
             $('.product-form__sticky__submit span').text(cartText);
           }
         }
+
+        var numbr = $('.thumb-'+variant.featured_image.id+'').index();
+        slideThumbnailsStateChange(numbr, productSlider);
       }
 
       let noTrackQuantity = $('#ProductSelect option[selected="selected"]').data('inventory-managment');
@@ -641,14 +646,10 @@ slate.Variants = (function() {
         if(inventory_quantity >= 10){
           var html_instock = '<label class="in-stock">{{ settings.stock_label_above_10 }}</label>' + (sellAnyway ? '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_above_10 }}</p>');
           $('.stock-status-wrapper').html(html_instock);
-        }
-        
-        if(inventory_quantity < 10){
+        } else if(inventory_quantity < 10){
           var html_9_instock = '<label class="in-stock">'+inventory_quantity+' {{ settings.stock_label_below_10 }}</label>' + (sellAnyway ? '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_below_10 }}</p>');
           $('.stock-status-wrapper').html(html_9_instock);
-        }
-        
-        if(inventory_quantity <= 0 ){
+        } else if(inventory_quantity <= 0 ){
           var html_outof_stock = '<label class="out_of_stock">{{ settings.stock_label_below_0 }}</label>' + (sellAnyway ? '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_below_0 }}</p>');
           $('.stock-status-wrapper').html(html_outof_stock);
         }
@@ -664,7 +665,7 @@ slate.Variants = (function() {
       }
 
       this._updateMasterSelect(variant);
-      this._updateImages(variant);
+      // this._updateImages(variant);
       this._updatePrice(variant);
       this._updateSKU(variant);
       this.currentVariant = variant;
@@ -690,7 +691,9 @@ slate.Variants = (function() {
       
       var numbr = $('.thumb-'+variantImage.id+'').index();
 
-      $('.product__image-slider').slickGoTo(numbr);
+      setTimeout(function() {
+        $('.product__image-slider').slickGoTo(numbr);
+      }, 500);
       
       this.$container.trigger({
         type: 'variantImageChange',
@@ -4187,6 +4190,8 @@ if( productAddToCart ){
 // 
 // 
 // ------------------------------------------------------
+
+
 $(document).ready(function() {
   // win width
   let winWidth = $(window).width();
@@ -4228,21 +4233,20 @@ $(document).ready(function() {
     if (initSlide < 0) initSlide = 0;
 
     // product slider
-    let productSlider = $(".product__image-slider").slick({
+    productSlider = $(".product__image-slider").slick({
       slidesToShow: 1,
       slidesToScroll: 1,
       fade: true,
       initialSlide: initSlide,
       arrows: false,
       dots: false,
-      speed: 80,
+      speed: 1,
       onAfterChange: function(slider, index){
         enableZoomForActiveSlide(index);
       },
       onInit: function (slider) {
         let currentSlide = slider.currentSlide;
-        slideThumbnailsStateChange(currentSlide);
-        
+        slideThumbnailsStateChange(currentSlide, productSlider);
         let sliderWidth = $('.product__image-slider').outerWidth();
         $('.product__image-slider .video-wrapper').css('height', sliderWidth / 1.78);
 
@@ -4256,13 +4260,10 @@ $(document).ready(function() {
     });
 
     // thumbnails for product slider
-    $('.nav-for-slider').on('mouseenter', function() {
+    $('.nav-for-slider').on('mouseover', function() {
       let _this = $(this);
       let index = _this.data('index'); 
-      setTimeout(function() {
-        slideThumbnailsStateChange(index);
-        productSlider.slickGoTo(index);
-      }, 100);
+      slideThumbnailsStateChange(index, productSlider);
     });
 
     // zoom
@@ -4578,9 +4579,14 @@ $(document).on("variantChange", function(response) {
 
 // functions 
 
-function slideThumbnailsStateChange (index) {
+function slideThumbnailsStateChange (index, slider) {
   $('.nav-for-slider.selected').removeClass('selected');
   $('.nav-for-slider[data-index="' + index + '"]').addClass('selected');
+  if (slider) {
+    setTimeout(function(){
+      slider.slickGoTo(index)
+    }, 100);
+  }
 }
 
  // set class "visible" to active slide's zoom wrappe  
