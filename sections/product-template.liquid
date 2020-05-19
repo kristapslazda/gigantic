@@ -226,8 +226,7 @@
                             <p class="stock-status">{{ settings.delivery_time_above_10 }}</p>
                         {% endif %}
                     {% endif %}
-
-                    {% if current_variant.inventory_quantity  < 10 %}
+                    {% if current_variant.inventory_quantity  < 10 and current_variant.inventory_quantity > 0 %}
                         <label class="in-stock">{{ settings.stock_label_below_10 }}</label>
                         {% if sell_anyway %}
                             <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
@@ -235,8 +234,7 @@
                             <p class="stock-status">{{ settings.delivery_time_below_10 }}</p>
                         {% endif %}
                     {% endif %}
-
-                    {% if current_variant.inventory_quantity  < 0 %}
+                    {% if current_variant.inventory_quantity  <= 0 %}
                         <label class="out_of_stock">{{ settings.stock_label_below_0 }}</label>
                         {% if sell_anyway %}
                             <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
