@@ -320,14 +320,12 @@
                                             {% endif %}
                                         {% endfor %}
 
-                                        <select class="single-option-selector__radio single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+                                        <select class="single-option-selector__radio single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}" data-available-options="{{_available_variants}}">
                                             {% for value in option.values %}
                                                 {% assign _value = value | escape %}
-                                                {% if _available_variants contains _value %}
-                                                    {% unless value contains '% off)' %}
-                                                        <option data="{{current_variant.options}}" value="{{ _value }}"{% if current_variant.options contains value %} selected="selected"{% endif %}>{{ _value }}</option>
-                                                    {% endunless %}
-                                                {% endif %}
+                                                {% unless value contains '% off)' %}
+                                                    <option data="{{current_variant.options}}" value="{{ _value }}"{% if current_variant.options contains value %} selected="selected"{% endif %}>{{ _value }}</option>
+                                                {% endunless %}
                                             {% endfor %}
                                         </select>
                                     {% endif %}
