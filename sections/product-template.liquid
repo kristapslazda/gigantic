@@ -227,7 +227,7 @@
                         {% endif %}
                     {% endif %}
                     {% if current_variant.inventory_quantity  < 10 and current_variant.inventory_quantity > 0 %}
-                        <label class="in-stock">{{ settings.stock_label_below_10 }}</label>
+                        <label class="in-stock">{{current_variant.inventory_quantity}} {{ settings.stock_label_below_10 }}</label>
                         {% if sell_anyway %}
                             <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
                         {% else %}
