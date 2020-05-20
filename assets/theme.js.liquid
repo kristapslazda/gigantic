@@ -3853,6 +3853,7 @@ $(document).ready(function () {
             let value = $(this).data('sovalue');
             if (listOfOptions.indexOf(value) === -1) {
               $(this).addClass('disabled');
+              $(this).append('<img class="cross-image" src="{{"cancel.png" | asset_url }}"/>');
             }
           });
         }

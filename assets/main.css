@@ -7933,18 +7933,13 @@ form.search .search__input,
   opacity: 0.6;
 }
 
-.product-template__container .pesw_opt_itm.disabled::before  {
-  content: '';
+.product-template__container .pesw_opt_itm.disabled .cross-image {
   position: absolute;
-  width: calc(100% - 4px);
-  height: calc(100% - 4px);
-  background: url('cancel.svg');
-  z-index: 9999;
   top: 2px;
   left: 2px;
-  background-size: auto 100%;
-  background-repeat: no-repeat;
-  background-position: center;
+  width: calc(100% - 4px);
+  height: auto;
+  max-height: calc(100% - 4px);
 }
 
 .product-single .product__image-wrapper {
