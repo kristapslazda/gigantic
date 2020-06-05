@@ -22,11 +22,16 @@
 {% include 'google-microdata' %}
 
 {% assign sell_anyway = false %}
-    {% for tag in product.tags %}
-        {% if tag contains 'vidaxl' %}
-            {% assign sell_anyway = true %}
-        {% endif %}
+{% for tag in product.tags %}
+    {% if tag contains 'vidaxl' %}
+        {% assign sell_anyway = true %}
+    {% endif %}
 {% endfor %}
+
+{% assign vendor = product.vendor | downcase %}
+{% if vendor == 'vidaxl' %}
+    {% assign vidaxl_vendor = true %}
+{% endif %}
 
 <div class="product-template__container container"
      id="ProductSection--{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product-template"
@@ -216,6 +221,8 @@
                     <label class="in-stock">{{ settings.stock_label_above_10 }}</label>
                     {% if sell_anyway %}
                         <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
+                    {% else if vidaxl_vendor %}
+                        <p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl}}</p>
                     {% endif %}
                 {% else %}
                     {% if current_variant.inventory_quantity  >= 10 %}
@@ -223,7 +230,11 @@
                         {% if sell_anyway %}
                             <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
                         {% else %}
-                            <p class="stock-status">{{ settings.delivery_time_above_10 }}</p>
+                            {% if vidaxl_vendor %}
+                                <p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl}}</p>
+                            {% else %}
+                                <p class="stock-status">{{ settings.delivery_time_above_10 }}</p>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                     {% if current_variant.inventory_quantity  < 10 and current_variant.inventory_quantity > 0 %}
@@ -231,7 +242,11 @@
                         {% if sell_anyway %}
                             <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
                         {% else %}
-                            <p class="stock-status">{{ settings.delivery_time_below_10 }}</p>
+                            {% if vidaxl_vendor %}
+                                <p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl}}</p>
+                            {% else %}
+                                <p class="stock-status">{{ settings.delivery_time_below_10 }}</p>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                     {% if current_variant.inventory_quantity  <= 0 %}
@@ -239,7 +254,11 @@
                         {% if sell_anyway %}
                             <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
                         {% else %}
-                            <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>
+                            {% if vidaxl_vendor %}
+                                <p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl}}</p>
+                            {% else %}
+                                <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                 {% endif %}
@@ -332,7 +351,7 @@
                                 </div>
                             {% endfor %}
                         {% endunless %}
-                        <select name="id" id="ProductSelect" class="product-single__variants no-js" data-sell-anyway="{{sell_anyway}}">
+                        <select name="id" id="ProductSelect" class="product-single__variants no-js" data-sell-anyway="{{sell_anyway}}" data-vendor="{{vidaxl_vendor}}">
                             {% for variant in product.variants %}
                                 {% unless variant.metafields.secomapp.freegifts %}
                                     {% unless variant.title contains '(Freegifts)' %}

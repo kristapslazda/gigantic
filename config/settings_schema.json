@@ -1873,6 +1873,16 @@
         "id": "delivery_time_vidaxl",
         "label": "Delivery time",
         "default": "Leveringstid: 4 - 6 dage<br>Bestil nu og vi sender varen straks den kommer på lager igen. Vi hæver <i>ikke</i> penge før varen sendes til dig."
+      },
+      {
+        "type": "header",
+        "content": "If vendor is \"vidaXL\""
+      },
+      {
+        "type": "text",
+        "id": "delivery_time_if_vendor_vidaxl",
+        "label": "Delivery time",
+        "default": "På fjernlager Leveringstid: 4-8 dage"
       }
     ]
   },

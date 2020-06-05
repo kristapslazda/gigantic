@@ -637,20 +637,48 @@ slate.Variants = (function() {
       }
 
       let noTrackQuantity = $('#ProductSelect option[selected="selected"]').data('inventory-managment');
+      let vidaxl_vendor = $('#ProductSelect').data('vendor');
+
       if (!noTrackQuantity) {
         var html__instock = '<label class="in-stock">{{ settings.stock_label_above_10 }}</label>' + (sellAnyway ? '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>' : '');
         $('.stock-status-wrapper').html(html__instock);
       } else {
         if(vartiant_quantity >= 10){
-          var html_instock = '<label class="in-stock">{{ settings.stock_label_above_10 }}</label>' + (sellAnyway ? '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_above_10 }}</p>');
+          let deliveryTime = '';
+
+          if (sellAnyway) {
+            deliveryTime = '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>';
+          } else {
+            deliveryTime = vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_above_10 }}</p>';
+          }
+
+          var html_instock = '<label class="in-stock">{{ settings.stock_label_above_10 }}</label>' + deliveryTime;
+
           $('.stock-status-wrapper').html(html_instock);
         }
         if(vartiant_quantity < 10 && vartiant_quantity > 0){
-          var html_9_instock = '<label class="in-stock">'+vartiant_quantity+' {{ settings.stock_label_below_10 }}</label>' + (sellAnyway ? '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_below_10 }}</p>');
+          let deliveryTime = '';
+
+          if (sellAnyway) {
+            deliveryTime = '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>';
+          } else {
+            deliveryTime = vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_below_10 }}</p>';
+          }
+
+          var html_9_instock = '<label class="in-stock">'+vartiant_quantity+' {{ settings.stock_label_below_10 }}</label>' + deliveryTime;
           $('.stock-status-wrapper').html(html_9_instock);
         }
         if(vartiant_quantity <= 0 ){
-          var html_outof_stock = '<label class="out_of_stock">{{ settings.stock_label_below_0 }}</label>' + (sellAnyway ? '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_below_0 }}</p>');
+          let deliveryTime = '';
+
+          if (sellAnyway) {
+            deliveryTime = '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>';
+          } else {
+            deliveryTime = vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
+          }
+
+          var html_outof_stock = '<label class="out_of_stock">{{ settings.stock_label_below_0 }}</label>' + deliveryTime;
+
           $('.stock-status-wrapper').html(html_outof_stock);
         }
       }
