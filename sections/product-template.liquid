@@ -218,7 +218,11 @@
               
             <div class="stock-status-wrapper">
                 {% if current_variant.inventory_management == blank %}
-                    <label class="in-stock">{{ settings.stock_label_above_10 }}</label>
+                    {% if vidaxl_vendor %}
+                        <label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>
+                    {% else %}
+                        <label class="in-stock">{{ settings.stock_label_above_10 }}</label>
+                    {% endif %}
                     {% if sell_anyway %}
                         <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
                     {% else if vidaxl_vendor %}
@@ -226,7 +230,11 @@
                     {% endif %}
                 {% else %}
                     {% if current_variant.inventory_quantity  >= 10 %}
-                        <label class="in-stock">{{ settings.stock_label_above_10 }}</label>
+                        {% if vidaxl_vendor %}
+                            <label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>
+                        {% else %}
+                            <label class="in-stock">{{ settings.stock_label_above_10 }}</label>
+                        {% endif %}
                         {% if sell_anyway %}
                             <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
                         {% else %}
@@ -238,7 +246,11 @@
                         {% endif %}
                     {% endif %}
                     {% if current_variant.inventory_quantity  < 10 and current_variant.inventory_quantity > 0 %}
-                        <label class="in-stock">{{current_variant.inventory_quantity}} {{ settings.stock_label_below_10 }}</label>
+                        {% if vidaxl_vendor %}
+                            <label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>
+                        {% else %}
+                            <label class="in-stock">{{current_variant.inventory_quantity}} {{ settings.stock_label_below_10 }}</label>
+                        {% endif %}
                         {% if sell_anyway %}
                             <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
                         {% else %}
@@ -250,7 +262,11 @@
                         {% endif %}
                     {% endif %}
                     {% if current_variant.inventory_quantity  <= 0 %}
-                        <label class="out_of_stock">{{ settings.stock_label_below_0 }}</label>
+                        {% if vidaxl_vendor %}
+                            <label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>
+                        {% else %}
+                            <label class="out_of_stock">{{ settings.stock_label_below_0 }}</label>
+                        {% endif %}
                         {% if sell_anyway %}
                             <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
                         {% else %}

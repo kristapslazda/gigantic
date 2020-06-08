@@ -1880,9 +1880,15 @@
       },
       {
         "type": "text",
+        "id": "label_if_vendor_vidaxl",
+        "label": "Stock label",
+        "default": "På fjernlager"
+      },
+      {
+        "type": "text",
         "id": "delivery_time_if_vendor_vidaxl",
         "label": "Delivery time",
-        "default": "På fjernlager Leveringstid: 4-8 dage"
+        "default": "Leveringstid: 4-8 dage"
       }
     ]
   },

@@ -640,7 +640,8 @@ slate.Variants = (function() {
       let vidaxl_vendor = $('#ProductSelect').data('vendor');
 
       if (!noTrackQuantity) {
-        var html__instock = '<label class="in-stock">{{ settings.stock_label_above_10 }}</label>' + (sellAnyway ? '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>' : '');
+        let label = vidaxl_vendor ? '<label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>' : '<label class="in-stock">{{ settings.stock_label_above_10 }}</label>';
+        var html__instock = label + (sellAnyway ? '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>' : '');
         $('.stock-status-wrapper').html(html__instock);
       } else {
         if(vartiant_quantity >= 10){
@@ -652,7 +653,9 @@ slate.Variants = (function() {
             deliveryTime = vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_above_10 }}</p>';
           }
 
-          var html_instock = '<label class="in-stock">{{ settings.stock_label_above_10 }}</label>' + deliveryTime;
+          let label = vidaxl_vendor ? '<label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>' : '<label class="in-stock">{{ settings.stock_label_above_10 }}</label>';
+
+          var html_instock = label + deliveryTime;
 
           $('.stock-status-wrapper').html(html_instock);
         }
@@ -665,7 +668,9 @@ slate.Variants = (function() {
             deliveryTime = vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_below_10 }}</p>';
           }
 
-          var html_9_instock = '<label class="in-stock">'+vartiant_quantity+' {{ settings.stock_label_below_10 }}</label>' + deliveryTime;
+          let label = vidaxl_vendor ? '<label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>' : '<label class="in-stock">'+vartiant_quantity+' {{ settings.stock_label_below_10 }}</label>';
+
+          var html_9_instock = label + deliveryTime;
           $('.stock-status-wrapper').html(html_9_instock);
         }
         if(vartiant_quantity <= 0 ){
@@ -677,7 +682,9 @@ slate.Variants = (function() {
             deliveryTime = vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
           }
 
-          var html_outof_stock = '<label class="out_of_stock">{{ settings.stock_label_below_0 }}</label>' + deliveryTime;
+          let label = vidaxl_vendor ? '<label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>' : '<label class="in-stock">'+vartiant_quantity+' {{ settings.stock_label_below_0 }}</label>';
+
+          var html_outof_stock = label + deliveryTime;
 
           $('.stock-status-wrapper').html(html_outof_stock);
         }
