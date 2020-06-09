@@ -22,11 +22,7 @@
 {% include 'google-microdata' %}
 
 {% assign sell_anyway = false %}
-{% for tag in product.tags %}
-    {% if tag contains 'vidaxl' %}
-        {% assign sell_anyway = true %}
-    {% endif %}
-{% endfor %}
+{% assign vidaxl_vendor = false %}
 
 {% assign vendor = product.vendor | downcase %}
 {% if vendor == 'vidaxl' %}
@@ -220,61 +216,36 @@
                 {% if current_variant.inventory_management == blank %}
                     {% if vidaxl_vendor %}
                         <label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>
+                        <p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl}}</p>
                     {% else %}
                         <label class="in-stock">{{ settings.stock_label_above_10 }}</label>
-                    {% endif %}
-                    {% if sell_anyway %}
-                        <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
-                    {% else if vidaxl_vendor %}
-                        <p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl}}</p>
                     {% endif %}
                 {% else %}
                     {% if current_variant.inventory_quantity  >= 10 %}
                         {% if vidaxl_vendor %}
                             <label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>
+                            <p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl}}</p>
                         {% else %}
                             <label class="in-stock">{{ settings.stock_label_above_10 }}</label>
-                        {% endif %}
-                        {% if sell_anyway %}
-                            <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
-                        {% else %}
-                            {% if vidaxl_vendor %}
-                                <p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl}}</p>
-                            {% else %}
-                                <p class="stock-status">{{ settings.delivery_time_above_10 }}</p>
-                            {% endif %}
+                            <p class="stock-status">{{ settings.delivery_time_above_10 }}</p>
                         {% endif %}
                     {% endif %}
                     {% if current_variant.inventory_quantity  < 10 and current_variant.inventory_quantity > 0 %}
                         {% if vidaxl_vendor %}
                             <label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>
+                            <p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl}}</p>
                         {% else %}
                             <label class="in-stock">{{current_variant.inventory_quantity}} {{ settings.stock_label_below_10 }}</label>
-                        {% endif %}
-                        {% if sell_anyway %}
-                            <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
-                        {% else %}
-                            {% if vidaxl_vendor %}
-                                <p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl}}</p>
-                            {% else %}
-                                <p class="stock-status">{{ settings.delivery_time_below_10 }}</p>
-                            {% endif %}
+                            <p class="stock-status">{{ settings.delivery_time_below_10 }}</p>
                         {% endif %}
                     {% endif %}
                     {% if current_variant.inventory_quantity  <= 0 %}
                         {% if vidaxl_vendor %}
                             <label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>
+                            <p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl}}</p>
                         {% else %}
                             <label class="out_of_stock">{{ settings.stock_label_below_0 }}</label>
-                        {% endif %}
-                        {% if sell_anyway %}
-                            <p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>
-                        {% else %}
-                            {% if vidaxl_vendor %}
-                                <p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl}}</p>
-                            {% else %}
-                                <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>
-                            {% endif %}
+                            <p class="stock-status">{{ settings.delivery_time_below_0 }}</p>
                         {% endif %}
                     {% endif %}
                 {% endif %}

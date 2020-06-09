@@ -606,30 +606,23 @@ slate.Variants = (function() {
           $('.product-form__sticky__img img').attr('srcset', variantImageForTopBar);
         }
 
-        if (sellAnyway) {
-          let cartText = "{{ 'products.product.add_to_cart' | t }} ";
-          $('.product-single .add-to-cart .btn__text').text(cartText).append(cartIcon);
-          $('.product-single .add-to-cart, #AddToCart-sticky').removeAttr('disabled');
-          $('.product-form__sticky__submit span').text(cartText);
-        } else {
-          if (isTrackQuantity && vartiant_quantity <= 0) {
-            if (contineSelling) {
-              let cartText = "{{ 'products.product.add_to_cart' | t }} ";
-              $('.product-single .add-to-cart .btn__text').text(cartText).append(cartIcon);
-              $('.product-single .add-to-cart, #AddToCart-sticky').removeAttr('disabled');
-              $('.product-form__sticky__submit span').text(cartText);
-            } else {
-              let cartText = "{{ 'products.product.sold_out' | t }} ";
-              $('.product-single .add-to-cart .btn__text').text(cartText);
-              $('.product-single .add-to-cart, #AddToCart-sticky').attr('disabled','disabled');
-              $('.product-form__sticky__submit span').text(cartText);
-            }
-          } else {
+        if (isTrackQuantity && vartiant_quantity <= 0) {
+          if (contineSelling) {
             let cartText = "{{ 'products.product.add_to_cart' | t }} ";
             $('.product-single .add-to-cart .btn__text').text(cartText).append(cartIcon);
             $('.product-single .add-to-cart, #AddToCart-sticky').removeAttr('disabled');
             $('.product-form__sticky__submit span').text(cartText);
+          } else {
+            let cartText = "{{ 'products.product.sold_out' | t }} ";
+            $('.product-single .add-to-cart .btn__text').text(cartText);
+            $('.product-single .add-to-cart, #AddToCart-sticky').attr('disabled','disabled');
+            $('.product-form__sticky__submit span').text(cartText);
           }
+        } else {
+          let cartText = "{{ 'products.product.add_to_cart' | t }} ";
+          $('.product-single .add-to-cart .btn__text').text(cartText).append(cartIcon);
+          $('.product-single .add-to-cart, #AddToCart-sticky').removeAttr('disabled');
+          $('.product-form__sticky__submit span').text(cartText);
         }
 
         var numbr = $('.thumb-'+variant.featured_image.id+'').index();
@@ -641,18 +634,12 @@ slate.Variants = (function() {
 
       if (!noTrackQuantity) {
         let label = vidaxl_vendor ? '<label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>' : '<label class="in-stock">{{ settings.stock_label_above_10 }}</label>';
-        var html__instock = label + (sellAnyway ? '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>' : '');
+        var html__instock = label + (vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '');
         $('.stock-status-wrapper').html(html__instock);
       } else {
         if(vartiant_quantity >= 10){
-          let deliveryTime = '';
-
-          if (sellAnyway) {
-            deliveryTime = '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>';
-          } else {
-            deliveryTime = vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_above_10 }}</p>';
-          }
-
+          let deliveryTime = vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_above_10 }}</p>';
+          
           let label = vidaxl_vendor ? '<label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>' : '<label class="in-stock">{{ settings.stock_label_above_10 }}</label>';
 
           var html_instock = label + deliveryTime;
@@ -660,13 +647,7 @@ slate.Variants = (function() {
           $('.stock-status-wrapper').html(html_instock);
         }
         if(vartiant_quantity < 10 && vartiant_quantity > 0){
-          let deliveryTime = '';
-
-          if (sellAnyway) {
-            deliveryTime = '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>';
-          } else {
-            deliveryTime = vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_below_10 }}</p>';
-          }
+          let deliveryTime = vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_below_10 }}</p>';
 
           let label = vidaxl_vendor ? '<label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>' : '<label class="in-stock">'+vartiant_quantity+' {{ settings.stock_label_below_10 }}</label>';
 
@@ -674,15 +655,9 @@ slate.Variants = (function() {
           $('.stock-status-wrapper').html(html_9_instock);
         }
         if(vartiant_quantity <= 0 ){
-          let deliveryTime = '';
+          let deliveryTime = vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
 
-          if (sellAnyway) {
-            deliveryTime = '<p class="stock-status">{{ settings.delivery_time_vidaxl }}</p>';
-          } else {
-            deliveryTime = vidaxl_vendor ? '<p class="stock-status">{{ settings.delivery_time_if_vendor_vidaxl }}</p>' : '<p class="stock-status">{{ settings.delivery_time_below_0 }}</p>';
-          }
-
-          let label = vidaxl_vendor ? '<label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>' : '<label class="in-stock">'+vartiant_quantity+' {{ settings.stock_label_below_0 }}</label>';
+          let label = vidaxl_vendor ? '<label class="in-stock">{{ settings.label_if_vendor_vidaxl }}</label>' : '<label class="out_of_stock">{{ settings.stock_label_below_0 }}</label>';
 
           var html_outof_stock = label + deliveryTime;
 
