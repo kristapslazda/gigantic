@@ -3844,7 +3844,7 @@ $(document).ready(function () {
   $('.mobile-main-nav').remove();
 
 
-  $('#mobile-menu [data-link-id]').click(function(e){
+  $('#mobile-menu [data-link-id]:not([data-single-level-mobile="true"])').click(function(e){
       e.preventDefault();
       let mobileMenu = $('#mobile-menu');
       let id = $(this).data('link-id');

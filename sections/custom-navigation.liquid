@@ -91,7 +91,7 @@
                   {% endif %}
                 {% endfor %}
                 <li>
-                  <a href="{{ link.url }}" data-collection-name="{{link.title}}" data-link-id={{forloop.index}}>{% if menu_item_image %}{{menu_item_image | img_tag}}{% endif %}{{ link.title }}</a>
+                  <a href="{{ link.url }}" data-collection-name="{{link.title}}" data-link-id={{forloop.index}} data-single-level-mobile="{% if section.settings.mobile_one_level_menu %}true{% else %}false{% endif %}">{% if menu_item_image %}{{menu_item_image | img_tag}}{% endif %}{{ link.title }}</a>
                 </li>
                 {% assign menu_item_image = '' %}
               {% endfor %}
@@ -179,6 +179,12 @@
   "name": "Custom Navigation",
   "class": "mega-menu_section",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "mobile_one_level_menu",
+      "label": "Show only top level on mobile",
+      "default": false
+    },
     {
       "type": "text",
       "id": "megamenu_for",
